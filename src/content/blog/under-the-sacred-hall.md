@@ -4,6 +4,7 @@ description: A test
 pubDate: 12 5 2024
 categories:
   - life
+draft: True
 ---
 
 Some people are keen on traveling to various places to "check in," others shuttle between exhibitions and events, while others chase after trending topics, seeking novel and exciting experiences. Through different means, they encounter fresh and diverse things. They proclaim, "I’ve seen the world."
