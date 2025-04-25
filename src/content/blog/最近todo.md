@@ -2,9 +2,9 @@
 title: 最近干的事的记录 
 description: what i'm doing
 pubDate: 2025-4-25
-image: /image/image3.jpg
+image: /image/image3.png
 categories:
-  - tech
+  - life
 tags:
   - blog
 ---
