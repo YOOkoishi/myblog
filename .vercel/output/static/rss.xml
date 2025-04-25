@@ -51,12 +51,12 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 &lt;p&gt;在linux中，系统被挂在在&lt;code&gt;/sys&lt;/code&gt;文件中，&lt;code&gt;sysfs&lt;/code&gt; 文件则暴露了一些内核（kernel）参数。 因此，不需要借助任何专用的工具，就可以轻松地在运行期间配置系统内核。&lt;strong&gt;注意 Windows 和 macOS 没有这个文件&lt;/strong&gt;， &lt;strong&gt;wsl也不行（）&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我们可以对电脑屏幕亮度进行更改。
 首先我们来到&lt;code&gt;/sys/class/backlight&lt;/code&gt;中，以我的电脑为例，其中有&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;yoo_koishi@YOOkoishi /s/c/b/intel_backlight&amp;gt; ls
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;yoo_koishi@YOOkoishi /s/c/b/intel_backlight&amp;gt; ls
 actual_brightness  brightness  max_brightness  scale       type
 bl_power           device@     power/          subsystem@  uevent
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;等文件，这个时候我们就可以通过修改brightness文件来更改屏幕亮度了（需要root权限），一般来说，我们可能希望使用&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;~$ sudo echo 3 &amp;gt; brightness
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;~$ sudo echo 3 &amp;gt; brightness
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;来修改文件，不过此时命令行提示我们权限不够，这是为什么？
 关于 shell，有件事我们必须要知道。|、&amp;gt;、和 &amp;lt; 是通过 shell 执行的，而不是被各个程序单独执行。 echo 等程序并不知道 | 的存在，它们只知道从自己的输入输出流中进行读写。
