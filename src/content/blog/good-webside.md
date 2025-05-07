@@ -1,12 +1,13 @@
 ---
 title: 一些有用的CS相关网站
-description: good website
+description: good website record
 pubDate: 2024-12-18
 image: /image/image4.jpg
 categories:
   - tech
 tags:
-  - blog 
+  - blog
+  - website 
 ---
 
 
