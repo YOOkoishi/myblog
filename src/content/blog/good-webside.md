@@ -14,12 +14,7 @@ tags:
 
 ### CSDIY
 
-首先要推荐的就是 [csdiy](https://csdiy.wiki/) 这个网站啦,第一次听说这个网站是在我们小班主任给我们上的开学第一课上.里面涵盖了成为一个厉害的程序员需要的一切,值得仔细的看一看,下述的很多网站也是出自这里( ).
-
-### 图床
-
-当你急需一个图床软件的时候,[CATBOX](https://catbox.moe/) 就显得格外有用啦,免费的200MB空间可以在自行搭建图床之前应急.
-顺带一提,你可以使用 [litter box](https://litterbox.catbox.moe/) 生成一个临时的连接,可以分享你的图片或者pdf文件(1GB以内),非常的方便.
+首先要推荐的就是 [csdiy](https://csdiy.wiki/) 这个网站啦,第一次听说这个网站是在我们小班主任给我们上的开学第一课上.里面涵盖了成为一个厉害的程序员需要的一切,值得仔细的看一看,下述的很多网站也是出自这里,作者想要发扬的精神值得我们每一个cser,以及热爱计算机的人的学习.
 
 ### 打字网站
 
@@ -32,6 +27,11 @@ tags:
 ### 成为积佬
 
 被积分橄榄的大一学生要是早点知道这个网站就好了,,,[积分计算器](https://mathdf.com/int/cn/).
+
+### 图床
+
+当你急需一个图床软件的时候,[CATBOX](https://catbox.moe/) 就显得格外有用啦,免费的200MB空间可以在自行搭建图床之前应急.
+顺带一提,你可以使用 [litter box](https://litterbox.catbox.moe/) 生成一个临时的连接,可以分享你的图片或者pdf文件(1GB以内),非常的方便.
 
 ### 成为命令行高手
 
@@ -51,10 +51,24 @@ tags:
 ### 看点新闻?
 
 [今日热榜](https://tophub.today/) : 整合了各个国内网站的热点,可以快速了解一些近期热点事件.
+[News Now](https://newsnow.busiyi.world/)同样是一个很不错的网站
 
 ### 在线的白板
 
 还在使用冗杂的photoshop,或者微软自带的画图来做教学吗?[excalidraw](https://excalidraw.com/) 作为一款在线的白板软件,功能强大,灵活易用,是线上授课时的不错选择.
+
+### 画流程图
+
+可以使用[darw.io](http://darw.io)来进行流程图的快速构建.
+
+### 看看好图
+
+[pixiv](https://www.pixiv.net)
+
+### 搜图搜番
+
+搜图可以使用[SauceNAO](https://saucenao.com)
+搜番可以使用[trace](https://trace.moe)
 
 ### 一些WiKi
 
