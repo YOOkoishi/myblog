@@ -23,6 +23,7 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <p class="text-xl text-base-content/80 max-w-3xl mb-8">
             Welcome to my blog! I'm a student who loves to explore the world of programming and technology. This blog is a place where I share my thoughts, ideas, and projects. I hope you find something interesting here!           
           </p>
+          
           <!-- <div class="flex flex-wrap gap-4 justify-center">
             <a href="/blog" class="btn btn-primary gap-2 btn-shine-effect">
               <Icon name="lucide:book-open" class="w-5 h-5" />
@@ -174,6 +175,21 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
         <GitHubStats username="EveSunMaple" repositoryName="Frosti" showLanguages={true} showContributors={true} />
       </section> -->
+      
+      <!-- 访问统计 -->
+      <section class="py-6">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <Icon name="lucide:eye" class="w-6 h-6 text-primary" />
+          <span>访问统计</span>
+        </h2>
+        <div class="flex justify-center">
+          <img 
+            src="https://count.getloli.com/@:mainpageblog?name=%3Amainpageblog&theme=capoo-2&padding=8&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" 
+            alt="访问计数器"
+            class="rounded-lg shadow-sm"
+          />
+        </div>
+      </section>
     </div>
   </MainCard>
 </BaseLayout>
