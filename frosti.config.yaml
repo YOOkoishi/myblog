@@ -35,14 +35,14 @@ site:
           svg: "material-symbols:ink-pen-outline-rounded"
           target: _self
         - id: tech
-          text: tech
-          href: /blog/category/Tech
-          svg: "material-symbols:code-blocks-outline-rounded"
+          text: Tech blogs
+          href: /blog/category/tech
+          svg: "material-symbols:deployed-code-outline"
           target: _self
         - id: life
-          text: Life
-          href: /blog/category/Life
-          svg: "material-symbols:emoji-events-outline-rounded"
+          text: Life blogs
+          href: /blog/category/life
+          svg: "material-symbols:earthquake-rounded"
           target: _self
         # 子菜单项配置
     # - id: project
