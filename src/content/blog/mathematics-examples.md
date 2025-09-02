@@ -10,6 +10,7 @@ tags:
   - LaTeX
   - Mathematics
 badge: LaTeX
+draft: True
 ---
 
 This document serves as a test for rendering mathematical formulas in Markdown using `$$` delimiters.
