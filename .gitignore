@@ -100,5 +100,3 @@ coverage/
 *.sh
 
 # presentations output
-public/presentations/
-src/content/presentations/*.html
