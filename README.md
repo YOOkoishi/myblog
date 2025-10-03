@@ -36,16 +36,6 @@ This blog is built with:
 - **Deployment**: [Vercel](https://vercel.com/)
 - **Content**: Markdown/MDX
 
-## ✨ Features
-
-- 🌓 Dark/Light mode toggle
-- 📱 Fully responsive design
-- 🔍 Built-in search functionality
-- 📊 Visit counter integration
-- 🚀 Fast loading with excellent SEO
-- 📑 RSS feed support
-- 🎥 Embedded presentations with full-screen support
-
 ## 🎥 Presentation System
 
 This blog includes an integrated presentation system that allows embedding interactive slideshows directly in blog posts:
