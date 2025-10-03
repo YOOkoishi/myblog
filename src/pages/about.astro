@@ -2,7 +2,6 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 import MainCard from "@/components/MainCard.astro";
-import GitHubStats from "@/components/mdx/GitHubStats.astro";
 ---
 
 <BaseLayout title="About">
@@ -37,15 +36,6 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
               <Icon name="lucide:github" class="w-4 h-4" />
               <span>GitHub</span>
             </a>
-            <!-- <a
-              href="https://twitter.com/EveSunMaple"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-sm btn-outline gap-2"
-            >
-              <Icon name="lucide:twitter" class="w-4 h-4" />
-              <span>Twitter</span>
-            </a> -->
             <a href="mailto:2358181935@qq.com" class="btn btn-sm btn-outline gap-2">
               <Icon name="lucide:mail" class="w-4 h-4" />
               <span>Email</span>
@@ -55,16 +45,6 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           </p>
         </div>
       </section>
-
-      <!-- GitHub Stats -->
-      <!-- <section>
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Icon name="lucide:github" class="w-6 h-6 text-primary" />
-          <span>GitHub Statistics</span>
-        </h2>
-
-        <GitHubStats username="EveSunMaple" showLanguages={false} showCommitGraph={true} />
-      </section> -->
 
       <!-- Tech Stack -->
       <section>
@@ -76,17 +56,8 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {
             [
-              // { name: "Astro", icon: "simple-icons:astro", color: "oklch(0.5 0.2 300)" },
-              // { name: "JavaScript", icon: "simple-icons:javascript", color: "oklch(0.8 0.2 80)" },
-              // { name: "TypeScript", icon: "simple-icons:typescript", color: "oklch(0.6 0.2 250)" },
-              // { name: "React", icon: "simple-icons:react", color: "oklch(0.7 0.2 200)" },
-              // { name: "Node.js", icon: "simple-icons:nodedotjs", color: "oklch(0.7 0.2 140)" },
-              // { name: "TailwindCSS", icon: "simple-icons:tailwindcss", color: "oklch(0.6 0.2 220)" },
-              // { name: "HTML5", icon: "simple-icons:html5", color: "oklch(0.7 0.2 30)" },
-              // { name: "CSS3", icon: "simple-icons:css3", color: "oklch(0.7 0.2 220)" },
               { name: "Git", icon: "simple-icons:git", color: "oklch(0.7 0.2 30)" },
               { name: "C++", icon: "simple-icons:cplusplus", color: "oklch(0.6 0.2 240)" },
-              // { name: "C#", icon: "simple-icons:csharp", color: "oklch(0.6 0.2 160)" },
               { name: "Python", icon: "simple-icons:python", color: "oklch(0.7 0.2 250)" },
             ].map((tech) => (
               <div class="flex flex-col items-center justify-center p-4 bg-base-200 rounded-lg hover:bg-base-300 transition-colors">
@@ -121,11 +92,6 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
                   title: "Created my first blog page",
                   desc: "Started my journey in blogging and sharing knowledge.",
                 },
-                // {
-                //   date: "April 2024",
-                //   title: "Released Frosti v2",
-                //   desc: "Published version 2 with improved responsive design and extended plugin support.",
-                // },
                 {
                   date: "April 2025",
                   title: "First pull request to open-source project",

@@ -1,0 +1,1 @@
+export { default as PresentationViewer } from './PresentationViewer.astro';

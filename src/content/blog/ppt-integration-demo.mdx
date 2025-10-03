@@ -1,0 +1,116 @@
+---
+title: 演示文稿集成示例
+description: 展示如何在博客文章中嵌入 reveal.js 演示文稿
+pubDate: 2025-10-3
+image: /image/image4.jpg
+categories:
+  - tech
+tags:
+  - blog
+  - presentation
+  - reveal.js
+---
+
+import { PresentationViewer } from '../../components/mdx';
+
+# 演示文稿集成示例
+
+这篇文章展示了如何在博客中嵌入交互式演示文稿。
+
+## 什么是演示文稿集成？
+
+通过集成 reveal.js 和 Pandoc，我们可以：
+
+- 用 Markdown 编写演示文稿
+- 在博客文章中嵌入演示文稿
+- 提供全屏查看功能
+- 支持响应式设计
+
+## 示例演示文稿
+
+下面是一个基础的演示文稿示例：
+
+<PresentationViewer 
+  src="/presentations/sample-presentation.html" 
+  title="示例演示文稿"
+  description="这是一个关于 Reveal.js 的演示文稿"
+  height="600px"
+/>
+
+## 编程基础教程
+
+下面是一个关于编程基础的演示文稿：
+
+<PresentationViewer 
+  src="/presentations/demo/programming-basics.html" 
+  title="编程基础教程"
+  description="适合初学者的编程概念介绍"
+  height="500px"
+/>
+
+
+喵喵
+
+<PresentationViewer
+  src="/presentations/enhanced-example.html"
+  title="nju"
+  description="模仿者"
+  height="500px"
+/>
+
+## 如何使用
+
+### 1. 创建演示文稿
+
+在 `src/content/presentations/` 目录下创建 Markdown 文件：
+
+```markdown
+---
+title: "我的演示文稿"
+author: "作者名"
+date: "2025-01-16"
+---
+
+# 标题
+
+## 第一页
+
+内容...
+```
+
+### 2. 构建演示文稿
+
+运行构建命令：
+
+```bash
+npm run build:presentations
+```
+
+### 3. 在文章中使用
+
+在 MDX 文章中导入并使用组件：
+
+```mdx
+import { PresentationViewer } from '../../components/mdx';
+
+<PresentationViewer 
+  src="/presentations/your-presentation.html" 
+  title="演示文稿标题"
+  description="描述信息"
+/>
+```
+
+## 特性
+
+- ✅ 支持全屏模式
+- ✅ 响应式设计
+- ✅ 代码高亮
+- ✅ 数学公式
+- ✅ 主题定制
+- ✅ 键盘导航
+
+## 结论
+
+通过这种方式，我们可以轻松地在博客中嵌入高质量的演示文稿，为读者提供更丰富的阅读体验。
+
+尝试点击上面演示文稿的全屏按钮，或者使用键盘方向键来导航！

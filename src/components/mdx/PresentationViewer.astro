@@ -1,0 +1,149 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  width?: string;
+  height?: string;
+  description?: string;
+}
+
+const { 
+  src, 
+  title = "Presentation", 
+  width = "100%", 
+  height = "500px",
+  description 
+} = Astro.props;
+
+// 生成唯一ID
+const iframeId = `presentation-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<div class="presentation-container not-prose mb-8">
+  <div class="presentation-header mb-4">
+    <h3 class="text-xl font-bold text-base-content flex items-center gap-2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="M10 4v4"/>
+        <path d="M14 4v4"/>
+        <path d="M4 8h16"/>
+        <circle cx="12" cy="14" r="2"/>
+      </svg>
+      {title}
+    </h3>
+    {description && (
+      <p class="text-sm text-base-content/70 mt-1">{description}</p>
+    )}
+  </div>
+  
+  <div class="presentation-wrapper relative rounded-lg overflow-hidden shadow-lg border border-base-300">
+    <iframe
+      id={iframeId}
+      src={src}
+      width={width}
+      height={height}
+      class="w-full border-0"
+      allowfullscreen
+      title={title}
+      loading="lazy"
+    />
+    
+    <!-- 全屏按钮 -->
+    <button
+      type="button"
+      class="fullscreen-btn absolute top-2 right-2 btn btn-sm btn-circle btn-primary opacity-80 hover:opacity-100 transition-opacity"
+      aria-label="全屏查看演示文稿"
+      data-iframe-id={iframeId}
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="presentation-footer mt-2 text-xs text-base-content/60 text-center">
+    <p>💡 点击右上角全屏按钮或使用方向键导航</p>
+  </div>
+</div>
+
+<script is:inline>
+  // 简单的全屏功能
+  function initPresentationFeatures() {
+    const fullscreenButtons = document.querySelectorAll('.fullscreen-btn');
+    
+    fullscreenButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const iframeId = this.getAttribute('data-iframe-id');
+        const iframe = document.getElementById(iframeId);
+        
+        if (iframe) {
+          if (iframe.requestFullscreen) {
+            iframe.requestFullscreen();
+          } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+          } else if (iframe.mozRequestFullScreen) {
+            iframe.mozRequestFullScreen();
+          } else {
+            window.open(iframe.src, '_blank');
+          }
+        }
+      });
+    });
+
+    // 简单的滚轮导航
+    const presentationWrappers = document.querySelectorAll('.presentation-wrapper');
+    
+    presentationWrappers.forEach(function(wrapper) {
+      const iframe = wrapper.querySelector('iframe');
+      if (!iframe) return;
+      
+      let wheelTimeout;
+      
+      wrapper.addEventListener('wheel', function(event) {
+        event.preventDefault();
+        
+        if (wheelTimeout) return;
+        
+        wheelTimeout = setTimeout(function() {
+          wheelTimeout = null;
+        }, 200);
+        
+        const direction = event.deltaY > 0 ? 'right' : 'left';
+        
+        try {
+          iframe.contentWindow.postMessage({
+            type: 'reveal-wheel-navigation',
+            direction: direction
+          }, '*');
+        } catch (e) {
+          // 忽略跨域错误
+        }
+      }, { passive: false });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initPresentationFeatures);
+  document.addEventListener('astro:page-load', initPresentationFeatures);
+</script>
+
+<style>
+  .presentation-container {
+    margin: 2rem 0;
+  }
+  
+  .presentation-wrapper {
+    position: relative;
+    background: var(--fallback-b2,oklch(var(--b2)/1));
+  }
+  
+  .presentation-wrapper:hover .btn-circle {
+    opacity: 1;
+  }
+  
+  .presentation-wrapper:-webkit-full-screen iframe,
+  .presentation-wrapper:-moz-full-screen iframe,
+  .presentation-wrapper:fullscreen iframe {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+</style>

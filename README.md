@@ -24,6 +24,7 @@ I love exploring new technologies and documenting my experiences to help others 
 - 📚 Study notes and learning resources
 - 💭 Thoughts on technology and software development
 - 🎯 Personal experiences and insights
+- 📊 Interactive presentations powered by reveal.js
 
 ## 🛠️ Tech Stack
 
@@ -31,6 +32,7 @@ This blog is built with:
 - **Framework**: [Astro](https://astro.build/)
 - **Theme**: [Frosti](https://github.com/EveSunMaple/Frosti) (customized)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [daisyUI](https://daisyui.com/)
+- **Presentations**: [reveal.js](https://revealjs.com/) + [Pandoc](https://pandoc.org/)
 - **Deployment**: [Vercel](https://vercel.com/)
 - **Content**: Markdown/MDX
 
@@ -42,6 +44,22 @@ This blog is built with:
 - 📊 Visit counter integration
 - 🚀 Fast loading with excellent SEO
 - 📑 RSS feed support
+- 🎥 Embedded presentations with full-screen support
+
+## 🎥 Presentation System
+
+This blog includes an integrated presentation system that allows embedding interactive slideshows directly in blog posts:
+
+- **Create**: Write presentations in Markdown
+- **Build**: Automatically convert to reveal.js HTML
+- **Embed**: Use the `PresentationViewer` component in MDX articles
+- **View**: Full-screen support with keyboard navigation
+
+### Creating Presentations
+
+1. Add Markdown files to `src/content/presentations/`
+2. Run `npm run build:presentations`
+3. Embed in articles using the `PresentationViewer` component
 
 ## 🚀 Getting Started
 
@@ -58,12 +76,25 @@ cd blog
 npm install
 ```
 
-3. Start development server
+3. Install Pandoc (required for presentations)
 ```bash
-npm run search:index && npm run dev
+# Ubuntu/Debian
+sudo apt install pandoc
+
+# macOS
+brew install pandoc
+
+# Windows
+# Download from https://pandoc.org/installing.html
 ```
 
-4. Open [http://localhost:4321](http://localhost:4321) in your browser
+4. Build presentations and start development server
+```bash
+npm run build:presentations
+npm run dev
+```
+
+5. Open [http://localhost:4321](http://localhost:4321) in your browser
 
 ## 📄 License
 
@@ -73,6 +104,7 @@ This project is based on the [Frosti](https://github.com/EveSunMaple/Frosti) the
 
 - Thanks to [@EveSunMaple](https://github.com/EveSunMaple) for creating the amazing Frosti theme
 - Built with the powerful [Astro](https://astro.build/) framework
+- Presentation system powered by [reveal.js](https://revealjs.com/) and [Pandoc](https://pandoc.org/)
 
 ## 📬 Get in Touch
 

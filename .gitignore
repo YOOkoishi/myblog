@@ -98,3 +98,7 @@ coverage/
 !.yarn/versions
 
 *.sh
+
+# presentations output
+public/presentations/
+src/content/presentations/*.html
