@@ -1,0 +1,125 @@
+---
+import { getCollection } from "astro:content";
+import fs from "fs";
+import path from "path";
+
+export async function getStaticPaths() {
+  // 获取所有演示文稿
+  const presentations = await getCollection("presentations");
+  return presentations.map((presentation) => ({
+    params: { slug: presentation.id },
+    props: { presentation },
+  }));
+}
+
+const { presentation } = Astro.props;
+const { slug } = Astro.params;
+
+// 读取构建后的HTML文件
+const htmlFilePath = path.join(process.cwd(), "public", "presentations", `${slug}.html`);
+let htmlContent = "";
+let frontmatter = presentation.data;
+
+try {
+  if (fs.existsSync(htmlFilePath)) {
+    const fullHtml = fs.readFileSync(htmlFilePath, "utf-8");
+    // 提取body中的slides内容
+    const bodyMatch = fullHtml.match(/<div class="slides">([\s\S]*?)<\/div>/);
+    if (bodyMatch) {
+      htmlContent = bodyMatch[1];
+    } else {
+      // 如果没有找到slides，使用整个body内容
+      const bodyContentMatch = fullHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/);
+      htmlContent = bodyContentMatch ? bodyContentMatch[1] : "演示文稿内容加载失败";
+    }
+  } else {
+    htmlContent = `<section><h1>演示文稿未找到</h1><p>文件路径: ${htmlFilePath}</p></section>`;
+  }
+} catch (error) {
+  console.error("Error reading presentation file:", error);
+  htmlContent = `<section><h1>加载错误</h1><p>无法加载演示文稿内容</p></section>`;
+}
+
+// 获取配置信息
+const showPageNumber = frontmatter.showPageNumber !== false;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{frontmatter.title}</title>
+    <meta name="description" content={frontmatter.description || frontmatter.title} />
+    <meta name="author" content={frontmatter.author} />
+    
+    <!-- Reveal.js 核心样式 -->
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
+    <!-- 主题样式 -->
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/theme/white.css" />
+    <!-- 代码高亮样式 -->
+    <link rel="stylesheet" href="/node_modules/reveal.js/plugin/highlight/monokai.css" />
+    <!-- KaTeX数学公式样式 -->
+    <link rel="stylesheet" href="/node_modules/katex/dist/katex.min.css" />
+    
+    <!-- 移除外部CSS引用，完全依赖构建时生成的内联CSS -->
+  </head>
+
+  <body>
+    <!-- 页眉 -->
+    <div id="reveal-header" style="position: fixed; top: 0; left: 0; right: 0; height: 32px; background: linear-gradient(135deg, #e2e8f0 0%, #f7fafc 100%); color: #2d3748; padding: 8px 20px; font-size: 12px; font-weight: 500; border-bottom: 1px solid #e2e8f0; z-index: 1000; display: flex; align-items: center;">
+      {frontmatter.header || frontmatter.title}
+    </div>
+
+    <!-- 页脚 -->
+    <div id="reveal-footer" style="position: fixed; bottom: 0; left: 0; right: 0; height: 28px; background: linear-gradient(135deg, #f7fafc 0%, #e2e8f0 100%); color: #718096; padding: 6px 20px; font-size: 10px; border-top: 1px solid #e2e8f0; z-index: 1000; display: flex; justify-content: space-between; align-items: center;">
+      <span>{frontmatter.footer || `© ${new Date().getFullYear()} ${frontmatter.author}`}</span>
+      {showPageNumber && (
+        <span id="page-number">第 1 页</span>
+      )}
+    </div>
+
+    <div class="reveal">
+      <div class="slides">
+        <Fragment set:html={htmlContent} />
+      </div>
+    </div>
+
+    <!-- 简化的脚本，移除复杂的样式覆盖逻辑 -->
+    <script is:inline src="/node_modules/reveal.js/dist/reveal.js"></script>
+    <script is:inline src="/node_modules/reveal.js/plugin/notes/notes.js"></script>
+    <script is:inline src="/node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+    <script is:inline src="/node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+    <script is:inline src="/node_modules/reveal.js/plugin/search/search.js"></script>
+    <script is:inline src="/node_modules/reveal.js/plugin/zoom/zoom.js"></script>
+    <script is:inline src="/node_modules/reveal.js/plugin/math/math.js"></script>
+
+    <script is:inline define:vars={{ showPageNumber }}>
+      window.addEventListener('load', function() {
+        if (typeof Reveal !== 'undefined') {
+          Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'slide',
+            transitionSpeed: 'fast',
+            backgroundTransition: 'fade',
+            plugins: [
+              RevealNotes,
+              RevealMarkdown,
+              RevealHighlight,
+              RevealSearch,
+              RevealZoom,
+              RevealMath.KaTeX
+            ]
+          });
+        } else {
+          console.error('Reveal.js not loaded');
+        }
+      });
+    </script>
+  </body>
+</html>

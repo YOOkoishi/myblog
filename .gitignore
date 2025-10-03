@@ -100,3 +100,5 @@ coverage/
 *.sh
 
 # presentations output
+# 注释掉下面这行，让public/styles可以被提交
+# public/styles/

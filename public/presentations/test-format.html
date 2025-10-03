@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="YOO_koishi">
-  <meta name="dcterms.date" content="2025-01-16">
-  <title>自定义页眉页脚示例</title>
+  <meta name="dcterms.date" content="2025-10-04">
+  <title>测试演示文稿</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -114,7 +114,7 @@
 
 /* 自定义页脚 */
 .reveal::after {
-  content: "技术分享会";
+  content: "reveal.js 格式验证";
   position: fixed;
   bottom: 10px;
   left: 10px;
@@ -535,160 +535,105 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">自定义页眉页脚示例</h1>
+  <h1 class="title">测试演示文稿</h1>
   <p class="author">YOO_koishi</p>
-  <p class="date">2025-01-16</p>
+  <p class="date">2025-10-04</p>
 </section>
 
 <section>
-<section id="自定义页眉页脚" class="title-slide slide level1">
-<h1>自定义页眉页脚</h1>
+<section id="第一章介绍" class="title-slide slide level1">
+<h1>第一章：介绍</h1>
 
 </section>
-<section id="如何个性化你的演示文稿" class="slide level2">
-<h2>如何个性化你的演示文稿</h2>
-<p>本教程将教你如何自定义演示文稿的页眉和页脚</p>
-</section></section>
-<section>
-<section id="frontmatter-配置" class="title-slide slide level1">
-<h1>Frontmatter 配置</h1>
-
-</section>
-<section id="可用字段" class="slide level2">
-<h2>可用字段</h2>
+<section id="什么是演示文稿" class="slide level2">
+<h2>什么是演示文稿</h2>
+<p>演示文稿是一种用于展示信息的工具，通常用于会议、教学、分享等场景。</p>
 <ul>
-<li><code>header</code>: 自定义页眉文本</li>
-<li><code>footer</code>: 自定义页脚文本<br />
-</li>
-<li><code>showPageNumber</code>: 是否显示页码</li>
-<li><code>title</code>: 演示文稿标题</li>
-<li><code>author</code>: 作者信息</li>
+<li>可以包含文字</li>
+<li>可以包含图片</li>
+<li>可以包含代码</li>
 </ul>
+</section>
+<section id="为什么使用-reveal.js" class="slide level2">
+<h2>为什么使用 Reveal.js</h2>
+<p>Reveal.js 是一个强大的演示框架：</p>
+<ol type="1">
+<li>支持 Markdown 语法</li>
+<li>支持代码高亮</li>
+<li>支持数学公式</li>
+<li>响应式设计</li>
+</ol>
 </section></section>
 <section>
-<section id="页眉配置" class="title-slide slide level1">
-<h1>页眉配置</h1>
+<section id="第二章代码示例" class="title-slide slide level1">
+<h1>第二章：代码示例</h1>
 
 </section>
-<section id="基本语法" class="slide level2">
-<h2>基本语法</h2>
+<section id="javascript-代码" class="slide level2">
+<h2>JavaScript 代码</h2>
+<p>这是一段简单的 JavaScript 代码：</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">header</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;🚀 自定义演示文稿&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-<p>支持 emoji 和特殊字符</p>
-</section></section>
-<section>
-<section id="页脚配置" class="title-slide slide level1">
-<h1>页脚配置</h1>
-
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">hello</span>(name) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Hello, </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">!`</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hello</span>(<span class="st">&quot;World&quot;</span>)<span class="op">;</span></span></code></pre></div>
 </section>
-<section id="基本语法-1" class="slide level2">
-<h2>基本语法</h2>
+<section id="python-代码" class="slide level2">
+<h2>Python 代码</h2>
+<p>这是一段 Python 代码：</p>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;技术分享会&quot;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-<p>可以控制页码显示与隐藏</p>
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fibonacci(n<span class="op">-</span><span class="dv">1</span>) <span class="op">+</span> fibonacci(n<span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fibonacci(<span class="dv">10</span>))</span></code></pre></div>
 </section></section>
 <section>
-<section id="页码控制" class="title-slide slide level1">
-<h1>页码控制</h1>
+<section id="第三章列表和段落" class="title-slide slide level1">
+<h1>第三章：列表和段落</h1>
 
 </section>
-<section id="显示页码" class="slide level2">
-<h2>显示页码</h2>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
-<p>结果：<code>© 2025 YOO_koishi | 第 1 / 5 页</code></p>
-</section>
-<section id="隐藏页码" class="slide level2">
-<h2>隐藏页码</h2>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
-<p>结果：只显示自定义页脚文本</p>
-</section></section>
-<section>
-<section id="默认行为" class="title-slide slide level1">
-<h1>默认行为</h1>
-
-</section>
-<section id="未设置时的默认值" class="slide level2">
-<h2>未设置时的默认值</h2>
+<section id="无序列表" class="slide level2">
+<h2>无序列表</h2>
 <ul>
-<li><strong>页眉</strong>: 使用 <code>title</code> 字段</li>
-<li><strong>页脚</strong>: <code>© 年份 作者</code> 格式</li>
-<li><strong>页码</strong>: 默认显示</li>
-</ul>
-</section></section>
-<section>
-<section id="高级配置" class="title-slide slide level1">
-<h1>高级配置</h1>
-
-</section>
-<section id="组合使用示例" class="slide level2">
-<h2>组合使用示例</h2>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;深度学习入门&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;AI研究员&quot;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">header</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;🧠 人工智能系列讲座&quot;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;AI Lab | 内部培训&quot;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-</section></section>
-<section>
-<section id="样式特性" class="title-slide slide level1">
-<h1>样式特性</h1>
-
-</section>
-<section id="响应式设计" class="slide level2">
-<h2>响应式设计</h2>
+<li>项目管理
 <ul>
-<li>移动设备自动调整字体</li>
-<li>小屏幕优化布局</li>
-<li>保持良好阅读体验</li>
+<li>需求分析</li>
+<li>设计方案</li>
+<li>开发实现</li>
+</ul></li>
+<li>质量保证
+<ul>
+<li>单元测试</li>
+<li>集成测试</li>
+<li>性能测试</li>
+</ul></li>
 </ul>
 </section>
-<section id="主题适配" class="slide level2">
-<h2>主题适配</h2>
-<ul>
-<li>自动适配深色/浅色主题</li>
-<li>统一的颜色和边框样式</li>
-</ul>
+<section id="有序列表" class="slide level2">
+<h2>有序列表</h2>
+<ol type="1">
+<li>第一步：安装依赖</li>
+<li>第二步：配置环境</li>
+<li>第三步：运行项目</li>
+<li>第四步：部署上线</li>
+</ol>
+</section>
+<section id="普通段落" class="slide level2">
+<h2>普通段落</h2>
+<p>这是一段普通的文字描述。在实际开发中，我们经常需要写很多文档来说明项目的各个方面。良好的文档能够帮助团队成员更好地理解项目结构和代码逻辑。</p>
 </section></section>
 <section>
-<section id="完成" class="title-slide slide level1">
-<h1>完成</h1>
+<section id="结束" class="title-slide slide level1">
+<h1>结束</h1>
 
 </section>
-<section id="你学会了" class="slide level2">
-<h2>你学会了</h2>
-<ul>
-<li>✅ 自定义页眉页脚</li>
-<li>✅ 控制页码显示</li>
-<li>✅ 理解默认行为</li>
-<li>✅ 高级组合配置</li>
-</ul>
-<p>现在可以创建独特的演示文稿了！</p>
-</section></section>
-<section>
-<section id="配置模板" class="title-slide slide level1">
-<h1>配置模板</h1>
-
-</section>
-<section id="完整示例" class="slide level2">
-<h2>完整示例</h2>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;你的演示文稿标题&quot;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;你的名字&quot;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">header</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;🎯 自定义页眉&quot;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;自定义页脚 | 会议名称&quot;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-<p>复制这个模板开始创建吧！</p>
+<section id="感谢观看" class="slide level2">
+<h2>感谢观看</h2>
+<p>谢谢大家的聆听！</p>
+<p>如有问题，欢迎交流讨论。</p>
 </section></section>
     </div>
   </div>
@@ -910,8 +855,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // 页码功能
-  if (window.Reveal && false) {
-    const customFooter = "技术分享会";
+  if (window.Reveal && true) {
+    const customFooter = "reveal.js 格式验证";
     
     function updatePageNumber() {
       const indices = window.Reveal.getIndices();

@@ -4,7 +4,6 @@ import path from 'path';
 
 const PRESENTATIONS_DIR = './src/content/presentations';
 const OUTPUT_DIR = './public/presentations';
-const CUSTOM_CSS_PATH = './src/styles/presentation-custom.css';
 
 // 确保输出目录存在
 if (!existsSync(OUTPUT_DIR)) {
@@ -37,107 +36,11 @@ function parseFrontmatter(content) {
   return { frontmatter, content: bodyContent };
 }
 
-// 创建自定义CSS文件（如果不存在）
-function createCustomCSS() {
-  if (!existsSync(CUSTOM_CSS_PATH)) {
-    const customCSS = `
-/* 演示文稿自定义样式 */
-
-/* 页眉样式 */
-.reveal .slides section::before {
-  content: "YOO_koishi's Presentation";
-  position: absolute;
-  top: -50px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.8em;
-  color: #666;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  background: white;
-  z-index: 1000;
-}
-
-/* 页脚样式 */
-.reveal .slides section::after {
-  content: "© 2025 YOO_koishi | Page " counter(slide-number);
-  position: absolute;
-  bottom: -50px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.7em;
-  color: #666;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  background: white;
-  z-index: 1000;
-}
-
-/* 为slides容器添加padding，避免内容被页眉页脚遮挡 */
-.reveal .slides {
-  padding-top: 80px;
-  padding-bottom: 80px;
-}
-
-/* 计数器初始化 */
-.reveal .slides {
-  counter-reset: slide-number;
-}
-
-.reveal .slides section {
-  counter-increment: slide-number;
-}
-
-/* 深色主题适配 */
-.reveal[data-theme="dark"] .slides section::before,
-.reveal[data-theme="dark"] .slides section::after {
-  background: #2d3748;
-  color: #e2e8f0;
-  border-color: #4a5568;
-}
-
-/* 自定义主题颜色 */
-.reveal .progress {
-  color: #3b82f6;
-}
-
-.reveal .controls {
-  color: #3b82f6;
-}
-
-/* 代码块样式优化 */
-.reveal pre code {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  padding: 1em;
-}
-
-/* 标题样式优化 */
-.reveal h1, .reveal h2, .reveal h3 {
-  color: #1e293b;
-  text-shadow: none;
-}
-`;
-
-    // 确保目录存在
-    const cssDir = path.dirname(CUSTOM_CSS_PATH);
-    if (!existsSync(cssDir)) {
-      mkdirSync(cssDir, { recursive: true });
-    }
-    
-    writeFileSync(CUSTOM_CSS_PATH, customCSS);
-    console.log(`✅ 创建自定义CSS文件: ${CUSTOM_CSS_PATH}`);
-  }
-}
-
 // 构建单个演示文稿
 function buildPresentation(mdFile, outputPath) {
   // 读取并解析Markdown文件
   const markdownContent = readFileSync(mdFile, 'utf8');
-  const { frontmatter, content } = parseFrontmatter(markdownContent);
+  const { frontmatter } = parseFrontmatter(markdownContent);
   
   // 提取自定义页眉页脚信息
   const customHeader = frontmatter.header || frontmatter.title || "YOO_koishi's Presentation";
@@ -159,8 +62,10 @@ function buildPresentation(mdFile, outputPath) {
     `-V hash=true ` +
     `-V controls=true ` +
     `-V progress=true ` +
-    `-V center=true ` +
+    `-V center=false ` +
     `-V navigationMode=default ` +
+    `-V width=1600 ` +
+    `-V height=900 ` +
     `--highlight-style=pygments ` +
     `-o "${outputPath}"`;
 
@@ -171,469 +76,520 @@ function buildPresentation(mdFile, outputPath) {
     // 读取生成的HTML文件
     let htmlContent = readFileSync(outputPath, 'utf8');
     
-    // 生成每个演示文稿独有的CSS，包含自定义页眉页脚内容
+    // 重新设计的CSS - 参考jyywiki样式，一级标题在顶部带背景色
     const customCSS = `
-/* 演示文稿自定义样式 - 为每个演示文稿单独生成 */
-
-/* 为整个演示文稿添加页眉页脚 */
+/* 给整个演示文稿区域添加浅色背景，调整边距以适应博客显示 */
 .reveal {
-  position: relative;
+  background: #f8f9fa !important;
+  position: fixed !important;
+  top: 10px !important;
+  bottom: 45px !important;
+  left: 10px !important;
+  right: 10px !important;
+  width: calc(100% - 20px) !important;
+  height: calc(100vh - 55px) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
 }
 
-/* 页眉 - 显示自定义内容 */
-.reveal::before {
-  content: "${customHeader.replace(/"/g, '\\"')}";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 13px;
-  color: #4a5568;
-  background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
-  border-bottom: 1px solid #e2e8f0;
-  padding: 8px 20px;
-  z-index: 1001;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  letter-spacing: 0.025em;
-}
-
-/* 页脚 - 显示自定义内容 */
+/* 自定义页脚 */
 .reveal::after {
   content: "${customFooter.replace(/"/g, '\\"')}";
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 11px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  height: 35px;
+  background: linear-gradient(to top, #ffffff 0%, #f8f9fa 100%);
+  border-top: 2px solid #e2e8f0;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
   color: #718096;
-  background: linear-gradient(135deg, #f7fafc 0%, #ffffff 100%);
-  border-top: 1px solid #e2e8f0;
-  padding: 6px 20px;
   z-index: 1001;
-  box-shadow: 0 -1px 3px rgba(0,0,0,0.06);
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 400;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
 }
 
-/* 调整演示文稿内容区域，为页眉页脚留出空间 */
-.reveal .slides {
-  top: 32px;
-  bottom: 28px;
-  height: calc(100vh - 60px);
-  width: 100%;
-  position: absolute;
-  left: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* 确保幻灯片内容正确布局 */
-.reveal .slides > section {
-  height: 100%;
-  width: 100%;
-  padding: 30px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
-}
-
-/* 嵌套的section也需要正确布局 */
-.reveal .slides > section > section {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 30px;
-  margin: 0;
-}
-
-/* 进度条调整 */
-.reveal .progress {
-  bottom: 28px;
-  z-index: 1000;
-  height: 2px;
-  color: #3182ce;
-}
-
-/* 控制按钮调整 */
-.reveal .controls {
-  bottom: 38px;
-  z-index: 1000;
-  color: #3182ce;
-}
-
-/* 深色主题适配 */
-.reveal[data-theme="dark"]::before {
-  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-  color: #e2e8f0;
-  border-bottom-color: #4a5568;
-}
-
-.reveal[data-theme="dark"]::after {
-  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-  color: #a0aec0;
-  border-top-color: #4a5568;
-}
-
-/* 标题样式优化 */
-.reveal h1 {
-  font-size: 1.8em;
-  color: #2d3748;
-  text-shadow: none;
-  font-weight: 700;
-  margin: 0 0 0.6em 0;
-  line-height: 1.2;
-  border-bottom: 2px solid #3182ce;
-  padding-bottom: 0.2em;
-  width: 100%;
-  max-width: 90%;
-}
-
-.reveal h2 {
-  font-size: 1.4em;
-  color: #3182ce;
-  text-shadow: none;
-  font-weight: 600;
-  margin: 0.4em 0;
-  line-height: 1.3;
-}
-
-.reveal h3 {
-  font-size: 1.2em;
-  color: #4a5568;
-  text-shadow: none;
-  font-weight: 600;
-  margin: 0.3em 0;
-  line-height: 1.3;
-}
-
-/* 段落和列表样式 */
-.reveal p {
-  margin: 0.4em 0;
-  line-height: 1.5;
-  font-size: 0.9em;
-  color: #4a5568;
-  width: 100%;
-  max-width: 85%;
-}
-
-.reveal ul, .reveal ol {
-  line-height: 1.5;
-  margin: 0.4em 0;
-  text-align: left;
-  font-size: 0.85em;
-  width: 100%;
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.reveal li {
-  margin-bottom: 0.25em;
-  color: #4a5568;
-}
-
-/* 代码块样式优化 */
-.reveal pre {
-  width: 100%;
-  max-width: 85%;
-  margin: 0.6em auto;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.reveal pre code {
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 0.8em;
-  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-  font-size: 0.7em;
-  line-height: 1.4;
-  max-height: 300px;
-  overflow-y: auto;
-  color: #2d3748;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* 链接样式 */
-.reveal a {
-  color: #3182ce;
-  text-decoration: none;
-  border-bottom: 1px dotted #3182ce;
-  transition: all 0.2s ease;
-}
-
-.reveal a:hover {
-  color: #2c5282;
-  border-bottom-style: solid;
-}
-
-/* 强调文本样式 */
-.reveal strong {
-  color: #e53e3e;
-  font-weight: 600;
-}
-
-.reveal em {
-  color: #805ad5;
-  font-style: italic;
-}
-
-/* 引用块样式 */
-.reveal blockquote {
-  border-left: 3px solid #3182ce;
-  padding-left: 1em;
-  background: #f7fafc;
-  font-style: italic;
-  margin: 0.6em auto;
-  width: 100%;
-  max-width: 80%;
-  text-align: left;
-  font-size: 0.85em;
-}
-
-/* 数学公式样式 */
-.reveal .katex {
-  font-size: 1em;
-  margin: 0.3em 0;
-}
-
-/* 表格样式 */
-.reveal table {
-  border-collapse: collapse;
-  width: 100%;
-  max-width: 85%;
-  margin: 0.6em auto;
-  font-size: 0.8em;
-}
-
-.reveal th, .reveal td {
-  border: 1px solid #e2e8f0;
-  padding: 0.4em 0.6em;
-  text-align: left;
-}
-
-.reveal th {
-  background: #f7fafc;
-  font-weight: 600;
-  color: #2d3748;
-}
-
-/* 图片样式 */
-.reveal img {
-  max-width: 75%;
-  max-height: 50vh;
-  margin: 0.6em auto;
-  border-radius: 6px;
+/* 首页标题页 - 深色背景配白色文字 */
+.reveal .slides > section#title-slide {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding: 60px !important;
+  margin: 0 !important;
+  background: #ffffff !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* 全屏模式样式 */
-.reveal:-webkit-full-screen,
-.reveal:-moz-full-screen,
+.reveal .slides > section#title-slide h1,
+.reveal .slides > section#title-slide .title {
+  font-size: 3em !important;
+  margin-bottom: 0.5em !important;
+  margin-top: 0 !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  padding: 30px 60px !important;
+  background: #06b6d4 !important;
+  border-radius: 12px !important;
+  border: 2px solid #0891b2 !important;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25) !important;
+}
+
+.reveal .slides > section#title-slide .author {
+  font-size: 1.5em !important;
+  margin-top: 1em !important;
+  color: #4a5568 !important;
+  font-weight: 500 !important;
+  padding: 15px 40px !important;
+  background: #f8fafc !important;
+  border-radius: 8px !important;
+}
+
+.reveal .slides > section#title-slide .date {
+  font-size: 1.2em !important;
+  margin-top: 0.5em !important;
+  color: #718096 !important;
+}
+
+/* ===== 扁平结构：只有H1，没有H2子页面 ===== */
+/* 这些section直接在slides下，有class="title-slide slide level1" */
+
+.reveal .slides > section.title-slide.slide.level1 {
+  text-align: left !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden !important;
+}
+
+/* 扁平结构的一级标题 - 青色背景 */
+.reveal .slides > section.title-slide.slide.level1 > h1 {
+  margin: 0 !important;
+  padding: 20px 80px !important;
+  background: #06b6d4 !important;
+  color: #ffffff !important;
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  border-bottom: 4px solid #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* 扁平结构的内容 */
+.reveal .slides > section.title-slide.slide.level1 > *:not(h1) {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+.reveal .slides > section.title-slide.slide.level1 > p:first-of-type,
+.reveal .slides > section.title-slide.slide.level1 > ul:first-of-type,
+.reveal .slides > section.title-slide.slide.level1 > ol:first-of-type,
+.reveal .slides > section.title-slide.slide.level1 > pre:first-of-type,
+.reveal .slides > section.title-slide.slide.level1 > div:first-of-type {
+  margin-top: 70px !important;
+}
+
+/* ===== 嵌套结构：H1下有H2子页面 ===== */
+/* 外层section包含内层sections */
+
+.reveal .slides > section > section {
+  text-align: left !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden !important;
+}
+
+/* 嵌套结构的一级标题section（父标题页）*/
+.reveal .slides > section > section.title-slide.slide.level1 > h1 {
+  margin: 0 !important;
+  padding: 20px 80px !important;
+  background: #06b6d4 !important;
+  color: #ffffff !important;
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  border-bottom: 4px solid #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* 嵌套结构父标题页的内容 */
+.reveal .slides > section > section.title-slide.slide.level1 > *:not(h1) {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+/* 嵌套结构的子页面（H2级别）*/
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) {
+  text-align: left !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden !important;
+}
+
+/* 嵌套结构的内容区域包装器 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > *:not(h2) {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+/* 嵌套结构中，为每个子页面的顶部添加父H1标题 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  content: attr(data-parent-title) !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 20px 80px !important;
+  background: #06b6d4 !important;
+  color: #ffffff !important;
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  border-bottom: 4px solid #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* 为嵌套结构的内容添加顶部间距 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > h2:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > p:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ul:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ol:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > pre:first-of-type {
+  margin-top: 70px !important;
+}
+
+/* 二级标题样式 - 缩小字体，增加左边距 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) h2 {
+  font-size: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  margin-top: 30px !important;
+  margin-left: 20px !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+}
+
+/* 三级标题 - 缩小字体 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) h3 {
+  font-size: 1.3em !important;
+  margin-bottom: 0.5em !important;
+  margin-top: 1em !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+}
+
+/* 四级标题 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  font-size: 1.3em !important;
+  margin-bottom: 0.4em !important;
+  margin-top: 0.8em !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+}
+
+/* 段落基础样式 */
+.reveal .slides > section:not(#title-slide) p {
+  margin: 0 0 0.5em 0 !important;
+  font-size: 1.15em !important;
+  line-height: 1.6 !important;
+  text-align: left !important;
+  color: #334155 !important;
+}
+
+/* 列表基础样式 */
+.reveal .slides > section:not(#title-slide) ul,
+.reveal .slides > section:not(#title-slide) ol {
+  margin: 0 0 0.5em 0 !important;
+  font-size: 1.05em !important;
+  line-height: 1.6 !important;
+}
+
+.reveal .slides > section:not(#title-slide) li {
+  margin: 0.3em 0 !important;
+  color: #334155 !important;
+}
+
+/* 代码块样式 - 提高可读性 */
+.reveal .slides > section:not(#title-slide) pre {
+  margin: 0.6em 0 !important;
+  border-radius: 8px !important;
+  background: #f8fafc !important;
+  border: 2px solid #e2e8f0 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+  overflow: auto !important;
+  max-width: 100% !important;
+}
+
+.reveal .slides > section:not(#title-slide) code {
+  padding: 0.8em 1em !important;
+  font-size: 0.85em !important;
+  line-height: 1.5 !important;
+  color: #1e293b !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+/* 行内代码 */
+.reveal .slides > section:not(#title-slide) p code,
+.reveal .slides > section:not(#title-slide) li code {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+}
+
+/* 确保内容不会超出边界 */
+.reveal .slides > section > section:not(#title-slide) > *,
+.reveal .slides > section > section.title-slide.slide.level1 > * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 全屏模式 - 深色主题 */
+.reveal:-webkit-full-screen {
+  background: #0f172a !important;
+}
+
+.reveal:-webkit-full-screen::after {
+  background: #1e293b !important;
+  border-top-color: #475569 !important;
+  color: #cbd5e0 !important;
+}
+
+.reveal:-webkit-full-screen .slides > section:not(#title-slide),
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) {
+  background: #1e293b !important;
+}
+
+.reveal:-webkit-full-screen .slides > section.title-slide.slide.level1,
+.reveal:-webkit-full-screen .slides > section > section.title-slide.slide.level1 {
+  background: #1e293b !important;
+}
+
+.reveal:-webkit-full-screen .slides > section.title-slide.slide.level1 > h1,
+.reveal:-webkit-full-screen .slides > section > section.title-slide.slide.level1 > h1,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  background: #4c1d95 !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) h2,
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) h3,
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) h4,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h2,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h3,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  color: #e2e8f0 !important;
+}
+
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) p,
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) li,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) p,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) li {
+  color: #cbd5e0 !important;
+}
+
+.reveal:-moz-full-screen {
+  background: #0f172a !important;
+}
+
+.reveal:-moz-full-screen::after {
+  background: #1e293b !important;
+  border-top-color: #475569 !important;
+  color: #cbd5e0 !important;
+}
+
+.reveal:-moz-full-screen .slides > section:not(#title-slide),
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) {
+  background: #1e293b !important;
+}
+
+.reveal:-moz-full-screen .slides > section.title-slide.slide.level1,
+.reveal:-moz-full-screen .slides > section > section.title-slide.slide.level1 {
+  background: #1e293b !important;
+}
+
+.reveal:-moz-full-screen .slides > section.title-slide.slide.level1 > h1,
+.reveal:-moz-full-screen .slides > section > section.title-slide.slide.level1 > h1,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  background: #4c1d95 !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.reveal:-moz-full-screen .slides > section:not(#title-slide) h2,
+.reveal:-moz-full-screen .slides > section:not(#title-slide) h3,
+.reveal:-moz-full-screen .slides > section:not(#title-slide) h4,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h2,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h3,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  color: #e2e8f0 !important;
+}
+
+.reveal:-moz-full-screen .slides > section:not(#title-slide) p,
+.reveal:-moz-full-screen .slides > section:not(#title-slide) li,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) p,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) li {
+  color: #cbd5e0 !important;
+}
+
 .reveal:fullscreen {
-  width: 100vw;
-  height: 100vh;
+  background: #0f172a !important;
 }
 
-.reveal:-webkit-full-screen .slides,
-.reveal:-moz-full-screen .slides,
-.reveal:fullscreen .slides {
-  width: 100vw;
-  height: calc(100vh - 60px);
-  top: 32px;
-  bottom: 28px;
+.reveal:fullscreen::after {
+  background: #1e293b !important;
+  border-top-color: #475569 !important;
+  color: #cbd5e0 !important;
 }
 
-/* 响应式调整 */
-@media (max-width: 768px) {
-  .reveal::before {
-    font-size: 11px;
-    height: 28px;
-    padding: 6px 15px;
-  }
-  
-  .reveal::after {
-    font-size: 9px;
-    height: 24px;
-    padding: 5px 15px;
-  }
-  
-  .reveal .slides {
-    top: 28px;
-    bottom: 24px;
-    height: calc(100vh - 52px);
-  }
-  
-  .reveal .slides > section {
-    padding: 20px;
-  }
-  
-  .reveal h1 {
-    font-size: 1.5em;
-  }
-  
-  .reveal h2 {
-    font-size: 1.2em;
-  }
-  
-  .reveal h3 {
-    font-size: 1em;
-  }
-  
-  .reveal p, .reveal ul, .reveal ol {
-    font-size: 0.8em;
-  }
-  
-  .reveal pre code {
-    font-size: 0.65em;
-    padding: 0.6em;
-  }
+.reveal:fullscreen .slides > section:not(#title-slide),
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) {
+  background: #1e293b !important;
 }
 
-@media (max-width: 480px) {
-  .reveal .slides > section {
-    padding: 15px;
-  }
-  
-  .reveal h1 {
-    font-size: 1.3em;
-  }
-  
-  .reveal h2 {
-    font-size: 1.1em;
-  }
-  
-  .reveal h3 {
-    font-size: 0.95em;
-  }
-  
-  .reveal p, .reveal ul, .reveal ol {
-    font-size: 0.75em;
-    max-width: 95%;
-  }
-  
-  .reveal pre code {
-    font-size: 0.6em;
-    padding: 0.5em;
-  }
+.reveal:fullscreen .slides > section.title-slide.slide.level1,
+.reveal:fullscreen .slides > section > section.title-slide.slide.level1 {
+  background: #1e293b !important;
+}
+
+.reveal:fullscreen .slides > section.title-slide.slide.level1 > h1,
+.reveal:fullscreen .slides > section > section.title-slide.slide.level1 > h1,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  background: #4c1d95 !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.reveal:fullscreen .slides > section:not(#title-slide) h2,
+.reveal:fullscreen .slides > section:not(#title-slide) h3,
+.reveal:fullscreen .slides > section:not(#title-slide) h4,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) h2,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) h3,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  color: #e2e8f0 !important;
+}
+
+.reveal:fullscreen .slides > section:not(#title-slide) p,
+.reveal:fullscreen .slides > section:not(#title-slide) li,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) p,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) li {
+  color: #cbd5e0 !important;
+}
+
+/* 确保导航按钮在可视区域内 */
+.reveal .controls { 
+  position: fixed !important;
+  bottom: 50px !important;
+  right: 12px !important;
+  z-index: 1000 !important;
+}
+
+/* 确保进度条在可视区域内 */
+.reveal .progress { 
+  position: fixed !important;
+  bottom: 35px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  z-index: 1000 !important;
 }
 `;
     
-    // 在</head>标签前插入为该演示文稿定制的CSS
-    const cssLink = `<style>${customCSS}</style>\n</head>`;
-    htmlContent = htmlContent.replace('</head>', cssLink);
+    htmlContent = htmlContent.replace('</head>', `<style>${customCSS}</style>\n</head>`);
     
-    // 添加增强的JavaScript功能，支持动态页码更新
-    const enhancedScript = `
+    // 页码和嵌套标题脚本
+    const script = `
 <script>
-// 添加滚轮导航支持
-window.addEventListener('message', function(event) {
-  if (event.data && event.data.type === 'reveal-wheel-navigation') {
-    if (window.Reveal) {
-      if (event.data.direction === 'right') {
-        window.Reveal.next();
-      } else if (event.data.direction === 'left') {
-        window.Reveal.prev();
-      }
-    }
-  }
-});
-
-// 页眉页脚增强功能
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.Reveal) {
-    const showPageNumber = ${showPageNumber};
-    const customFooter = "${customFooter.replace(/"/g, '\\"')}";
+  // 提取嵌套结构的父H1标题，设置到子页面
+  function setupNestedTitles() {
+    const parentSections = document.querySelectorAll('.reveal .slides > section');
     
-    // 当Reveal.js初始化完成后
-    window.Reveal.on('ready', function() {
-      console.log('Reveal.js presentation ready');
-      if (showPageNumber) {
-        updateFooterWithPageNumber();
+    parentSections.forEach(parentSection => {
+      // 找到这个父section下的所有子sections
+      const childSections = parentSection.querySelectorAll(':scope > section');
+      
+      if (childSections.length === 0) return; // 扁平结构，跳过
+      
+      // 找到父H1标题
+      let parentTitle = '';
+      const titleSection = parentSection.querySelector(':scope > section.title-slide.slide.level1');
+      if (titleSection) {
+        const h1 = titleSection.querySelector('h1');
+        if (h1) {
+          parentTitle = h1.textContent.trim();
+        }
       }
       
-      // 发送准备就绪消息给父窗口
-      window.parent.postMessage({
-        type: 'reveal-ready'
-      }, '*');
-    });
-    
-    // 监听幻灯片变化事件
-    window.Reveal.on('slidechanged', function(event) {
-      if (showPageNumber) {
-        updateFooterWithPageNumber();
+      // 为每个子section设置data-parent-title（除了标题页本身）
+      if (parentTitle) {
+        childSections.forEach(childSection => {
+          if (!childSection.classList.contains('title-slide') && 
+              childSection.id !== 'title-slide') {
+            childSection.setAttribute('data-parent-title', parentTitle);
+            // 强制触发CSS重绘
+            childSection.style.display = 'none';
+            childSection.offsetHeight; // 触发reflow
+            childSection.style.display = '';
+          }
+        });
       }
     });
-    
-    // 监听片段变化事件
-    if (showPageNumber) {
-      window.Reveal.on('fragmentshown', updateFooterWithPageNumber);
-      window.Reveal.on('fragmenthidden', updateFooterWithPageNumber);
-    }
   }
-});
-
-// 更新页脚页码显示
-function updateFooterWithPageNumber() {
+  
+  // 立即执行一次
+  setTimeout(setupNestedTitles, 100);
+  
+  // 等待Reveal.js ready后再执行一次
   if (window.Reveal) {
-    const indices = window.Reveal.getIndices();
-    const totalSlides = window.Reveal.getTotalSlides();
-    const currentSlide = indices.h + 1;
+    window.Reveal.on('ready', function() {
+      setupNestedTitles();
+    });
+  }
+  
+  // 页码功能
+  if (window.Reveal && ${showPageNumber}) {
     const customFooter = "${customFooter.replace(/"/g, '\\"')}";
     
-    // 动态更新页脚文本
-    const style = document.createElement('style');
-    style.textContent = \`
-      .reveal::after {
-        content: "\${customFooter} | 第 \${currentSlide} / \${totalSlides} 页" !important;
-      }
-    \`;
-    
-    // 移除旧的样式
-    const oldStyle = document.querySelector('#dynamic-footer-style');
-    if (oldStyle) {
-      oldStyle.remove();
+    function updatePageNumber() {
+      const indices = window.Reveal.getIndices();
+      const slides = window.Reveal.getSlides();
+      const currentSlide = indices.h + 1;
+      const totalSlides = slides.length;
+      
+      const style = document.createElement('style');
+      style.textContent = \`.reveal::after { content: "\${customFooter} | \${currentSlide} / \${totalSlides}" !important; }\`;
+      
+      const oldStyle = document.querySelector('#page-style');
+      if (oldStyle) oldStyle.remove();
+      
+      style.id = 'page-style';
+      document.head.appendChild(style);
     }
     
-    style.id = 'dynamic-footer-style';
-    document.head.appendChild(style);
+    window.Reveal.on('ready', updatePageNumber);
+    window.Reveal.on('slidechanged', updatePageNumber);
   }
-}
+});
 </script>
 </body>`;
     
-    htmlContent = htmlContent.replace('</body>', enhancedScript);
-    
-    // 写回文件
+    htmlContent = htmlContent.replace('</body>', script);
     writeFileSync(outputPath, htmlContent);
     
     console.log(`✅ 构建成功: ${path.basename(outputPath)}`);
@@ -692,9 +648,6 @@ function main() {
     console.error('安装命令: sudo apt install pandoc (Ubuntu/Debian) 或 brew install pandoc (macOS)');
     process.exit(1);
   }
-  
-  // 创建自定义CSS文件
-  createCustomCSS();
   
   scanPresentations(PRESENTATIONS_DIR);
   console.log('✨ 所有演示文稿构建完成!');
