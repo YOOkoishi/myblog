@@ -365,7 +365,7 @@
 }
 
 /* 列表基础样式 */
-/* 排除H1页面的直接子列表，它们保持浏览器默认padding */
+/* 第一层：非H1标题页的列表使用较小的padding (30px) */
 .reveal .slides > section:not(#title-slide):not(.title-slide) ul,
 .reveal .slides > section:not(#title-slide):not(.title-slide) ol,
 .reveal .slides > section > section:not(#title-slide):not(.title-slide) ul,
@@ -374,6 +374,15 @@
   padding-left: 30px !important;
   font-size: 1.05em !important;
   line-height: 1.6 !important;
+}
+
+/* 第二层：H1标题页的直接子列表保持默认padding (40px) */
+/* 这个规则有更高的特异性，会覆盖上面的规则 */
+.reveal .slides > section.title-slide.slide.level1 > ul,
+.reveal .slides > section.title-slide.slide.level1 > ol,
+.reveal .slides > section > section.title-slide.slide.level1 > ul,
+.reveal .slides > section > section.title-slide.slide.level1 > ol {
+  padding-left: 40px !important;
 }
 
 .reveal .slides > section:not(#title-slide) li {

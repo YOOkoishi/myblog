@@ -36,6 +36,66 @@ function parseFrontmatter(content) {
   return { frontmatter, content: bodyContent };
 }
 
+// 后处理HTML：将H1后的第一个H2合并到同一页
+function postprocessHTML(htmlContent) {
+  // 第一步：合并 H1 和第一个 H2
+  const pattern = /(class="title-slide slide level1"[^>]*>\s*<h1[^>]*>.*?<\/h1>\s*)<\/section>\s*<section\s+id="([^"]*)"\s+class="slide level2">/gs;
+  
+  htmlContent = htmlContent.replace(pattern, (match, h1Content, h2Id) => {
+    return h1Content + '\n<div id="' + h2Id + '" class="first-subsection slide level2">';
+  });
+  
+  // 第二步：找到 first-subsection div 的结束位置并正确闭合
+  const divPattern = /<div id="([^"]*)" class="first-subsection slide level2">/g;
+  let match;
+  const positions = [];
+  
+  while ((match = divPattern.exec(htmlContent)) !== null) {
+    positions.push({
+      start: match.index,
+      id: match[1],
+      tagLength: match[0].length
+    });
+  }
+  
+  // 从后往前处理，避免索引偏移
+  for (let i = positions.length - 1; i >= 0; i--) {
+    const pos = positions[i];
+    const afterDiv = htmlContent.substring(pos.start + pos.tagLength);
+    
+    // 找到这个 div 的结束位置（第一个 </section>）
+    let depth = 0;
+    let sectionRegex = /<\/?section[^>]*>/g;
+    let endMatch;
+    let endPos = -1;
+    
+    while ((endMatch = sectionRegex.exec(afterDiv)) !== null) {
+      if (endMatch[0].startsWith('</section>')) {
+        if (depth === 0) {
+          endPos = endMatch.index;
+          break;
+        } else {
+          depth--;
+        }
+      } else {
+        depth++;
+      }
+    }
+    
+    if (endPos !== -1) {
+      const absoluteEndPos = pos.start + pos.tagLength + endPos;
+      htmlContent = htmlContent.substring(0, absoluteEndPos) + 
+                   '</div></section>' + 
+                   htmlContent.substring(absoluteEndPos + '</section>'.length);
+    }
+  }
+  
+  // 清理空的 section 标签
+  htmlContent = htmlContent.replace(/<section class="slide level2">\s*<\/section>/g, '');
+  
+  return htmlContent;
+}
+
 // 构建单个演示文稿
 function buildPresentation(mdFile, outputPath) {
   // 读取并解析Markdown文件
@@ -76,6 +136,9 @@ function buildPresentation(mdFile, outputPath) {
     // 读取生成的HTML文件
     let htmlContent = readFileSync(outputPath, 'utf8');
     
+    // 后处理 HTML：合并 H1 和第一个 H2
+    htmlContent = postprocessHTML(htmlContent);
+    
     // 重新设计的CSS - 参考jyywiki样式，一级标题在顶部带背景色
     const customCSS = `
 /* 给整个演示文稿区域添加浅色背景，调整边距以适应博客显示 */
@@ -96,13 +159,12 @@ function buildPresentation(mdFile, outputPath) {
 .reveal::after {
   content: "${customFooter.replace(/"/g, '\\"')}";
   position: fixed;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 35px;
   background: linear-gradient(to top, #ffffff 0%, #f8f9fa 100%);
   border-top: 2px solid #e2e8f0;
-  border-radius: 0 0 8px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,7 +182,7 @@ function buildPresentation(mdFile, outputPath) {
   justify-content: center !important;
   align-items: center !important;
   height: 100% !important;
-  padding: 60px !important;
+  padding: 0 !important;
   margin: 0 !important;
   background: #ffffff !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -131,23 +193,35 @@ function buildPresentation(mdFile, outputPath) {
   font-size: 3em !important;
   margin-bottom: 0.5em !important;
   margin-top: 0 !important;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
   font-weight: 700 !important;
   color: #ffffff !important;
-  padding: 30px 60px !important;
+  padding: 30px 40px !important;
   background: #06b6d4 !important;
   border-radius: 12px !important;
   border: 2px solid #0891b2 !important;
   box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25) !important;
+  box-sizing: border-box !important;
 }
 
 .reveal .slides > section#title-slide .author {
   font-size: 1.5em !important;
   margin-top: 1em !important;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
   color: #4a5568 !important;
   font-weight: 500 !important;
-  padding: 15px 40px !important;
+  padding: 15px 30px !important;
   background: #f8fafc !important;
   border-radius: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.reveal .slides > section#title-slide p {
+  margin-left: 80px !important;
+  margin-right: 80px !important;
+  box-sizing: border-box !important;
 }
 
 .reveal .slides > section#title-slide .date {
@@ -173,6 +247,7 @@ function buildPresentation(mdFile, outputPath) {
 /* 扁平结构的一级标题 - 青色背景 */
 .reveal .slides > section.title-slide.slide.level1 > h1 {
   margin: 0 !important;
+  margin-bottom: 70px !important;
   padding: 20px 80px !important;
   background: #06b6d4 !important;
   color: #ffffff !important;
@@ -189,12 +264,32 @@ function buildPresentation(mdFile, outputPath) {
   padding-right: 80px !important;
 }
 
-.reveal .slides > section.title-slide.slide.level1 > p:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > ul:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > ol:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > pre:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > div:first-of-type {
-  margin-top: 70px !important;
+/* H1后的第一个H2在同一页显示 */
+.reveal .slides section.title-slide.slide.level1 .first-subsection {
+  margin-top: 50px !important;
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+.reveal .slides section.title-slide.slide.level1 .first-subsection h2 {
+  font-size: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  padding-left: 0 !important;
+}
+
+.reveal .slides section.title-slide.slide.level1 .first-subsection > *:not(h2) {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* H2后的第一个元素需要额外的上边距 */
+.reveal .slides section.title-slide.slide.level1 .first-subsection > h2 + * {
+  margin-top: 30px !important;
 }
 
 /* ===== 嵌套结构：H1下有H2子页面 ===== */
@@ -272,12 +367,13 @@ function buildPresentation(mdFile, outputPath) {
   margin-top: 70px !important;
 }
 
-/* 二级标题样式 - 缩小字体，增加左边距 */
+/* 二级标题样式 - 与 first-subsection 保持一致 */
 .reveal .slides > section > section:not(.title-slide):not(#title-slide) h2 {
   font-size: 1.6em !important;
   margin-bottom: 0.6em !important;
   margin-top: 30px !important;
-  margin-left: 20px !important;
+  margin-left: 80px !important;
+  padding-left: 0 !important;
   line-height: 1.3 !important;
   font-weight: 600 !important;
   color: #1e293b !important;
@@ -313,11 +409,24 @@ function buildPresentation(mdFile, outputPath) {
 }
 
 /* 列表基础样式 */
-.reveal .slides > section:not(#title-slide) ul,
-.reveal .slides > section:not(#title-slide) ol {
+/* 第一层：非H1标题页的列表使用较小的padding (30px) */
+.reveal .slides > section:not(#title-slide):not(.title-slide) ul,
+.reveal .slides > section:not(#title-slide):not(.title-slide) ol,
+.reveal .slides > section > section:not(#title-slide):not(.title-slide) ul,
+.reveal .slides > section > section:not(#title-slide):not(.title-slide) ol {
   margin: 0 0 0.5em 0 !important;
+  padding-left: 30px !important;
   font-size: 1.05em !important;
   line-height: 1.6 !important;
+}
+
+/* 第二层：H1标题页的直接子列表保持默认padding (40px) */
+/* 这个规则有更高的特异性，会覆盖上面的规则 */
+.reveal .slides > section.title-slide.slide.level1 > ul,
+.reveal .slides > section.title-slide.slide.level1 > ol,
+.reveal .slides > section > section.title-slide.slide.level1 > ul,
+.reveal .slides > section > section.title-slide.slide.level1 > ol {
+  padding-left: 40px !important;
 }
 
 .reveal .slides > section:not(#title-slide) li {
@@ -338,7 +447,7 @@ function buildPresentation(mdFile, outputPath) {
 
 .reveal .slides > section:not(#title-slide) code {
   padding: 0.8em 1em !important;
-  font-size: 0.85em !important;
+  font-size: 0.95em !important;
   line-height: 1.5 !important;
   color: #1e293b !important;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
@@ -354,6 +463,46 @@ function buildPresentation(mdFile, outputPath) {
   font-size: 0.9em !important;
 }
 
+/* 图片样式 - 自动居中显示 */
+.reveal .slides > section:not(#title-slide) img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  max-width: 90% !important;
+  max-height: 500px !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+/* 图片标题 - 缩小字体并居中 */
+.reveal .slides > section:not(#title-slide) figure {
+  text-align: center !important;
+  margin: 1em 0 !important;
+}
+
+.reveal .slides > section:not(#title-slide) figcaption {
+  text-align: center !important;
+  font-size: 0.85em !important;
+  color: #64748b !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+  line-height: 1.4 !important;
+}
+
+/* 段落中的图片后紧跟的斜体文本（作为图片标题） */
+.reveal .slides > section:not(#title-slide) p img + em,
+.reveal .slides > section:not(#title-slide) p img ~ em {
+  display: block !important;
+  text-align: center !important;
+  font-size: 0.85em !important;
+  color: #64748b !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+}
+
 /* 确保内容不会超出边界 */
 .reveal .slides > section > section:not(#title-slide) > *,
 .reveal .slides > section > section.title-slide.slide.level1 > * {
@@ -361,7 +510,25 @@ function buildPresentation(mdFile, outputPath) {
   box-sizing: border-box !important;
 }
 
-/* 全屏模式 - 深色主题 */
+/* ===== 间距微调规则（需要在基础样式之后以获得更高优先级） ===== */
+
+/* H1后紧跟的第一个元素需要足够的上边距 - 覆盖通用段落样式 */
+/* 注意：某些H1页面被包裹在外层section中，所以需要匹配两种情况 */
+/* 由于reveal.js的布局限制，使用H1的margin-bottom而不是内容的margin-top */
+.reveal .slides > section.title-slide.slide.level1 > h1 + p,
+.reveal .slides > section.title-slide.slide.level1 > h1 + ul,
+.reveal .slides > section.title-slide.slide.level1 > h1 + ol,
+.reveal .slides > section.title-slide.slide.level1 > h1 + pre,
+.reveal .slides > section.title-slide.slide.level1 > h1 + div,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + p,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + ul,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + ol,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + pre,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + div {
+  margin-top: 0 !important;
+}
+
+/* ===== 全屏模式 ===== */
 .reveal:-webkit-full-screen {
   background: #0f172a !important;
 }
@@ -568,12 +735,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updatePageNumber() {
       const indices = window.Reveal.getIndices();
-      const slides = window.Reveal.getSlides();
-      const currentSlide = indices.h + 1;
-      const totalSlides = slides.length;
+      const horizontalSlides = window.Reveal.getHorizontalSlides();
+      const totalHorizontalSlides = horizontalSlides.length;
+      
+      let pageNumberText;
+      
+      // 判断是否在嵌套结构中（有垂直子页面）
+      const currentHorizontalSlide = horizontalSlides[indices.h];
+      const verticalSlides = currentHorizontalSlide ? currentHorizontalSlide.querySelectorAll('section') : [];
+      
+      if (verticalSlides.length > 0 && indices.v !== undefined && indices.v >= 0) {
+        // 嵌套模式：显示二维页码 (H1索引.H2索引)
+        const h1Index = indices.h + 1;
+        const h2Index = indices.v + 1;
+        const totalH2 = verticalSlides.length;
+        pageNumberText = \`\${h1Index}.\${h2Index} / \${h1Index}.\${totalH2}\`;
+      } else {
+        // 非嵌套模式：显示普通页码
+        const currentSlide = indices.h + 1;
+        const totalSlides = totalHorizontalSlides;
+        pageNumberText = \`\${currentSlide} / \${totalSlides}\`;
+      }
       
       const style = document.createElement('style');
-      style.textContent = \`.reveal::after { content: "\${customFooter} | \${currentSlide} / \${totalSlides}" !important; }\`;
+      style.textContent = \`.reveal::after { content: "\${customFooter} | \${pageNumberText}" !important; }\`;
       
       const oldStyle = document.querySelector('#page-style');
       if (oldStyle) oldStyle.remove();

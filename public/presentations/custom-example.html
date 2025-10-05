@@ -116,13 +116,12 @@
 .reveal::after {
   content: "技术分享会";
   position: fixed;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 35px;
   background: linear-gradient(to top, #ffffff 0%, #f8f9fa 100%);
   border-top: 2px solid #e2e8f0;
-  border-radius: 0 0 8px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,7 +139,7 @@
   justify-content: center !important;
   align-items: center !important;
   height: 100% !important;
-  padding: 60px !important;
+  padding: 0 !important;
   margin: 0 !important;
   background: #ffffff !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -151,23 +150,35 @@
   font-size: 3em !important;
   margin-bottom: 0.5em !important;
   margin-top: 0 !important;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
   font-weight: 700 !important;
   color: #ffffff !important;
-  padding: 30px 60px !important;
+  padding: 30px 40px !important;
   background: #06b6d4 !important;
   border-radius: 12px !important;
   border: 2px solid #0891b2 !important;
   box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25) !important;
+  box-sizing: border-box !important;
 }
 
 .reveal .slides > section#title-slide .author {
   font-size: 1.5em !important;
   margin-top: 1em !important;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
   color: #4a5568 !important;
   font-weight: 500 !important;
-  padding: 15px 40px !important;
+  padding: 15px 30px !important;
   background: #f8fafc !important;
   border-radius: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.reveal .slides > section#title-slide p {
+  margin-left: 80px !important;
+  margin-right: 80px !important;
+  box-sizing: border-box !important;
 }
 
 .reveal .slides > section#title-slide .date {
@@ -193,6 +204,7 @@
 /* 扁平结构的一级标题 - 青色背景 */
 .reveal .slides > section.title-slide.slide.level1 > h1 {
   margin: 0 !important;
+  margin-bottom: 70px !important;
   padding: 20px 80px !important;
   background: #06b6d4 !important;
   color: #ffffff !important;
@@ -209,12 +221,32 @@
   padding-right: 80px !important;
 }
 
-.reveal .slides > section.title-slide.slide.level1 > p:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > ul:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > ol:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > pre:first-of-type,
-.reveal .slides > section.title-slide.slide.level1 > div:first-of-type {
-  margin-top: 70px !important;
+/* H1后的第一个H2在同一页显示 */
+.reveal .slides section.title-slide.slide.level1 .first-subsection {
+  margin-top: 50px !important;
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+.reveal .slides section.title-slide.slide.level1 .first-subsection h2 {
+  font-size: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  padding-left: 0 !important;
+}
+
+.reveal .slides section.title-slide.slide.level1 .first-subsection > *:not(h2) {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* H2后的第一个元素需要额外的上边距 */
+.reveal .slides section.title-slide.slide.level1 .first-subsection > h2 + * {
+  margin-top: 30px !important;
 }
 
 /* ===== 嵌套结构：H1下有H2子页面 ===== */
@@ -292,12 +324,13 @@
   margin-top: 70px !important;
 }
 
-/* 二级标题样式 - 缩小字体，增加左边距 */
+/* 二级标题样式 - 与 first-subsection 保持一致 */
 .reveal .slides > section > section:not(.title-slide):not(#title-slide) h2 {
   font-size: 1.6em !important;
   margin-bottom: 0.6em !important;
   margin-top: 30px !important;
-  margin-left: 20px !important;
+  margin-left: 80px !important;
+  padding-left: 0 !important;
   line-height: 1.3 !important;
   font-weight: 600 !important;
   color: #1e293b !important;
@@ -333,11 +366,24 @@
 }
 
 /* 列表基础样式 */
-.reveal .slides > section:not(#title-slide) ul,
-.reveal .slides > section:not(#title-slide) ol {
+/* 第一层：非H1标题页的列表使用较小的padding (30px) */
+.reveal .slides > section:not(#title-slide):not(.title-slide) ul,
+.reveal .slides > section:not(#title-slide):not(.title-slide) ol,
+.reveal .slides > section > section:not(#title-slide):not(.title-slide) ul,
+.reveal .slides > section > section:not(#title-slide):not(.title-slide) ol {
   margin: 0 0 0.5em 0 !important;
+  padding-left: 30px !important;
   font-size: 1.05em !important;
   line-height: 1.6 !important;
+}
+
+/* 第二层：H1标题页的直接子列表保持默认padding (40px) */
+/* 这个规则有更高的特异性，会覆盖上面的规则 */
+.reveal .slides > section.title-slide.slide.level1 > ul,
+.reveal .slides > section.title-slide.slide.level1 > ol,
+.reveal .slides > section > section.title-slide.slide.level1 > ul,
+.reveal .slides > section > section.title-slide.slide.level1 > ol {
+  padding-left: 40px !important;
 }
 
 .reveal .slides > section:not(#title-slide) li {
@@ -358,7 +404,7 @@
 
 .reveal .slides > section:not(#title-slide) code {
   padding: 0.8em 1em !important;
-  font-size: 0.85em !important;
+  font-size: 0.95em !important;
   line-height: 1.5 !important;
   color: #1e293b !important;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
@@ -374,6 +420,46 @@
   font-size: 0.9em !important;
 }
 
+/* 图片样式 - 自动居中显示 */
+.reveal .slides > section:not(#title-slide) img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  max-width: 90% !important;
+  max-height: 500px !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+/* 图片标题 - 缩小字体并居中 */
+.reveal .slides > section:not(#title-slide) figure {
+  text-align: center !important;
+  margin: 1em 0 !important;
+}
+
+.reveal .slides > section:not(#title-slide) figcaption {
+  text-align: center !important;
+  font-size: 0.85em !important;
+  color: #64748b !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+  line-height: 1.4 !important;
+}
+
+/* 段落中的图片后紧跟的斜体文本（作为图片标题） */
+.reveal .slides > section:not(#title-slide) p img + em,
+.reveal .slides > section:not(#title-slide) p img ~ em {
+  display: block !important;
+  text-align: center !important;
+  font-size: 0.85em !important;
+  color: #64748b !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+}
+
 /* 确保内容不会超出边界 */
 .reveal .slides > section > section:not(#title-slide) > *,
 .reveal .slides > section > section.title-slide.slide.level1 > * {
@@ -381,7 +467,25 @@
   box-sizing: border-box !important;
 }
 
-/* 全屏模式 - 深色主题 */
+/* ===== 间距微调规则（需要在基础样式之后以获得更高优先级） ===== */
+
+/* H1后紧跟的第一个元素需要足够的上边距 - 覆盖通用段落样式 */
+/* 注意：某些H1页面被包裹在外层section中，所以需要匹配两种情况 */
+/* 由于reveal.js的布局限制，使用H1的margin-bottom而不是内容的margin-top */
+.reveal .slides > section.title-slide.slide.level1 > h1 + p,
+.reveal .slides > section.title-slide.slide.level1 > h1 + ul,
+.reveal .slides > section.title-slide.slide.level1 > h1 + ol,
+.reveal .slides > section.title-slide.slide.level1 > h1 + pre,
+.reveal .slides > section.title-slide.slide.level1 > h1 + div,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + p,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + ul,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + ol,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + pre,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + div {
+  margin-top: 0 !important;
+}
+
+/* ===== 全屏模式 ===== */
 .reveal:-webkit-full-screen {
   background: #0f172a !important;
 }
@@ -544,17 +648,17 @@
 <section id="自定义页眉页脚" class="title-slide slide level1">
 <h1>自定义页眉页脚</h1>
 
-</section>
-<section id="如何个性化你的演示文稿" class="slide level2">
+
+<div id="如何个性化你的演示文稿" class="first-subsection slide level2">
 <h2>如何个性化你的演示文稿</h2>
 <p>本教程将教你如何自定义演示文稿的页眉和页脚</p>
-</section></section>
+</div></section></section>
 <section>
 <section id="frontmatter-配置" class="title-slide slide level1">
 <h1>Frontmatter 配置</h1>
 
-</section>
-<section id="可用字段" class="slide level2">
+
+<div id="可用字段" class="first-subsection slide level2">
 <h2>可用字段</h2>
 <ul>
 <li><code>header</code>: 自定义页眉文本</li>
@@ -564,26 +668,26 @@
 <li><code>title</code>: 演示文稿标题</li>
 <li><code>author</code>: 作者信息</li>
 </ul>
-</section></section>
+</div></section></section>
 <section>
 <section id="页眉配置" class="title-slide slide level1">
 <h1>页眉配置</h1>
 
-</section>
-<section id="基本语法" class="slide level2">
+
+<div id="基本语法" class="first-subsection slide level2">
 <h2>基本语法</h2>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">header</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;🚀 自定义演示文稿&quot;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>支持 emoji 和特殊字符</p>
-</section></section>
+</div></section></section>
 <section>
 <section id="页脚配置" class="title-slide slide level1">
 <h1>页脚配置</h1>
 
-</section>
-<section id="基本语法-1" class="slide level2">
+
+<div id="基本语法-1" class="first-subsection slide level2">
 <h2>基本语法</h2>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -591,18 +695,18 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>可以控制页码显示与隐藏</p>
-</section></section>
+</div></section></section>
 <section>
 <section id="页码控制" class="title-slide slide level1">
 <h1>页码控制</h1>
 
-</section>
-<section id="显示页码" class="slide level2">
+
+<div id="显示页码" class="first-subsection slide level2">
 <h2>显示页码</h2>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>结果：<code>© 2025 YOO_koishi | 第 1 / 5 页</code></p>
-</section>
+</div></section>
 <section id="隐藏页码" class="slide level2">
 <h2>隐藏页码</h2>
 <div class="sourceCode" id="cb4"><pre
@@ -613,21 +717,21 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="
 <section id="默认行为" class="title-slide slide level1">
 <h1>默认行为</h1>
 
-</section>
-<section id="未设置时的默认值" class="slide level2">
+
+<div id="未设置时的默认值" class="first-subsection slide level2">
 <h2>未设置时的默认值</h2>
 <ul>
 <li><strong>页眉</strong>: 使用 <code>title</code> 字段</li>
 <li><strong>页脚</strong>: <code>© 年份 作者</code> 格式</li>
 <li><strong>页码</strong>: 默认显示</li>
 </ul>
-</section></section>
+</div></section></section>
 <section>
 <section id="高级配置" class="title-slide slide level1">
 <h1>高级配置</h1>
 
-</section>
-<section id="组合使用示例" class="slide level2">
+
+<div id="组合使用示例" class="first-subsection slide level2">
 <h2>组合使用示例</h2>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -637,20 +741,20 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;AI Lab | 内部培训&quot;</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
-</section></section>
+</div></section></section>
 <section>
 <section id="样式特性" class="title-slide slide level1">
 <h1>样式特性</h1>
 
-</section>
-<section id="响应式设计" class="slide level2">
+
+<div id="响应式设计" class="first-subsection slide level2">
 <h2>响应式设计</h2>
 <ul>
 <li>移动设备自动调整字体</li>
 <li>小屏幕优化布局</li>
 <li>保持良好阅读体验</li>
 </ul>
-</section>
+</div></section>
 <section id="主题适配" class="slide level2">
 <h2>主题适配</h2>
 <ul>
@@ -662,8 +766,8 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="
 <section id="完成" class="title-slide slide level1">
 <h1>完成</h1>
 
-</section>
-<section id="你学会了" class="slide level2">
+
+<div id="你学会了" class="first-subsection slide level2">
 <h2>你学会了</h2>
 <ul>
 <li>✅ 自定义页眉页脚</li>
@@ -672,13 +776,13 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="
 <li>✅ 高级组合配置</li>
 </ul>
 <p>现在可以创建独特的演示文稿了！</p>
-</section></section>
+</div></section></section>
 <section>
 <section id="配置模板" class="title-slide slide level1">
 <h1>配置模板</h1>
 
-</section>
-<section id="完整示例" class="slide level2">
+
+<div id="完整示例" class="first-subsection slide level2">
 <h2>完整示例</h2>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -689,7 +793,7 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">showPageNumber</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>复制这个模板开始创建吧！</p>
-</section></section>
+</div></section></section>
     </div>
   </div>
 
@@ -915,12 +1019,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updatePageNumber() {
       const indices = window.Reveal.getIndices();
-      const slides = window.Reveal.getSlides();
-      const currentSlide = indices.h + 1;
-      const totalSlides = slides.length;
+      const horizontalSlides = window.Reveal.getHorizontalSlides();
+      const totalHorizontalSlides = horizontalSlides.length;
+      
+      let pageNumberText;
+      
+      // 判断是否在嵌套结构中（有垂直子页面）
+      const currentHorizontalSlide = horizontalSlides[indices.h];
+      const verticalSlides = currentHorizontalSlide ? currentHorizontalSlide.querySelectorAll('section') : [];
+      
+      if (verticalSlides.length > 0 && indices.v !== undefined && indices.v >= 0) {
+        // 嵌套模式：显示二维页码 (H1索引.H2索引)
+        const h1Index = indices.h + 1;
+        const h2Index = indices.v + 1;
+        const totalH2 = verticalSlides.length;
+        pageNumberText = `${h1Index}.${h2Index} / ${h1Index}.${totalH2}`;
+      } else {
+        // 非嵌套模式：显示普通页码
+        const currentSlide = indices.h + 1;
+        const totalSlides = totalHorizontalSlides;
+        pageNumberText = `${currentSlide} / ${totalSlides}`;
+      }
       
       const style = document.createElement('style');
-      style.textContent = `.reveal::after { content: "${customFooter} | ${currentSlide} / ${totalSlides}" !important; }`;
+      style.textContent = `.reveal::after { content: "${customFooter} | ${pageNumberText}" !important; }`;
       
       const oldStyle = document.querySelector('#page-style');
       if (oldStyle) oldStyle.remove();
