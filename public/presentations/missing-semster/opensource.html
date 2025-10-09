@@ -29,6 +29,71 @@
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.0/dist/theme/white.css" id="theme">
 <style>
@@ -48,7 +113,7 @@
 
 /* 自定义页脚 */
 .reveal::after {
-  content: "© 2025 YOO_koishi";
+  content: "2025年10月 | Opensource";
   position: fixed;
   bottom: 0;
   left: 0;
@@ -577,7 +642,160 @@
   <p class="author"></p>
 </section>
 
+<section>
+<section id="第四部分" class="title-slide slide level1">
+<h1>第四部分</h1>
 
+
+<div id="如何给开源社区做贡献" class="first-subsection slide level2">
+<h2>如何给开源社区做贡献</h2>
+</div></section></section>
+<section>
+<section id="为什么参与开源" class="title-slide slide level1">
+<h1>为什么参与开源？</h1>
+
+
+<div id="四大理由" class="first-subsection slide level2">
+<h2>四大理由</h2>
+<ol type="1">
+<li>📚 <strong>学习</strong> - 阅读优秀代码，提升技能</li>
+<li>🤝 <strong>社交</strong> - 结识开发者朋友</li>
+<li>💼 <strong>简历</strong> - 展示项目经验</li>
+<li>🌟 <strong>回馈</strong> - 让你用的工具变更好</li>
+</ol>
+</div></section></section>
+<section>
+<section id="从哪里开始" class="title-slide slide level1">
+<h1>从哪里开始？</h1>
+
+
+<div id="选择合适的项目" class="first-subsection slide level2">
+<h2>选择合适的项目</h2>
+<p><strong>新手友好特征：</strong></p>
+<ul>
+<li>✅ 有 <code>good first issue</code> 标签</li>
+<li>✅ 文档完善</li>
+<li>✅ 社区活跃</li>
+<li>✅ 维护者友好</li>
+</ul>
+<p><strong>项目类型：</strong></p>
+<ul>
+<li>你正在使用的工具</li>
+<li>你感兴趣的领域</li>
+<li>文档/翻译项目</li>
+</ul>
+</div></section></section>
+<section>
+<section id="非代码贡献" class="title-slide slide level1">
+<h1>非代码贡献</h1>
+
+
+<div id="不一定要写代码" class="first-subsection slide level2">
+<h2>不一定要写代码！</h2>
+<ul>
+<li>📝 <strong>改进文档</strong> - 修正错别字、补充说明</li>
+<li>🌏 <strong>翻译</strong> - 中文文档</li>
+<li>🐛 <strong>报告 Bug</strong> - 详细的错误报告</li>
+<li>💡 <strong>建议功能</strong> - 提出想法</li>
+<li>✅ <strong>测试</strong> - 测试新功能</li>
+<li>❓ <strong>回答问题</strong> - 帮助其他用户</li>
+</ul>
+</div></section></section>
+<section>
+<section id="fork-和-pr-流程" class="title-slide slide level1">
+<h1>Fork 和 PR 流程</h1>
+
+
+<div id="标准的开源贡献流程" class="first-subsection slide level2">
+<h2>标准的开源贡献流程</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Fork 项目（GitHub 网页操作）</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 克隆你的 Fork</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/你/repo.git</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 创建分支</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> fix-typo</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 进行修改并提交</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;docs: Fix typo in README&quot;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 推送到你的 Fork</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin fix-typo</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 创建 Pull Request（GitHub 网页）</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="pull-request-最佳实践" class="title-slide slide level1">
+<h1>Pull Request 最佳实践</h1>
+
+
+<div id="pr-描述模板" class="first-subsection slide level2">
+<h2>PR 描述模板</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## 描述</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>修复了 README.md 中的拼写错误</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 修改内容</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>将 &quot;instalation&quot; 改为 &quot;installation&quot;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 相关 Issue</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Fixes #123</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## 检查清单</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> 阅读了贡献指南</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> 遵循代码规范</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> 测试了修改</span></code></pre></div>
+</div></section></section>
+<section>
+<section id="贡献注意事项" class="title-slide slide level1">
+<h1>贡献注意事项</h1>
+
+
+<div id="应该做的" class="first-subsection slide level2">
+<h2>✅ 应该做的</h2>
+<ol type="1">
+<li><strong>阅读贡献指南</strong> - CONTRIBUTING.md</li>
+<li><strong>与维护者沟通</strong> - 避免重复劳动</li>
+<li><strong>保持 PR 简洁</strong> - 一个 PR 做一件事</li>
+<li><strong>及时响应反馈</strong> - 查看 Code Review</li>
+</ol>
+</div></section>
+<section id="不应该做的" class="slide level2">
+<h2>❌ 不应该做的</h2>
+<ol type="1">
+<li>❌ 随意修改不相关文件</li>
+<li>❌ 提交垃圾代码</li>
+<li>❌ 忽视 CI 测试失败</li>
+<li>❌ 催促维护者（通常是志愿者）</li>
+</ol>
+</section></section>
+<section>
+<section id="推荐的新手友好项目" class="title-slide slide level1">
+<h1>推荐的新手友好项目</h1>
+
+
+<div id="文档类" class="first-subsection slide level2">
+<h2>文档类</h2>
+<ul>
+<li><strong>freeCodeCamp</strong> - 编程学习平台</li>
+<li><strong>MDN Web Docs</strong> - Web 开发文档</li>
+</ul>
+</div></section>
+<section id="工具类" class="slide level2">
+<h2>工具类</h2>
+<ul>
+<li><strong>Oh My Zsh</strong> - Shell 配置框架</li>
+<li><strong>tldr</strong> - 简化的命令手册</li>
+</ul>
+</section>
+<section id="中文项目" class="slide level2">
+<h2>中文项目</h2>
+<ul>
+<li><strong>各种中文翻译项目</strong></li>
+</ul>
+</section></section>
     </div>
   </div>
 
@@ -799,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 页码功能
   if (window.Reveal && true) {
-    const customFooter = "© 2025 YOO_koishi";
+    const customFooter = "2025年10月 | Opensource";
     
     function updatePageNumber() {
       const indices = window.Reveal.getIndices();
