@@ -5,13 +5,11 @@ header: 索思科技协会技术分享会
 footer: 2025年10月 | How to ask questions
 showPageNumber: "true"
 ---
-
 # 第一部分
 
 ## 提问的艺术
 
 ![这是图片](/image/ay.png)
-
 
 # 为什么要学会提问？
 

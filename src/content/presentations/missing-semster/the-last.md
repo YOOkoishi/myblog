@@ -1,8 +1,8 @@
 ---
 title: The Last
-author: YOO_koishi
+author: 
 header: 
-footer: 2025年10月 | @YOO_koishi
+footer: 2025年10月 | 索思科技协会 | The Last
 showPageNumber: "true"
 ---
 
