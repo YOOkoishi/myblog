@@ -2,7 +2,7 @@
 title: The Last
 author: 
 header: 
-footer: 2025年10月 | 索思科技协会 | The Last
+footer: 2025年10月 | 索思科技协会 | ED
 showPageNumber: "true"
 ---
 
