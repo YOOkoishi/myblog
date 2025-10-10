@@ -5,17 +5,11 @@ header: 索思科技协会技术分享会
 footer: 2025年10月 | Git & Github
 showPageNumber: "true"
 ---
-
-
-# 第三部分
-
-## Git 与 GitHub
-
 # 什么是 Git？
 
-**分布式版本控制系统**
-
 ## 核心概念
+
+**分布式版本控制系统**
 
 - **Repository（仓库）** - 项目存储位置
 - **Commit（提交）** - 代码快照

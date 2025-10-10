@@ -1,6 +1,6 @@
 ---
 title: Linux 技术分享会
-author: YOO_koishi
+author: 
 header: 
 footer: 2025年10月 | @YOO_koishi | Op
 showPageNumber: "true"
@@ -8,18 +8,16 @@ showPageNumber: "true"
 
 # 技术分享会
 
-## 从提问到开源贡献
+![](/image/ay.png)
 
-<div class="text-right">
-YOO_koishi
-</div>
+::: {.text-right}
 
-</br>
+索思科技协会 技术部
 
-            索思科技协会
+物联242 李天宇
 
-            2025年10月
-
+2025年10月
+:::
 # 今天的内容
 
 ## 五个模块
