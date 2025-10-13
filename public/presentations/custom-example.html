@@ -216,7 +216,8 @@
 }
 
 /* 扁平结构的内容 */
-.reveal .slides > section.title-slide.slide.level1 > *:not(h1) {
+/* 排除列表元素(ul, ol)，因为列表有自己的 padding 规则 */
+.reveal .slides > section.title-slide.slide.level1 > *:not(h1):not(ul):not(ol) {
   padding-left: 80px !important;
   padding-right: 80px !important;
 }
@@ -277,7 +278,8 @@
 }
 
 /* 嵌套结构父标题页的内容 */
-.reveal .slides > section > section.title-slide.slide.level1 > *:not(h1) {
+/* 排除列表元素(ul, ol)，因为列表有自己的 padding 规则 */
+.reveal .slides > section > section.title-slide.slide.level1 > *:not(h1):not(ul):not(ol) {
   padding-left: 80px !important;
   padding-right: 80px !important;
 }
@@ -295,7 +297,8 @@
 }
 
 /* 嵌套结构的内容区域包装器 */
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) > *:not(h2) {
+/* 排除列表元素(ul, ol)，因为列表有自己的 padding 规则 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > *:not(h2):not(ul):not(ol) {
   padding-left: 80px !important;
   padding-right: 80px !important;
 }
@@ -365,45 +368,65 @@
   color: #334155 !important;
 }
 
-/* 列表基础样式 */
-/* 第一层：非H1标题页的列表使用较小的padding (30px) */
-.reveal .slides > section:not(#title-slide):not(.title-slide) ul,
-.reveal .slides > section:not(#title-slide):not(.title-slide) ol,
-.reveal .slides > section > section:not(#title-slide):not(.title-slide) ul,
-.reveal .slides > section > section:not(#title-slide):not(.title-slide) ol {
+/* ===== 列表样式统一配置 ===== */
+/* 
+ * 统一所有模式下列表距离左边缘的视觉距离
+ * 目标：无论是扁平结构、嵌套结构、H1页面还是H2页面，列表项距离左边缘的距离保持一致
+ */
+
+/* 基础列表样式 - 所有列表的通用属性 */
+.reveal .slides section ul,
+.reveal .slides section ol {
   margin: 0 0 0.5em 0 !important;
-  padding-left: 30px !important;
   font-size: 1.05em !important;
   line-height: 1.6 !important;
 }
 
-/* 第二层：H1标题页的直接子列表保持默认padding (40px) */
-/* 这个规则有更高的特异性，会覆盖上面的规则 */
+/* 1. 扁平结构（只有H1，没有H2子页面）的列表 */
+/* 这些列表现在不会从通用规则获得 padding-left: 80px，需要手动添加 margin-left: 80px */
 .reveal .slides > section.title-slide.slide.level1 > ul,
-.reveal .slides > section.title-slide.slide.level1 > ol,
+.reveal .slides > section.title-slide.slide.level1 > ol {
+  padding-left: 40px !important;
+  margin-left: 80px !important;
+}
+
+/* 2. 扁平结构中 H1 后第一个 H2 (first-subsection) 的列表 */
+/* 这个 div 也有 padding-left: 80px，所以列表使用相同的 40px */
+.reveal .slides section.title-slide.slide.level1 .first-subsection ul,
+.reveal .slides section.title-slide.slide.level1 .first-subsection ol {
+  padding-left: 40px !important;
+  margin-left: 0 !important;
+}
+
+/* 3. 嵌套结构的父标题页（H1级别）的列表 */
+/* 列表现在不会从通用规则获得 padding-left: 80px，需要手动添加 margin-left: 80px */
 .reveal .slides > section > section.title-slide.slide.level1 > ul,
 .reveal .slides > section > section.title-slide.slide.level1 > ol {
   padding-left: 40px !important;
+  margin-left: 80px !important;
 }
 
-/* 修复：嵌套结构子页面（H2级别）中的列表需要额外的左边距 */
-/* 因为容器已有 padding-left: 80px，列表的 padding-left: 30px 相对于容器 */
-/* 为了让列表项看起来不会太靠左，给列表添加额外的 margin-left */
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) ul,
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) ol {
-  margin-left: 70px !important;
+/* 4. 嵌套结构的子页面（H2级别）的列表 */
+/* 列表现在不会从通用规则获得 padding-left: 80px，需要手动添加 margin-left: 80px */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ul,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ol {
+  padding-left: 40px !important;
+  margin-left: 80px !important;
+}
+
+/* 5. 所有二级、三级嵌套列表（ul ul, ol ol, ul ol, ol ul）*/
+/* 这些列表相对于父列表，使用标准的 30px 缩进 */
+.reveal .slides section ul ul,
+.reveal .slides section ul ol,
+.reveal .slides section ol ul,
+.reveal .slides section ol ol {
   padding-left: 30px !important;
+  margin-left: 0 !important;
+  margin-top: 0.3em !important;
+  margin-bottom: 0.3em !important;
 }
 
-/* 嵌套列表（二级、三级列表）的样式 */
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) ul ul,
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) ul ol,
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) ol ul,
-.reveal .slides > section > section:not(.title-slide):not(#title-slide) ol ol {
-  margin-left: 70px !important;
-  padding-left: 30px !important;
-}
-
+/* 列表项样式 */
 .reveal .slides > section:not(#title-slide) li {
   margin: 0.3em 0 !important;
   color: #334155 !important;

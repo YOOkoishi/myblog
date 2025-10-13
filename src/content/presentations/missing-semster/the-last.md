@@ -20,6 +20,18 @@ showPageNumber: "true"
 
 ---
 
+# 其他联系方式
+
+![](/image/wechat.png)
+
+---
+
+# QQ 群
+
+![还没加群吗](/image/qqq.jpg)
+
+---
+
 # 课后作业
 
 1. **安装属于自己的linux :** 我制作了一个关于 为你的Windows 电脑安装 Archlinux 的教程，可以跟着这个教程进行系统的安装,访问 [http://www.archinstall.top](http://www.archinstall.top) 即可
@@ -31,15 +43,21 @@ showPageNumber: "true"
 # 谢谢大家！
 
 
-:::{.text-middle}
-**让我们一起在开源世界中成长！** 🚀
 
+## 让我们一起在开源世界中成长！ 🚀
+
+
+</br>
+
+</br>
 
 </br>
 
 :::{.text-right}
 
 索思科技协会
+
+YOO_koishi
 
 2025年10月
 

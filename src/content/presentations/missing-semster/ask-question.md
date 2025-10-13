@@ -9,7 +9,7 @@ showPageNumber: "true"
 
 ## 提问的艺术
 
-![这是图片](/image/ay.png)
+![google it](/image/googleit.png)
 
 # 为什么要学会提问？
 
@@ -59,6 +59,13 @@ undefined reference to `std::cout'
 【问题】
 CMakeLists.txt 配置可能有问题？
 ```
+
+---
+
+# 接受事实?
+
+![](/image/you-are-not-prepared.png)
+
 
 # 提问的黄金法则
 
