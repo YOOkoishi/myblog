@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="">
+  <title>Git &amp; Github</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.0/dist/reset.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.0/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.0/dist/theme/white.css" id="theme">
+<style>
+/* 给整个演示文稿区域添加浅色背景，调整边距以适应博客显示 */
+.reveal {
+  background: #f8f9fa !important;
+  position: fixed !important;
+  top: 10px !important;
+  bottom: 45px !important;
+  left: 10px !important;
+  right: 10px !important;
+  width: calc(100% - 20px) !important;
+  height: calc(100vh - 55px) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+}
+
+/* 自定义页脚 */
+.reveal::after {
+  content: "2025年10月 | Git & Github";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35px;
+  background: linear-gradient(to top, #ffffff 0%, #f8f9fa 100%);
+  border-top: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #718096;
+  z-index: 1001;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+}
+
+/* 首页标题页 - 深色背景配白色文字 */
+.reveal .slides > section#title-slide {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.reveal .slides > section#title-slide h1,
+.reveal .slides > section#title-slide .title {
+  font-size: 3em !important;
+  margin-bottom: 0.5em !important;
+  margin-top: 0 !important;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  padding: 30px 40px !important;
+  background: #06b6d4 !important;
+  border-radius: 12px !important;
+  border: 2px solid #0891b2 !important;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25) !important;
+  box-sizing: border-box !important;
+}
+
+.reveal .slides > section#title-slide .author {
+  font-size: 1.5em !important;
+  margin-top: 1em !important;
+  margin-left: 80px !important;
+  margin-right: 80px !important;
+  color: #4a5568 !important;
+  font-weight: 500 !important;
+  padding: 15px 30px !important;
+  background: #f8fafc !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.reveal .slides > section#title-slide p {
+  margin-left: 80px !important;
+  margin-right: 80px !important;
+  box-sizing: border-box !important;
+}
+
+.reveal .slides > section#title-slide .date {
+  font-size: 1.2em !important;
+  margin-top: 0.5em !important;
+  color: #718096 !important;
+}
+
+/* ===== 扁平结构：只有H1，没有H2子页面 ===== */
+/* 这些section直接在slides下，有class="title-slide slide level1" */
+
+.reveal .slides > section.title-slide.slide.level1 {
+  text-align: left !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden !important;
+}
+
+/* 扁平结构的一级标题 - 青色背景 */
+.reveal .slides > section.title-slide.slide.level1 > h1 {
+  margin: 0 !important;
+  margin-bottom: 70px !important;
+  padding: 20px 80px !important;
+  background: #06b6d4 !important;
+  color: #ffffff !important;
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  border-bottom: 4px solid #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* 扁平结构的内容 */
+/* 排除列表元素(ul, ol)，因为列表有自己的 padding 规则 */
+.reveal .slides > section.title-slide.slide.level1 > *:not(h1):not(ul):not(ol) {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+/* H1后的第一个H2在同一页显示 */
+.reveal .slides section.title-slide.slide.level1 .first-subsection {
+  margin-top: 50px !important;
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+.reveal .slides section.title-slide.slide.level1 .first-subsection h2 {
+  font-size: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  padding-left: 0 !important;
+}
+
+.reveal .slides section.title-slide.slide.level1 .first-subsection > *:not(h2) {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* H2后的第一个元素需要额外的上边距 */
+.reveal .slides section.title-slide.slide.level1 .first-subsection > h2 + * {
+  margin-top: 30px !important;
+}
+
+/* ===== 嵌套结构：H1下有H2子页面 ===== */
+/* 外层section包含内层sections */
+
+.reveal .slides > section > section {
+  text-align: left !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden !important;
+}
+
+/* 嵌套结构的一级标题section（父标题页）*/
+.reveal .slides > section > section.title-slide.slide.level1 > h1 {
+  margin: 0 !important;
+  padding: 20px 80px !important;
+  background: #06b6d4 !important;
+  color: #ffffff !important;
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  border-bottom: 4px solid #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* 嵌套结构父标题页的内容 */
+/* 排除列表元素(ul, ol)，因为列表有自己的 padding 规则 */
+.reveal .slides > section > section.title-slide.slide.level1 > *:not(h1):not(ul):not(ol) {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+/* 嵌套结构的子页面（H2级别）*/
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) {
+  text-align: left !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden !important;
+}
+
+/* 嵌套结构的内容区域包装器 */
+/* 排除列表元素(ul, ol)，因为列表有自己的 padding 规则 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > *:not(h2):not(ul):not(ol) {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+/* 嵌套结构中，为每个子页面的顶部添加父H1标题 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  content: attr(data-parent-title) !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 20px 80px !important;
+  background: #06b6d4 !important;
+  color: #ffffff !important;
+  font-size: 1.8em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  border-bottom: 4px solid #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* 为嵌套结构的内容添加顶部间距 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > h2:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > p:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ul:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ol:first-of-type,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > pre:first-of-type {
+  margin-top: 70px !important;
+}
+
+/* 二级标题样式 - 与 first-subsection 保持一致 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) h2 {
+  font-size: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  margin-top: 30px !important;
+  margin-left: 80px !important;
+  padding-left: 0 !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+}
+
+/* 三级标题 - 缩小字体 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) h3 {
+  font-size: 1.3em !important;
+  margin-bottom: 0.5em !important;
+  margin-top: 1em !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+}
+
+/* 四级标题 */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  font-size: 1.3em !important;
+  margin-bottom: 0.4em !important;
+  margin-top: 0.8em !important;
+  line-height: 1.3 !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+}
+
+/* 段落基础样式 */
+.reveal .slides > section:not(#title-slide) p {
+  margin: 0 0 0.5em 0 !important;
+  font-size: 1.15em !important;
+  line-height: 1.6 !important;
+  text-align: left !important;
+  color: #334155 !important;
+}
+
+/* ===== 列表样式统一配置 ===== */
+/* 
+ * 统一所有模式下列表距离左边缘的视觉距离
+ * 目标：无论是扁平结构、嵌套结构、H1页面还是H2页面，列表项距离左边缘的距离保持一致
+ */
+
+/* 基础列表样式 - 所有列表的通用属性 */
+.reveal .slides section ul,
+.reveal .slides section ol {
+  margin: 0 0 0.5em 0 !important;
+  font-size: 1.05em !important;
+  line-height: 1.6 !important;
+}
+
+/* 1. 扁平结构（只有H1，没有H2子页面）的列表 */
+/* 这些列表现在不会从通用规则获得 padding-left: 80px，需要手动添加 margin-left: 80px */
+.reveal .slides > section.title-slide.slide.level1 > ul,
+.reveal .slides > section.title-slide.slide.level1 > ol {
+  padding-left: 40px !important;
+  margin-left: 80px !important;
+}
+
+/* 2. 扁平结构中 H1 后第一个 H2 (first-subsection) 的列表 */
+/* 这个 div 也有 padding-left: 80px，所以列表使用相同的 40px */
+.reveal .slides section.title-slide.slide.level1 .first-subsection ul,
+.reveal .slides section.title-slide.slide.level1 .first-subsection ol {
+  padding-left: 40px !important;
+  margin-left: 0 !important;
+}
+
+/* 3. 嵌套结构的父标题页（H1级别）的列表 */
+/* 列表现在不会从通用规则获得 padding-left: 80px，需要手动添加 margin-left: 80px */
+.reveal .slides > section > section.title-slide.slide.level1 > ul,
+.reveal .slides > section > section.title-slide.slide.level1 > ol {
+  padding-left: 40px !important;
+  margin-left: 80px !important;
+}
+
+/* 4. 嵌套结构的子页面（H2级别）的列表 */
+/* 列表现在不会从通用规则获得 padding-left: 80px，需要手动添加 margin-left: 80px */
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ul,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) > ol {
+  padding-left: 40px !important;
+  margin-left: 80px !important;
+}
+
+/* 5. 所有二级、三级嵌套列表（ul ul, ol ol, ul ol, ol ul）*/
+/* 这些列表相对于父列表，使用标准的 30px 缩进 */
+.reveal .slides section ul ul,
+.reveal .slides section ul ol,
+.reveal .slides section ol ul,
+.reveal .slides section ol ol {
+  padding-left: 30px !important;
+  margin-left: 0 !important;
+  margin-top: 0.3em !important;
+  margin-bottom: 0.3em !important;
+}
+
+/* 列表项样式 */
+.reveal .slides > section:not(#title-slide) li {
+  margin: 0.3em 0 !important;
+  color: #334155 !important;
+}
+
+/* 代码块样式 - 提高可读性 */
+.reveal .slides > section:not(#title-slide) pre {
+  margin: 0.6em 0 !important;
+  border-radius: 8px !important;
+  background: #f8fafc !important;
+  border: 2px solid #e2e8f0 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+  overflow: auto !important;
+  max-width: 100% !important;
+}
+
+.reveal .slides > section:not(#title-slide) code {
+  padding: 0.8em 1em !important;
+  font-size: 0.95em !important;
+  line-height: 1.5 !important;
+  color: #1e293b !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+/* 行内代码 */
+.reveal .slides > section:not(#title-slide) p code,
+.reveal .slides > section:not(#title-slide) li code {
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+}
+
+/* 图片样式 - 自动居中显示 */
+.reveal .slides > section:not(#title-slide) img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  max-width: 90% !important;
+  max-height: 500px !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+/* 图片标题 - 缩小字体并居中 */
+.reveal .slides > section:not(#title-slide) figure {
+  text-align: center !important;
+  margin: 1em 0 !important;
+}
+
+.reveal .slides > section:not(#title-slide) figcaption {
+  text-align: center !important;
+  font-size: 0.85em !important;
+  color: #64748b !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+  line-height: 1.4 !important;
+}
+
+/* 段落中的图片后紧跟的斜体文本（作为图片标题） */
+.reveal .slides > section:not(#title-slide) p img + em,
+.reveal .slides > section:not(#title-slide) p img ~ em {
+  display: block !important;
+  text-align: center !important;
+  font-size: 0.85em !important;
+  color: #64748b !important;
+  margin-top: 0.5em !important;
+  font-style: italic !important;
+}
+
+/* 确保内容不会超出边界 */
+.reveal .slides > section > section:not(#title-slide) > *,
+.reveal .slides > section > section.title-slide.slide.level1 > * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ===== 间距微调规则（需要在基础样式之后以获得更高优先级） ===== */
+
+/* H1后紧跟的第一个元素需要足够的上边距 - 覆盖通用段落样式 */
+/* 注意：某些H1页面被包裹在外层section中，所以需要匹配两种情况 */
+/* 由于reveal.js的布局限制，使用H1的margin-bottom而不是内容的margin-top */
+.reveal .slides > section.title-slide.slide.level1 > h1 + p,
+.reveal .slides > section.title-slide.slide.level1 > h1 + ul,
+.reveal .slides > section.title-slide.slide.level1 > h1 + ol,
+.reveal .slides > section.title-slide.slide.level1 > h1 + pre,
+.reveal .slides > section.title-slide.slide.level1 > h1 + div,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + p,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + ul,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + ol,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + pre,
+.reveal .slides > section > section.title-slide.slide.level1 > h1 + div {
+  margin-top: 0 !important;
+}
+
+/* ===== 全屏模式 ===== */
+.reveal:-webkit-full-screen {
+  background: #0f172a !important;
+}
+
+.reveal:-webkit-full-screen::after {
+  background: #1e293b !important;
+  border-top-color: #475569 !important;
+  color: #cbd5e0 !important;
+}
+
+.reveal:-webkit-full-screen .slides > section:not(#title-slide),
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) {
+  background: #1e293b !important;
+}
+
+.reveal:-webkit-full-screen .slides > section.title-slide.slide.level1,
+.reveal:-webkit-full-screen .slides > section > section.title-slide.slide.level1 {
+  background: #1e293b !important;
+}
+
+.reveal:-webkit-full-screen .slides > section.title-slide.slide.level1 > h1,
+.reveal:-webkit-full-screen .slides > section > section.title-slide.slide.level1 > h1,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  background: #4c1d95 !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) h2,
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) h3,
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) h4,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h2,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h3,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  color: #e2e8f0 !important;
+}
+
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) p,
+.reveal:-webkit-full-screen .slides > section:not(#title-slide) li,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) p,
+.reveal:-webkit-full-screen .slides > section > section:not(.title-slide):not(#title-slide) li {
+  color: #cbd5e0 !important;
+}
+
+.reveal:-moz-full-screen {
+  background: #0f172a !important;
+}
+
+.reveal:-moz-full-screen::after {
+  background: #1e293b !important;
+  border-top-color: #475569 !important;
+  color: #cbd5e0 !important;
+}
+
+.reveal:-moz-full-screen .slides > section:not(#title-slide),
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) {
+  background: #1e293b !important;
+}
+
+.reveal:-moz-full-screen .slides > section.title-slide.slide.level1,
+.reveal:-moz-full-screen .slides > section > section.title-slide.slide.level1 {
+  background: #1e293b !important;
+}
+
+.reveal:-moz-full-screen .slides > section.title-slide.slide.level1 > h1,
+.reveal:-moz-full-screen .slides > section > section.title-slide.slide.level1 > h1,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  background: #4c1d95 !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.reveal:-moz-full-screen .slides > section:not(#title-slide) h2,
+.reveal:-moz-full-screen .slides > section:not(#title-slide) h3,
+.reveal:-moz-full-screen .slides > section:not(#title-slide) h4,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h2,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h3,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  color: #e2e8f0 !important;
+}
+
+.reveal:-moz-full-screen .slides > section:not(#title-slide) p,
+.reveal:-moz-full-screen .slides > section:not(#title-slide) li,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) p,
+.reveal:-moz-full-screen .slides > section > section:not(.title-slide):not(#title-slide) li {
+  color: #cbd5e0 !important;
+}
+
+.reveal:fullscreen {
+  background: #0f172a !important;
+}
+
+.reveal:fullscreen::after {
+  background: #1e293b !important;
+  border-top-color: #475569 !important;
+  color: #cbd5e0 !important;
+}
+
+.reveal:fullscreen .slides > section:not(#title-slide),
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) {
+  background: #1e293b !important;
+}
+
+.reveal:fullscreen .slides > section.title-slide.slide.level1,
+.reveal:fullscreen .slides > section > section.title-slide.slide.level1 {
+  background: #1e293b !important;
+}
+
+.reveal:fullscreen .slides > section.title-slide.slide.level1 > h1,
+.reveal:fullscreen .slides > section > section.title-slide.slide.level1 > h1,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide)::before {
+  background: #4c1d95 !important;
+  border-bottom-color: #f59e0b !important;
+}
+
+.reveal:fullscreen .slides > section:not(#title-slide) h2,
+.reveal:fullscreen .slides > section:not(#title-slide) h3,
+.reveal:fullscreen .slides > section:not(#title-slide) h4,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) h2,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) h3,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) h4 {
+  color: #e2e8f0 !important;
+}
+
+.reveal:fullscreen .slides > section:not(#title-slide) p,
+.reveal:fullscreen .slides > section:not(#title-slide) li,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) p,
+.reveal:fullscreen .slides > section > section:not(.title-slide):not(#title-slide) li {
+  color: #cbd5e0 !important;
+}
+
+/* 确保导航按钮在可视区域内 */
+.reveal .controls { 
+  position: fixed !important;
+  bottom: 50px !important;
+  right: 12px !important;
+  z-index: 1000 !important;
+}
+
+/* 确保进度条在可视区域内 */
+.reveal .progress { 
+  position: fixed !important;
+  bottom: 35px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  z-index: 1000 !important;
+}
+
+/* ===== 文本对齐样式类 ===== */
+/* 这些类可以在 Markdown 中使用 ::: {.class-name} 语法 */
+
+/* 基础对齐类 - 使用高优先级选择器 */
+.reveal .slides section .text-left,
+.reveal .slides .text-left,
+.text-left {
+  text-align: left !important;
+}
+
+.reveal .slides section .text-center,
+.reveal .slides .text-center,
+.text-center {
+  text-align: center !important;
+}
+
+.reveal .slides section .text-right,
+.reveal .slides .text-right,
+.text-right {
+  text-align: right !important;
+}
+
+.reveal .slides section .text-justify,
+.reveal .slides .text-justify,
+.text-justify {
+  text-align: justify !important;
+}
+
+/* 覆盖段落的默认左对齐 - 需要更高的优先级 */
+.reveal .slides section .text-left p,
+.reveal .slides section .text-left div,
+.reveal .slides .text-left p,
+.reveal .slides .text-left div,
+.text-left p,
+.text-left div {
+  text-align: left !important;
+}
+
+.reveal .slides section .text-center p,
+.reveal .slides section .text-center div,
+.reveal .slides .text-center p,
+.reveal .slides .text-center div,
+.text-center p,
+.text-center div {
+  text-align: center !important;
+}
+
+.reveal .slides section .text-right p,
+.reveal .slides section .text-right div,
+.reveal .slides .text-right p,
+.reveal .slides .text-right div,
+.text-right p,
+.text-right div {
+  text-align: right !important;
+}
+
+.reveal .slides section .text-justify p,
+.reveal .slides section .text-justify div,
+.reveal .slides .text-justify p,
+.reveal .slides .text-justify div,
+.text-justify p,
+.text-justify div {
+  text-align: justify !important;
+}
+
+/* 列表对齐 */
+.reveal .slides section .text-left ul,
+.reveal .slides section .text-left ol,
+.reveal .slides section .text-left li,
+.text-left ul,
+.text-left ol,
+.text-left li {
+  text-align: left !important;
+}
+
+.reveal .slides section .text-center ul,
+.reveal .slides section .text-center ol,
+.reveal .slides section .text-center li,
+.text-center ul,
+.text-center ol,
+.text-center li {
+  text-align: center !important;
+}
+
+.reveal .slides section .text-right ul,
+.reveal .slides section .text-right ol,
+.reveal .slides section .text-right li,
+.text-right ul,
+.text-right ol,
+.text-right li {
+  text-align: right !important;
+}
+
+.reveal .slides section .text-justify ul,
+.reveal .slides section .text-justify ol,
+.reveal .slides section .text-justify li,
+.text-justify ul,
+.text-justify ol,
+.text-justify li {
+  text-align: justify !important;
+}
+
+/* 内联样式支持 - 用于直接在元素上使用 style 属性 */
+.reveal .slides section [style*="text-align: left"],
+.reveal .slides [style*="text-align: left"] {
+  text-align: left !important;
+}
+
+.reveal .slides section [style*="text-align: center"],
+.reveal .slides [style*="text-align: center"] {
+  text-align: center !important;
+}
+
+.reveal .slides section [style*="text-align: right"],
+.reveal .slides [style*="text-align: right"] {
+  text-align: right !important;
+}
+
+.reveal .slides section [style*="text-align: justify"],
+.reveal .slides [style*="text-align: justify"] {
+  text-align: justify !important;
+}
+
+/* 覆盖现有段落样式的左对齐设置 */
+.reveal .slides > section:not(#title-slide) .text-center p,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) .text-center p {
+  text-align: center !important;
+}
+
+.reveal .slides > section:not(#title-slide) .text-right p,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) .text-right p {
+  text-align: right !important;
+}
+
+.reveal .slides > section:not(#title-slide) .text-justify p,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) .text-justify p {
+  text-align: justify !important;
+}
+
+/* 最高优先级的段落对齐覆盖 - 确保段落样式被正确覆盖 */
+.reveal .slides > section:not(#title-slide) p.text-center,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) p.text-center,
+.reveal .slides section .text-center > p,
+.reveal .slides .text-center > p {
+  text-align: center !important;
+}
+
+.reveal .slides > section:not(#title-slide) p.text-right,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) p.text-right,
+.reveal .slides section .text-right > p,
+.reveal .slides .text-right > p {
+  text-align: right !important;
+}
+
+.reveal .slides > section:not(#title-slide) p.text-left,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) p.text-left,
+.reveal .slides section .text-left > p,
+.reveal .slides .text-left > p {
+  text-align: left !important;
+}
+
+.reveal .slides > section:not(#title-slide) p.text-justify,
+.reveal .slides > section > section:not(.title-slide):not(#title-slide) p.text-justify,
+.reveal .slides section .text-justify > p,
+.reveal .slides .text-justify > p {
+  text-align: justify !important;
+}
+</style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Git &amp; Github</h1>
+  <p class="author"></p>
+</section>
+
+<section>
+<section id="什么是-git" class="title-slide slide level1">
+<h1>什么是 Git？</h1>
+
+
+<div id="核心概念" class="first-subsection slide level2">
+<h2>核心概念</h2>
+<p><strong>分布式版本控制系统</strong></p>
+<ul>
+<li><strong>Repository（仓库）</strong> - 项目存储位置</li>
+<li><strong>Commit（提交）</strong> - 代码快照</li>
+<li><strong>Branch（分支）</strong> - 独立开发线</li>
+<li><strong>Remote（远程）</strong> - 服务器上的仓库</li>
+</ul>
+</div></section></section>
+<section>
+<section id="git-基础配置" class="title-slide slide level1">
+<h1>Git 基础配置</h1>
+
+
+<div id="第一次使用-git" class="first-subsection slide level2">
+<h2>第一次使用 Git</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置用户信息</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Your Name&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;your@email.com&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看配置</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--list</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config user.name                  <span class="co"># 查看单项配置</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 配置编辑器</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor vim</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 初始化仓库</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> init my-project                   <span class="co"># 创建并初始化</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="git-数据模型核心" class="title-slide slide level1">
+<h1>Git 数据模型（核心）</h1>
+
+
+<div id="git-如何存储数据" class="first-subsection slide level2">
+<h2>Git 如何存储数据？</h2>
+<p><strong>Git 是一个内容寻址文件系统</strong></p>
+<pre><code>objects/
+├── blob (文件内容)
+├── tree (目录结构)
+└── commit (提交信息)</code></pre>
+<p><strong>每个对象都有 SHA-1 哈希值标识</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看对象类型</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> cat-file <span class="at">-t</span> <span class="op">&lt;</span>hash<span class="op">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看对象内容</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> cat-file <span class="at">-p</span> <span class="op">&lt;</span>hash<span class="op">&gt;</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="git-数据模型对象类型" class="title-slide slide level1">
+<h1>Git 数据模型：对象类型</h1>
+
+
+<div id="三种核心对象" class="first-subsection slide level2">
+<h2>三种核心对象</h2>
+<p><strong>Blob（二进制大对象）</strong></p>
+<ul>
+<li>存储文件内容</li>
+<li>不包含文件名、权限等元数据</li>
+</ul>
+<p><strong>Tree（树对象）</strong></p>
+<ul>
+<li>类似目录结构</li>
+<li>包含 blobs 和其他 trees 的引用</li>
+<li>存储文件名和权限</li>
+</ul>
+<p><strong>Commit（提交对象）</strong></p>
+<ul>
+<li>指向一个 tree（项目快照）</li>
+<li>包含作者、日期、提交信息</li>
+<li>指向父提交（形成历史链）</li>
+</ul>
+</div></section></section>
+<section>
+<section id="git-历史dag-有向无环图" class="title-slide slide level1">
+<h1>Git 历史：DAG 有向无环图</h1>
+
+
+<div id="提交历史是图结构" class="first-subsection slide level2">
+<h2>提交历史是图结构</h2>
+<pre><code>o &lt;-- o &lt;-- o &lt;-- o (main)
+            ^
+             \
+              o &lt;-- o (feature)</code></pre>
+<p><strong>每个提交都指向父提交：</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看提交历史图</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--all</span> <span class="at">--graph</span> <span class="at">--decorate</span> <span class="at">--oneline</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例输出：</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> a3f5b21 <span class="er">(</span><span class="ex">main</span><span class="kw">)</span> <span class="ex">Merge</span> feature branch</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span><span class="ex">\ </span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span> <span class="ex">*</span> 9d2c1e4 <span class="er">(</span><span class="ex">feature</span><span class="kw">)</span> <span class="ex">Add</span> new feature</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> <span class="kw">|</span> <span class="ex">7b8a3c2</span> Fix bug in main</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span><span class="ex">/</span>  </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> 5c1d9f3 Initial commit</span></code></pre></div>
+</div></section></section>
+<section>
+<section id="git-引用references" class="title-slide slide level1">
+<h1>Git 引用（References）</h1>
+
+
+<div id="指向提交的指针" class="first-subsection slide level2">
+<h2>指向提交的指针</h2>
+<p><strong>分支（Branches）</strong></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 分支只是指向提交的可变指针</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> .git/refs/heads/main</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出：a3f5b217e9c8...（某个 commit 的 SHA-1）</span></span></code></pre></div>
+<p><strong>HEAD</strong></p>
+<ul>
+<li>指向当前分支的特殊引用</li>
+<li>决定”你现在在哪里”</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> .git/HEAD</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ref: refs/heads/main</span></span></code></pre></div>
+<p><strong>Tags（标签）</strong></p>
+<ul>
+<li>指向提交的不可变指针</li>
+<li>用于标记版本发布</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag v1.0.0</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0.0 <span class="at">-m</span> <span class="st">&quot;Release version 1.0&quot;</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="git-基本工作流" class="title-slide slide level1">
+<h1>Git 基本工作流</h1>
+
+
+<div id="四步提交流程" class="first-subsection slide level2">
+<h2>四步提交流程</h2>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 查看状态</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 添加到暂存区</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add file.txt                      <span class="co"># 添加单个文件</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="pp">*</span>.py                          <span class="co"># 添加所有 Python 文件</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .                             <span class="co"># 添加所有修改</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 提交更改</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add feature&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-am</span> <span class="st">&quot;Quick commit&quot;</span>         <span class="co"># 跳过 add（仅跟踪文件）</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 查看历史</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--graph</span> <span class="at">--all</span> <span class="at">--decorate</span>      <span class="co"># 图形化历史</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="暂存区staging-area" class="title-slide slide level1">
+<h1>暂存区（Staging Area）</h1>
+
+
+<div id="三个区域" class="first-subsection slide level2">
+<h2>三个区域</h2>
+<pre><code>工作目录 (Working Directory)
+    ↓  git add
+暂存区 (Staging Area / Index)
+    ↓  git commit
+仓库 (Repository / .git)</code></pre>
+<p><strong>为什么需要暂存区？</strong></p>
+<ul>
+<li>精细控制提交内容</li>
+<li>部分提交修改</li>
+<li>构建”逻辑提交”</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 交互式暂存</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-p</span>                            <span class="co"># 部分暂存</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff                              <span class="co"># 工作目录 vs 暂存区</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--staged</span>                     <span class="co"># 暂存区 vs 仓库</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="撤销操作" class="title-slide slide level1">
+<h1>撤销操作</h1>
+
+
+<div id="不同阶段的撤销" class="first-subsection slide level2">
+<h2>不同阶段的撤销</h2>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 工作目录修改撤销</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">--</span> file.txt              <span class="co"># 旧语法</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore file.txt                  <span class="co"># 新语法（推荐）</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 取消暂存</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset HEAD file.txt               <span class="co"># 旧语法</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore <span class="at">--staged</span> file.txt         <span class="co"># 新语法（推荐）</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 修改最后一次提交</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span>                    <span class="co"># 修改提交信息或添加文件</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span> <span class="at">--no-edit</span>          <span class="co"># 只添加文件，不改信息</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="撤销操作reset" class="title-slide slide level1">
+<h1>撤销操作：reset</h1>
+
+
+<div id="三种模式" class="first-subsection slide level2">
+<h2>三种模式</h2>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 软重置：移动 HEAD，保留暂存区和工作目录</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset <span class="at">--soft</span> HEAD~1</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 混合重置（默认）：移动 HEAD，重置暂存区，保留工作目录</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset HEAD~1</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset <span class="at">--mixed</span> HEAD~1</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 硬重置：全部重置（危险！）</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> reset <span class="at">--hard</span> HEAD~1</span></code></pre></div>
+<p><strong>使用场景：</strong></p>
+<ul>
+<li><code>--soft</code>：合并多个提交</li>
+<li><code>--mixed</code>：取消暂存，重新组织提交</li>
+<li><code>--hard</code>：完全放弃修改</li>
+</ul>
+</div></section></section>
+<section>
+<section id="分支操作" class="title-slide slide level1">
+<h1>分支操作</h1>
+
+
+<div id="创建和切换分支" class="first-subsection slide level2">
+<h2>创建和切换分支</h2>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看分支</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch                            <span class="co"># 本地分支</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-a</span>                         <span class="co"># 所有分支（含远程）</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建分支</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch feature-login</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 切换分支（新语法，推荐）</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch feature-login</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> feature-new             <span class="co"># 创建并切换</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 切换分支（旧语法）</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout feature-login</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature-login         <span class="co"># 创建并切换</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="分支合并" class="title-slide slide level1">
+<h1>分支合并</h1>
+
+
+<div id="merge-vs-rebase" class="first-subsection slide level2">
+<h2>Merge vs Rebase</h2>
+<p><strong>Merge（合并）</strong></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge feature</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个新的 merge commit</span></span></code></pre></div>
+<pre><code>    o &lt;-- o (main)
+   /       \
+  o &lt;------ o (合并后)
+ (feature)</code></pre>
+<p><strong>Rebase（变基）</strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout feature</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase main</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 feature 的提交&quot;重放&quot;到 main 之上</span></span></code></pre></div>
+<pre><code>原来：    o -- o (main)
+         /
+    o -- o (feature)
+
+变基后： o -- o (main) -- o&#39; -- o&#39; (feature)</code></pre>
+</div></section></section>
+<section>
+<section id="分支合并冲突解决" class="title-slide slide level1">
+<h1>分支合并：冲突解决</h1>
+
+
+<div id="当两个分支修改同一处代码" class="first-subsection slide level2">
+<h2>当两个分支修改同一处代码</h2>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 尝试合并时发生冲突</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git merge feature</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Auto-merging</span> file.txt</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">CONFLICT</span> <span class="er">(</span><span class="ex">content</span><span class="kw">)</span><span class="bu">:</span> Merge conflict in file.txt</span></code></pre></div>
+<p><strong>冲突标记：</strong></p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+main branch code
+=======
+feature branch code
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature</code></pre>
+<p><strong>解决步骤：</strong></p>
+<ol type="1">
+<li>编辑文件，保留需要的代码</li>
+<li><code>git add file.txt</code></li>
+<li><code>git commit</code>（或
+<code>git rebase --continue</code>）</li>
+</ol>
+</div></section></section>
+<section>
+<section id="远程操作" class="title-slide slide level1">
+<h1>远程操作</h1>
+
+
+<div id="与-github-协作" class="first-subsection slide level2">
+<h2>与 GitHub 协作</h2>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 克隆远程仓库</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/user/repo.git</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加远程仓库</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/user/repo.git</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 推送到远程</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main               <span class="co"># -u 设置上游分支</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 从远程拉取</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch origin                      <span class="co"># 只下载，不合并</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin main                  <span class="co"># fetch + merge</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull <span class="at">--rebase</span> origin main         <span class="co"># fetch + rebase</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看远程仓库</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="远程分支" class="title-slide slide level1">
+<h1>远程分支</h1>
+
+
+<div id="追踪远程分支" class="first-subsection slide level2">
+<h2>追踪远程分支</h2>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看远程分支</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-r</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 基于远程分支创建本地分支</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature origin/feature</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> feature origin/feature</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 推送本地分支到远程</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin feature</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除远程分支</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin <span class="at">--delete</span> feature</span></code></pre></div>
+<p><strong>远程追踪分支：</strong></p>
+<ul>
+<li>格式：<code>&lt;remote&gt;/&lt;branch&gt;</code></li>
+<li>例如：<code>origin/main</code></li>
+</ul>
+</div></section></section>
+<section>
+<section id="git-高级技巧stash" class="title-slide slide level1">
+<h1>Git 高级技巧：Stash</h1>
+
+
+<div id="临时保存修改" class="first-subsection slide level2">
+<h2>临时保存修改</h2>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存当前工作</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash save <span class="st">&quot;Work in progress&quot;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 stash 列表</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash list</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用最近的 stash</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash apply                       <span class="co"># 应用但不删除</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash pop                         <span class="co"># 应用并删除</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用特定 stash</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash apply stash@{2}</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除 stash</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash drop stash@{0}</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> stash clear                       <span class="co"># 清空所有</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="git-高级技巧交互式-rebase"
+class="title-slide slide level1">
+<h1>Git 高级技巧：交互式 Rebase</h1>
+
+
+<div id="重写提交历史" class="first-subsection slide level2">
+<h2>重写提交历史</h2>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 修改最近 3 个提交</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase <span class="at">-i</span> HEAD~3</span></code></pre></div>
+<p><strong>交互式操作：</strong></p>
+<ul>
+<li><code>pick</code> - 保留提交</li>
+<li><code>reword</code> - 修改提交信息</li>
+<li><code>edit</code> - 修改提交内容</li>
+<li><code>squash</code> - 合并到前一个提交</li>
+<li><code>fixup</code> - 合并但丢弃提交信息</li>
+<li><code>drop</code> - 删除提交</li>
+</ul>
+<p><strong>注意：不要对已推送的提交 rebase！</strong></p>
+</div></section></section>
+<section>
+<section id="git-高级技巧blame" class="title-slide slide level1">
+<h1>Git 高级技巧：Blame</h1>
+
+
+<div id="追踪代码作者" class="first-subsection slide level2">
+<h2>追踪代码作者</h2>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看每一行的最后修改者</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> blame file.py</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定行范围</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> blame <span class="at">-L</span> 10,20 file.py</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 忽略空白变化</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> blame <span class="at">-w</span> file.py</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看某个提交之前的状态</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> blame <span class="op">&lt;</span>commit<span class="op">&gt;</span>^ <span class="at">--</span> file.py</span></code></pre></div>
+<p><strong>用途：</strong></p>
+<ul>
+<li>找到引入 bug 的提交</li>
+<li>了解代码历史</li>
+<li>联系相关开发者</li>
+</ul>
+</div></section></section>
+<section>
+<section id="git-高级技巧bisect" class="title-slide slide level1">
+<h1>Git 高级技巧：Bisect</h1>
+
+
+<div id="二分查找-bug" class="first-subsection slide level2">
+<h2>二分查找 bug</h2>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 开始二分查找</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect start</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 标记当前为坏版本</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect bad</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 标记某个旧版本为好版本</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect good v1.0</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Git 自动切换到中间版本，测试后标记</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect bad    <span class="co"># 或 git bisect good</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 找到罪魁祸首后</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect reset</span></code></pre></div>
+<p><strong>自动化 bisect：</strong></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect start HEAD v1.0</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> bisect run ./test.sh</span></code></pre></div>
+</div></section></section>
+<section>
+<section id="github-工作流" class="title-slide slide level1">
+<h1>GitHub 工作流</h1>
+
+
+<div id="fork-pull-request" class="first-subsection slide level2">
+<h2>Fork &amp; Pull Request</h2>
+<p><strong>1. Fork 项目到自己账号</strong></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 克隆你 fork 的仓库</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/yourname/repo.git</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> repo</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加上游仓库</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/original/repo.git</span></code></pre></div>
+<p><strong>2. 创建 feature 分支</strong></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> fix-typo</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 进行修改和提交</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin fix-typo</span></code></pre></div>
+<p><strong>3. 在 GitHub 上创建 Pull Request</strong></p>
+</div></section></section>
+<section>
+<section id="github-工作流保持同步" class="title-slide slide level1">
+<h1>GitHub 工作流：保持同步</h1>
+
+
+<div id="同步上游更改" class="first-subsection slide level2">
+<h2>同步上游更改</h2>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取上游更改</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch upstream</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 将上游 main 合并到本地 main</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge upstream/main</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 推送到你的 fork</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span></code></pre></div>
+<p><strong>处理冲突后更新 PR：</strong></p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout fix-typo</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase main</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin fix-typo <span class="at">--force</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="github-最佳实践" class="title-slide slide level1">
+<h1>GitHub 最佳实践</h1>
+
+
+<div id="code-review-准则" class="first-subsection slide level2">
+<h2>Code Review 准则</h2>
+<p><strong>提交 PR 前：</strong></p>
+<ul>
+<li>✅ 确保代码通过所有测试</li>
+<li>✅ 遵循项目的代码风格</li>
+<li>✅ 提供清晰的 PR 描述</li>
+<li>✅ 保持 PR 专注（一个 PR 做一件事）</li>
+</ul>
+<p><strong>Review 他人代码：</strong></p>
+<ul>
+<li>📖 理解上下文和目标</li>
+<li>💬 提供建设性反馈</li>
+<li>🔍 关注逻辑、性能、安全</li>
+<li>🙏 保持礼貌和尊重</li>
+</ul>
+</div></section></section>
+<section>
+<section id="git-最佳实践" class="title-slide slide level1">
+<h1>Git 最佳实践</h1>
+
+
+<div id="提交信息规范" class="first-subsection slide level2">
+<h2>提交信息规范</h2>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ 好的提交信息</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;feat: Add user login feature&quot;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;fix: Resolve memory leak in parser&quot;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;docs: Update installation guide&quot;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ 糟糕的提交信息</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;update&quot;</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;fix bug&quot;</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;...&quot;</span></span></code></pre></div>
+<p><strong>Conventional Commits 格式：</strong></p>
+<pre><code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;
+
+[optional body]
+
+[optional footer]</code></pre>
+<p><strong>类型：</strong> feat, fix, docs, style, refactor, test,
+chore</p>
+</div></section></section>
+<section>
+<section id="gitignore-文件" class="title-slide slide level1">
+<h1>.gitignore 文件</h1>
+
+
+<div id="忽略不需要版本控制的文件" class="first-subsection slide level2">
+<h2>忽略不需要版本控制的文件</h2>
+<pre class="gitignore"><code># Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 构建产物
+dist/
+build/
+*.o
+*.so</code></pre>
+</div></section></section>
+<section>
+<section id="git-配置技巧" class="title-slide slide level1">
+<h1>Git 配置技巧</h1>
+
+
+<div id="提升效率的配置" class="first-subsection slide level2">
+<h2>提升效率的配置</h2>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 别名</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.st status</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.co checkout</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.br branch</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.ci commit</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.unstage <span class="st">&#39;reset HEAD --&#39;</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.last <span class="st">&#39;log -1 HEAD&#39;</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 美化 log</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.lg <span class="st">&quot;log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用：git lg</span></span></code></pre></div>
+</div></section></section>
+<section>
+<section id="git-陷阱与注意事项" class="title-slide slide level1">
+<h1>Git 陷阱与注意事项</h1>
+
+
+<div id="常见错误避免" class="first-subsection slide level2">
+<h2>常见错误避免</h2>
+<p><strong>❌ 不要对公共分支 rebase</strong></p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 危险！不要这样做</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin main</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase feature  <span class="co"># 如果 main 已推送，会造成问题</span></span></code></pre></div>
+<p><strong>✅ 只在本地分支或未推送的分支上 rebase</strong></p>
+<p><strong>❌ 不要提交敏感信息</strong></p>
+<ul>
+<li>密码、API keys、私钥</li>
+<li>即使删除提交，历史中仍然存在</li>
+<li>使用 <code>.gitignore</code> 和环境变量</li>
+</ul>
+<p><strong>❌ 不要用 <code>git push --force</code>
+对公共分支</strong></p>
+</div></section></section>
+<section>
+<section id="学习资源" class="title-slide slide level1">
+<h1>学习资源</h1>
+
+
+<div id="推荐资源" class="first-subsection slide level2">
+<h2>推荐资源</h2>
+<p><strong>官方文档：</strong></p>
+<ul>
+<li>Pro Git Book：https://git-scm.com/book/zh/</li>
+<li>Git Reference：https://git-scm.com/docs</li>
+</ul>
+<p><strong>可视化工具：</strong></p>
+<ul>
+<li>Git Graph（VS Code 插件）</li>
+<li>GitKraken（GUI 客户端）</li>
+<li>Visualizing Git：https://git-school.github.io/visualizing-git/</li>
+</ul>
+<p><strong>练习平台：</strong></p>
+<ul>
+<li>Learn Git Branching：https://learngitbranching.js.org/</li>
+<li>Git Immersion：http://gitimmersion.com/</li>
+</ul>
+</div></section>
+</section>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/reveal.js@4.6.0/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="https://unpkg.com/reveal.js@4.6.0/plugin/notes/notes.js"></script>
+  <script src="https://unpkg.com/reveal.js@4.6.0/plugin/search/search.js"></script>
+  <script src="https://unpkg.com/reveal.js@4.6.0/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 提取嵌套结构的父H1标题，设置到子页面
+  function setupNestedTitles() {
+    const parentSections = document.querySelectorAll('.reveal .slides > section');
+    
+    parentSections.forEach(parentSection => {
+      // 找到这个父section下的所有子sections
+      const childSections = parentSection.querySelectorAll(':scope > section');
+      
+      if (childSections.length === 0) return; // 扁平结构，跳过
+      
+      // 找到父H1标题
+      let parentTitle = '';
+      const titleSection = parentSection.querySelector(':scope > section.title-slide.slide.level1');
+      if (titleSection) {
+        const h1 = titleSection.querySelector('h1');
+        if (h1) {
+          parentTitle = h1.textContent.trim();
+        }
+      }
+      
+      // 为每个子section设置data-parent-title（除了标题页本身）
+      if (parentTitle) {
+        childSections.forEach(childSection => {
+          if (!childSection.classList.contains('title-slide') && 
+              childSection.id !== 'title-slide') {
+            childSection.setAttribute('data-parent-title', parentTitle);
+            // 强制触发CSS重绘
+            childSection.style.display = 'none';
+            childSection.offsetHeight; // 触发reflow
+            childSection.style.display = '';
+          }
+        });
+      }
+    });
+  }
+  
+  // 立即执行一次
+  setTimeout(setupNestedTitles, 100);
+  
+  // 等待Reveal.js ready后再执行一次
+  if (window.Reveal) {
+    window.Reveal.on('ready', function() {
+      setupNestedTitles();
+    });
+  }
+  
+  // 页码功能
+  if (window.Reveal && true) {
+    const customFooter = "2025年10月 | Git & Github";
+    
+    function updatePageNumber() {
+      const indices = window.Reveal.getIndices();
+      const horizontalSlides = window.Reveal.getHorizontalSlides();
+      const totalHorizontalSlides = horizontalSlides.length;
+      
+      let pageNumberText;
+      
+      // 判断是否在嵌套结构中（有垂直子页面）
+      const currentHorizontalSlide = horizontalSlides[indices.h];
+      const verticalSlides = currentHorizontalSlide ? currentHorizontalSlide.querySelectorAll('section') : [];
+      
+      if (verticalSlides.length > 0 && indices.v !== undefined && indices.v >= 0) {
+        // 嵌套模式：显示二维页码 (H1索引.H2索引)
+        const h1Index = indices.h + 1;
+        const h2Index = indices.v + 1;
+        const totalH2 = verticalSlides.length;
+        pageNumberText = `${h1Index}.${h2Index} / ${h1Index}.${totalH2}`;
+      } else {
+        // 非嵌套模式：显示普通页码
+        const currentSlide = indices.h + 1;
+        const totalSlides = totalHorizontalSlides;
+        pageNumberText = `${currentSlide} / ${totalSlides}`;
+      }
+      
+      const style = document.createElement('style');
+      style.textContent = `.reveal::after { content: "${customFooter} | ${pageNumberText}" !important; }`;
+      
+      const oldStyle = document.querySelector('#page-style');
+      if (oldStyle) oldStyle.remove();
+      
+      style.id = 'page-style';
+      document.head.appendChild(style);
+    }
+    
+    window.Reveal.on('ready', updatePageNumber);
+    window.Reveal.on('slidechanged', updatePageNumber);
+  }
+});
+</script>
+</body>
+</html>

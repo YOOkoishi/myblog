@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="">
-  <title>为什么要学习Linux</title>
+  <title>为什么要学习 Linux</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,6 +29,71 @@
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.0/dist/theme/white.css" id="theme">
 <style>
@@ -48,7 +113,7 @@
 
 /* 自定义页脚 */
 .reveal::after {
-  content: "© 2025 YOO_koishi";
+  content: "2025年10月 | Why Learning Linux";
   position: fixed;
   bottom: 0;
   left: 0;
@@ -782,11 +847,178 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">为什么要学习Linux</h1>
+  <h1 class="title">为什么要学习 Linux</h1>
   <p class="author"></p>
 </section>
 
+<section>
+<section id="理由-1世界运行在-linux-上"
+class="title-slide slide level1">
+<h1>理由 1：世界运行在 Linux 上</h1>
 
+
+<div id="the-world-runs-on-linux" class="first-subsection slide level2">
+<h2>The World Runs On Linux</h2>
+<p><strong>Linux 无处不在：</strong></p>
+<ul>
+<li>📱 你的手机（Android 基于 Linux）</li>
+<li>🖥️ 你的路由器和智能设备</li>
+<li>📹 监控摄像头和电视盒子</li>
+<li>☁️ 云服务器（AWS、阿里云等）</li>
+<li>🚀 超级计算机（TOP500 全部运行 Linux）</li>
+</ul>
+</div></section>
+<section id="事实" class="slide level2">
+<h2>事实</h2>
+<ul>
+<li>互联网 96.3% 的服务器运行 Linux</li>
+<li>NASA、SpaceX 都依赖 Linux</li>
+<li>从尖端科技到老旧硬件，都能运行 Linux</li>
+</ul>
+</section>
+</section>
+<section id="理由-2linux-是易于使用的" class="title-slide slide level1">
+<h1>理由 2：Linux 是易于使用的</h1>
+<p>举例：</p>
+<p>在 Ubuntu 上 安装 nginx 只需要</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install nginx</span></code></pre></div>
+<p>Nginx 就会会自动启动并配置为显示一个简单的网页。</p>
+<p>如果放在 Windows 上呢？</p>
+</section>
+
+<section>
+<section id="理由-3灵活性-与-diy" class="title-slide slide level1">
+<h1>理由 3：灵活性 与 DIY</h1>
+
+
+<div id="flexibility-for-curious-minds" class="first-subsection slide level2">
+<h2>Flexibility For Curious Minds</h2>
+<p><strong>无限选择的自由：</strong></p>
+<ul>
+<li>🎨 <strong>桌面环境</strong>：GNOME、KDE、XFCE、i3…</li>
+<li>📦 <strong>发行版</strong>：Ubuntu、Arch、Fedora、Debian…</li>
+<li>🔧 <strong>包管理器</strong>：apt、pacman、dnf、flatpak…</li>
+<li>🖼️ <strong>文件管理器</strong>：Nautilus、Dolphin、Thunar…</li>
+</ul>
+</div></section>
+</section>
+<section id="理由-3灵活性-与-diy-1" class="title-slide slide level1">
+<h1>理由 3：灵活性 与 DIY</h1>
+<p><img data-src="/image/hyprland_screenshot.webp" /></p>
+</section>
+
+<section id="理由-3灵活性-与-diy-2" class="title-slide slide level1">
+<h1>理由 3：灵活性 与 DIY</h1>
+<p><img data-src="/image/hyprland-desktop.avif" /></p>
+</section>
+
+<section id="理由-3灵活性-与-diy-3" class="title-slide slide level1">
+<h1>理由 3：灵活性 与 DIY</h1>
+<figure>
+<img data-src="/image/Linux_desktop_01.png" alt="mac?" />
+<figcaption aria-hidden="true">mac?</figcaption>
+</figure>
+</section>
+
+<section id="理由-3灵活性-与-diy-4" class="title-slide slide level1">
+<h1>理由 3：灵活性 与 DIY</h1>
+<figure>
+<img data-src="/image/linux_desktop_02.png" alt="mac!" />
+<figcaption aria-hidden="true">mac!</figcaption>
+</figure>
+</section>
+
+<section>
+<section id="理由-4使用-linux-你会了解一切"
+class="title-slide slide level1">
+<h1>理由 4：使用 Linux 你会了解一切</h1>
+
+
+<div id="你会真正理解计算机的工作原理" class="first-subsection slide level2">
+<h2>你会真正理解计算机的工作原理</h2>
+<ul>
+<li>Linux
+让你接触到底层系统，比如文件系统、进程、内存管理、网络协议等。</li>
+<li>你可以亲手操作
+shell、编辑配置文件、管理服务，理解每一步背后的机制。</li>
+<li>通过命令行，你会明白操作系统如何调度任务、分配资源。</li>
+</ul>
+</div></section>
+<section id="你会掌握自动化和脚本编程" class="slide level2">
+<h2>你会掌握自动化和脚本编程</h2>
+<ul>
+<li>学习 Bash、Python 等脚本语言，批量处理文件、自动化日常任务。</li>
+<li>体验到“让计算机为你工作”的乐趣，提升效率。</li>
+</ul>
+</section>
+<section id="你会了解开源生态和协作方式" class="slide level2">
+<h2>你会了解开源生态和协作方式</h2>
+<ul>
+<li>参与开源项目，学习如何贡献代码、提交 Issue、参与讨论。</li>
+<li>理解软件是如何被社区共同维护和改进的。</li>
+</ul>
+</section>
+<section id="你会提升问题解决能力" class="slide level2">
+<h2>你会提升问题解决能力</h2>
+<ul>
+<li>Linux 社区鼓励自主学习和动手解决问题。</li>
+<li>你会学会如何查找文档、阅读源码、向社区提问，逐步成为独立的技术人。</li>
+</ul>
+</section>
+<section id="你会拥有更强的安全意识" class="slide level2">
+<h2>你会拥有更强的安全意识</h2>
+<ul>
+<li>理解权限管理、用户分组、防火墙、加密等安全机制。</li>
+<li>学会如何保护自己的数据和隐私。</li>
+</ul>
+</section>
+<section id="你会发现更多可能性" class="slide level2">
+<h2>你会发现更多可能性</h2>
+<ul>
+<li>Linux
+支持各种硬件和用途，从服务器到嵌入式设备，从科学计算到艺术创作。</li>
+<li>你可以自由定制系统，打造属于自己的工作环境。</li>
+</ul>
+</section>
+<section id="可以说" class="slide level2">
+<h2>可以说</h2>
+<blockquote>
+<p><strong>用
+Linux，不只是用一个操作系统，更是在探索整个计算机世界的本质。</strong></p>
+</blockquote>
+</section></section>
+<section>
+<section id="主流-linux-发行版" class="title-slide slide level1">
+<h1>主流 Linux 发行版</h1>
+<ul>
+<li>🐧 <strong>Ubuntu</strong> - 最流行，社区最大，文档最全</li>
+<li>🎩 <strong>Linux Mint</strong> - 基于 Ubuntu，界面像 Windows</li>
+<li>🌀 <strong>Debian</strong> - 历史悠久，极其稳定，Ubuntu 的基础</li>
+<li>🎓 <strong>CentOS Stream / Rocky Linux</strong> -
+企业级，服务器首选</li>
+<li>🏔️ <strong>Arch Linux</strong> - 滚动更新，极简主义，高度定制</li>
+<li>🐉 <strong>Kali Linux</strong> - 渗透测试和网络安全</li>
+<li>🎩 <strong>Fedora</strong> - Red Hat 支持，新技术试验田</li>
+<li>🎮 <strong>SteamOS</strong> - 游戏专用</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="如何开始学习-linux" class="title-slide slide level1">
+<h1>如何开始学习 Linux？</h1>
+
+
+<div id="just-use-it" class="first-subsection slide level2">
+<h2>JUST USE IT</h2>
+<ol type="1">
+<li><strong>虚拟机</strong>（推荐初学者）：VirtualBox / VMware</li>
+<li><strong>双系统</strong>：保留 Windows，同时安装 Linux
+(课后作业)</li>
+<li><strong>完全切换</strong>：勇敢者的选择</li>
+</ol>
+</div></section>
+</section>
     </div>
   </div>
 
@@ -1008,7 +1240,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 页码功能
   if (window.Reveal && true) {
-    const customFooter = "© 2025 YOO_koishi";
+    const customFooter = "2025年10月 | Why Learning Linux";
     
     function updatePageNumber() {
       const indices = window.Reveal.getIndices();
