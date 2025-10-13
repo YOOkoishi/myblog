@@ -224,3 +224,8 @@ echo {a..z}                       # a b c ... z
 # 多个模式
 mv *{.py,.sh} scripts/            # 移动所有 .py 和 .sh 文件
 ```
+
+
+# Q & A
+
+![](/image/qa.png)

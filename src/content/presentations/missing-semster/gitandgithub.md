@@ -155,3 +155,8 @@ Thumbs.db
 .env
 config/secrets.json
 ```
+
+
+# Q & A
+
+![](/image/qa.png)
