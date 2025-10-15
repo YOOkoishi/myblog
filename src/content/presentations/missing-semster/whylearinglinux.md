@@ -61,7 +61,7 @@ Nginx 就会会自动启动并配置为显示一个简单的网页。
 
 # 理由 3：灵活性 与 DIY 
 
-![](/image/hyprland-desktop.avif)
+![](/image/hyprland-desktop.png)
 
 # 理由 3：灵活性 与 DIY 
 
