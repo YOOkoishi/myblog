@@ -22,13 +22,16 @@ showPageNumber: "true"
 
 - 互联网 96.3% 的服务器运行 Linux
 - NASA、SpaceX 都依赖 Linux
-- 从尖端科技到老旧硬件，都能运行 Linux
+- 从尖端科技到老旧硬件，都能运行 Linux 
+    - Windows 11 最低要求内存为 4G
+    - 而部分 linux 最低要求内存仅为 512MB
+
 
 ---
 
 # 理由 2：Linux 是易于使用的
 
-举例：
+**举例：**
 
 在 Ubuntu 上 安装 nginx 只需要
 
@@ -95,25 +98,20 @@ Nginx 就会会自动启动并配置为显示一个简单的网页。
 - Linux 社区鼓励自主学习和动手解决问题。
 - 你会学会如何查找文档、阅读源码、向社区提问，逐步成为独立的技术人。
 
-## 你会发现更多可能性
-
-- Linux 支持各种硬件和用途，从服务器到嵌入式设备，从科学计算到艺术创作。
-- 你可以自由定制系统，打造属于自己的工作环境。
-
 ## 可以说
 
 > **用 Linux，不只是用一个操作系统，更是在探索整个计算机世界的本质。**
 
 # 主流 Linux 发行版
 
-- 🐧 **Ubuntu** - 最流行，社区最大，文档最全
-- 🎩 **Linux Mint** - 基于 Ubuntu，界面像 Windows
-- 🌀 **Debian** - 历史悠久，极其稳定，Ubuntu 的基础
-- 🎓 **CentOS Stream / Rocky Linux** - 企业级，服务器首选
-- 🏔️ **Arch Linux** - 滚动更新，极简主义，高度定制
-- 🐉 **Kali Linux** - 渗透测试和网络安全
-- 🎩 **Fedora** - Red Hat 支持，新技术试验田
-- 🎮 **SteamOS** - 游戏专用
+- 🐧 **Ubuntu** - 最流行，社区最大，文档最全，适合新手 (基于Debian)
+- 🎩 **Fedora** - Red Hat 支持，新技术试验田,linus 本人在用 (RHEL 上游)
+- 🌀 **Debian** - 历史悠久，极其稳定，Ubuntu 的基础 (社区驱动)
+- 🎓 **CentOS / Rocky Linux** - 企业级，服务器首选 (RHEL 下游)
+- 🏔️ **Arch Linux** - 滚动更新，极简主义，高度定制 (社区驱动)
+- ➡️ **GENTOO** - 极致的定制化，从源代码开始编译整个系统 (社区驱动)
+- 🐉 **Kali Linux** - 渗透测试和网络安全 (基于 Debian)
+- 🎮 **SteamOS** - 游戏专用 (基于 Arch Linux)
 
 ---
 

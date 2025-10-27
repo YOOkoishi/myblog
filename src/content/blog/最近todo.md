@@ -29,19 +29,21 @@ tags:
 - 以减肥18斤(159 -> 141)
 - 去日本旅行
 - 社会实践小程序
+- archinstall guide
 
 ### doing
 
 - 学校那个系统的部署(部署x 重写✔).
+- ASC
+- Compilers Learning
 
 
 ### plan to do
 
-- wdlin学长可能要借助索思这个平台开设面向大一新生的linux安装+基础课程,由我来担任讲解工作,要想想怎么教小登装archlinux系统呢(9.2编辑,还是ubuntu吧)(9.26编辑,还是archlinux吧),我觉得我需要更深层的领悟linux,现在还是只知道皮毛罢了.
 - 写一篇关于自己linux配置的博客
-- 写一篇archlinux + windows双系统的安装指南博客
 - 写一篇关于减肥期间的博客
 - 写一篇关于大一总结的博客
+- 学习 Fl 编曲
 - 希望搞点好玩的,比如做一个maimai手台.
 
 ### want to do
