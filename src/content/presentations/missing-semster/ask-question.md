@@ -67,7 +67,6 @@ undefined reference to `std::cout'
 为什么即使包含了 <iostream> 和使用了 std:: 前缀，仍然会出现 "undefined reference to `std::cout'" 的链接错误？这是否与标准库链接有关？
 ```
 
-
 ---
 
 # 学会截图
