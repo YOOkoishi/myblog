@@ -75,3 +75,7 @@ tags:
 + [Arch wiki](https://wiki.archlinux.org) : archlinux的官方文档和社区.
 + [OI Wiki](http://oiwiki.com/) : 编程竞赛知识整合站点.
 + [C++ Reference](https://en.cppreference.com) : C++的官方文档.
+
+### 测测手柄（和其他的）
+
+这个网站可以测试手柄的死区等信息[hardwaretester.com](https://hardwaretester.com/)，也可以看看midi键盘等设备的信息。
