@@ -36,7 +36,9 @@ tags:
 - 学校那个系统的部署(部署x 重写✔).
 - ASC
 - Compilers Learning
-
+- 练习键盘(买了)
+- 复兴索思
+- 创立 USTB 开源社区
 
 ### plan to do
 
@@ -49,5 +51,4 @@ tags:
 ### want to do
 
 - unity游戏制作(在学了吗)
-- 练习键盘（没钱买键盘）
 - 2025年看完京阿尼的所有动漫(?)
