@@ -13,7 +13,7 @@ tags:
   - bash
   - 技术分享
   
-draft:true;
+draft: true
 ---
 
 
@@ -21,7 +21,7 @@ import { PresentationViewer } from '../../components/mdx';
 
 ## 分享会概述
 
-这里是索思科技协会第二次 Linux 技术分享会**第一讲**的讲义以及 PPT。本系列课程将讲述一些在计算机学习过程中非常重要，但课内不怎么涉及的内容——比如命令行工具、版本控制系统 Git、强大的文本编辑器，以及如何正确地提问和参与开源社区。
+这里是索思科技协会第一次 Linux 技术分享会**第二讲**的讲义以及 PPT。本系列课程将讲述一些在计算机学习过程中非常重要，但课内不怎么涉及的内容——比如命令行工具、版本控制系统 Git、强大的文本编辑器，以及如何正确地提问和参与开源社区。
 
 ### 为什么开设这门课程？
 
@@ -30,3 +30,97 @@ import { PresentationViewer } from '../../components/mdx';
 想象一下这样的场景：你写了一段代码，需要提交作业，但你不知道如何用 Git 进行版本管理；你遇到了一个 bug，想要在论坛或 GitHub 上求助，但不知道如何清晰地描述问题；你想要在 Linux 服务器上部署项目，但面对黑乎乎的终端却不知所措；你看到了一个很棒的开源项目，想要贡献代码，却不知道从何入手。
 
 这些场景在大学期间、工作之后都会频繁出现。工具的熟练程度直接影响着开发效率和学习曲线。正如木匠需要熟练掌握自己的工具一样，程序员也需要熟练掌握命令行、版本控制、编辑器等基本工具。**这些工具是我们的"工具箱"，而算法和数据结构则是我们的"设计原理"**——两者同样重要，缺一不可。
+
+---
+
+## Part I . 命令行进阶
+
+<PresentationViewer 
+  src="/presentations/missing-semster/shell-normal.html" 
+  title="命令行进阶"
+  description="shell normal"
+  height="500px"
+/>
+
+**学习资源**
+
+- **The Art of Command Line**
+  - [命令行的艺术](https://github.com/jlevy/the-art-of-command-line)
+  - 必读的命令行进阶指南，涵盖了大量实用技巧。
+
+- **ShellCheck**
+  - [ShellCheck](https://www.shellcheck.net/)
+  - 一个静态分析工具，可以帮你找出 shell 脚本中的 bug 和潜在问题。
+
+- **tldr**
+  - [tldr pages](https://tldr.sh/)
+  - 简化的 man 手册，只列出最常用的命令示例。
+
+---
+
+## Part II . 编辑器之神 Vim
+
+<PresentationViewer 
+  src="/presentations/missing-semster/vim-editor.html" 
+  title="编辑器之神 Vim"
+  description="Vim Editor"
+  height="500px"
+/>
+
+**推荐阅读与练习**
+
+- **Vim Adventures**
+  - [Vim Adventures](https://vim-adventures.com/)
+  - 一个通过玩游戏来学习 Vim 快捷键的网站，非常有趣。
+
+- **OpenVim**
+  - [OpenVim](https://www.openvim.com/)
+  - 交互式的 Vim 在线教程。
+
+- **Vim 官方教程**
+  - 在终端输入 `vimtutor` 即可开始官方提供的入门教程，非常适合初学者。
+
+- **Vim 配置指南**
+  - [Vim 配置入门](https://github.com/amix/vimrc)
+  - 一个非常流行的 Vim 配置集合，适合参考学习。
+
+---
+
+## Part III . 常用命令行工具推荐
+
+<PresentationViewer 
+  src="/presentations/missing-semster/cli-tools.html" 
+  title="常用命令行工具"
+  description="CLI Tools"
+  height="500px"
+/>
+
+**工具列表**
+
+- **文件检索**
+  - `fzf`: 模糊搜索神器
+  - `ripgrep (rg)`: 比 grep 更快的搜索工具
+  - `fd`: 比 find 更快更友好的文件查找工具
+
+- **系统监控**
+  - `htop` / `btop`: 更加美观强大的进程管理器
+  - `ncdu`: 可视化的磁盘占用分析工具
+
+- **开发辅助**
+  - `tldr`: 简化的命令手册
+  - `bat`: 带语法高亮的 cat 替代品
+  - `jq`: 命令行 JSON 处理工具
+
+---
+
+## Part IV . 总结与交流
+
+本次分享会主要介绍了命令行的进阶用法和 Vim 编辑器的基础操作。希望大家在课后能够多加练习，真正掌握这些强大的工具。
+
+如果你对 Linux 感兴趣，欢迎加入索思科技协会，与我们一起探索技术的乐趣！
+
+参考资料：
+
+[Missing Semester - Editors (Vim)](https://missing.csail.mit.edu/2020/editors/)
+[Missing Semester - Command-line Environment](https://missing.csail.mit.edu/2020/command-line/)
+
