@@ -861,17 +861,55 @@
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo hello</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hello</span></span></code></pre></div>
-<p><strong>Shell 做了什么？</strong></p>
+</div></section>
+<section id="shell-做了什么" class="slide level2">
+<h2>Shell 做了什么？</h2>
 <ol type="1">
 <li>读取命令：<code>echo hello</code></li>
 <li>分割参数：程序 <code>echo</code>，参数 <code>hello</code></li>
-<li>查找程序：在 <code>$PATH</code> 中搜索</li>
+<li>查找程序：在 <code>$PATH</code> 中搜索
+<ul>
+<li>若找不到则报错：<code>command not found</code></li>
+</ul></li>
 <li>执行程序：运行并显示输出</li>
 </ol>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$PATH</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/usr/local/bin:/usr/bin:/bin</span></span></code></pre></div>
-</div></section></section>
+</section></section>
+<section>
+<section id="复习重定向与管道" class="title-slide slide level1">
+<h1>复习：重定向与管道</h1>
+
+
+<div id="标准输入输出" class="first-subsection slide level2">
+<h2>标准输入输出</h2>
+<ul>
+<li><code>stdin</code> (0): 标准输入</li>
+<li><code>stdout</code> (1): 标准输出</li>
+<li><code>stderr</code> (2): 标准错误</li>
+</ul>
+</div></section>
+<section id="重定向符号" class="slide level2">
+<h2>重定向符号</h2>
+<ul>
+<li><code>&gt;</code>: 覆盖输出
+(<code>echo "hello" &gt; file.txt</code>)</li>
+<li><code>&gt;&gt;</code>: 追加输出
+(<code>echo "world" &gt;&gt; file.txt</code>)</li>
+<li><code>&lt;</code>: 重定向输入
+(<code>python script.py &lt; input.txt</code>)</li>
+<li><code>2&gt;</code>: 重定向错误
+(<code>ls not_exist 2&gt; error.log</code>)</li>
+</ul>
+</section>
+<section id="管道" class="slide level2">
+<h2>管道 |</h2>
+<ul>
+<li>将上一个命令的输出作为下一个命令的输入</li>
+<li><code>cat file.txt | grep "error" | wc -l</code></li>
+</ul>
+</section></section>
 <section>
 <section id="文件查找find-进阶" class="title-slide slide level1">
 <h1>文件查找：find 进阶</h1>
@@ -985,6 +1023,13 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 命令替换</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="va">CURRENT_DATE</span><span class="op">=</span><span class="va">$(</span><span class="fu">date</span><span class="va">)</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;当前时间: </span><span class="va">$CURRENT_DATE</span><span class="st">&quot;</span></span></code></pre></div>
+<p><strong>关键点解析：</strong></p>
+<ul>
+<li><code>#!/bin/bash</code>:
+<strong>Shebang</strong>，告诉系统用哪个解释器执行</li>
+<li><code>chmod +x hello.sh</code>:
+赋予脚本<strong>执行权限</strong>，否则无法直接运行</li>
+</ul>
 <p><strong>运行脚本：</strong></p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x hello.sh</span>

@@ -23,6 +23,8 @@ showPageNumber: true
 - **插入模式 (Insert Mode)**: 输入文本 (`i`, `a`, `o`)
 - **可视模式 (Visual Mode)**: 选择文本 (`v`, `V`, `Ctrl+v`)
 
+> **Tip**: 迷失方向时，狂按 `Esc` 确保回到正常模式！
+
 ---
 
 # 基本操作
@@ -57,6 +59,26 @@ showPageNumber: true
 - `yy`: 复制当前行
 - `p`: 粘贴
 - `:%s/old/new/g`: 全局替换
+
+---
+
+# 实战演示：FizzBuzz
+
+## 任务目标
+
+编写一个 Python 函数，打印 1 到 100：
+- 3 的倍数打印 "Fizz"
+- 5 的倍数打印 "Buzz"
+- 既是 3 又是 5 打印 "FizzBuzz"
+
+## 演示重点
+
+- `i` / `a` / `o` 快速插入
+- `Esc` 切换模式
+- `yyp` 复制粘贴行
+- `cw` 修改单词
+- `%s` 批量替换变量名
+- **宏录制 (Macro)**: 自动化重复操作
 
 ---
 
@@ -100,6 +122,13 @@ showPageNumber: true
 - 语法检查 (ALE, null-ls)
 - Git 集成 (vim-fugitive, gitsigns)
 - **极速启动**: 比 VS Code 快得多的启动速度
+
+## 开箱即用的配置
+
+不想从零折腾？尝试预配置发行版：
+- **LazyVim**: 现代、快速、功能全 (推荐)
+- **LunarVim**: 专注于 IDE 体验
+- **NvChad**: 极速、美观
 
 ---
 

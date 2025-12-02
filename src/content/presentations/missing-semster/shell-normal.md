@@ -16,17 +16,38 @@ $ echo hello
 hello
 ```
 
-**Shell 做了什么？**
+## Shell 做了什么？
 
 1. 读取命令：`echo hello`
 2. 分割参数：程序 `echo`，参数 `hello`
 3. 查找程序：在 `$PATH` 中搜索
+   - 若找不到则报错：`command not found`
 4. 执行程序：运行并显示输出
 
 ```bash
 $ echo $PATH
 /usr/local/bin:/usr/bin:/bin
 ```
+
+# 复习：重定向与管道
+
+## 标准输入输出
+
+- `stdin` (0): 标准输入
+- `stdout` (1): 标准输出
+- `stderr` (2): 标准错误
+
+## 重定向符号
+
+- `>`: 覆盖输出 (`echo "hello" > file.txt`)
+- `>>`: 追加输出 (`echo "world" >> file.txt`)
+- `<`: 重定向输入 (`python script.py < input.txt`)
+- `2>`: 重定向错误 (`ls not_exist 2> error.log`)
+
+## 管道 |
+
+- 将上一个命令的输出作为下一个命令的输入
+- `cat file.txt | grep "error" | wc -l`
 
 
 # 文件查找：find 进阶
@@ -133,6 +154,11 @@ echo "你好, $NAME"
 CURRENT_DATE=$(date)
 echo "当前时间: $CURRENT_DATE"
 ```
+
+**关键点解析：**
+
+- `#!/bin/bash`: **Shebang**，告诉系统用哪个解释器执行
+- `chmod +x hello.sh`: 赋予脚本**执行权限**，否则无法直接运行
 
 **运行脚本：**
 

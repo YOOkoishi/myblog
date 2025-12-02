@@ -21,15 +21,21 @@ import { PresentationViewer } from '../../components/mdx';
 
 ## 分享会概述
 
-这里是索思科技协会第一次 Linux 技术分享会**第二讲**的讲义以及 PPT。本系列课程将讲述一些在计算机学习过程中非常重要，但课内不怎么涉及的内容——比如命令行工具、版本控制系统 Git、强大的文本编辑器，以及如何正确地提问和参与开源社区。
+这里是索思科技协会 Linux 技术分享会的**第二讲**。在第一讲中，我们已经迈入了 Linux 的大门，学会了基础的命令操作。而今天，我们将深入探索系统的内部，掌握更强大的工具，让效率飞升。
 
-### 为什么开设这门课程？
+本次分享主要包含两大部分：
 
-在传统的计算机教育中，我们会系统地学习数据结构与算法、操作系统原理、计算机网络、编译原理等核心课程。这些课程为我们打下了扎实的理论基础，帮助我们理解计算机科学的本质。然而，有一个问题常常被忽视：**我们每天都在使用的开发工具，却很少有人系统地教授**。
+1.  **Shell 进阶与系统管理**：
+    *   不再满足于简单的文件操作，我们将学习如何查找文件 (`find`, `fd`)、搜索内容 (`grep`, `rg`)。
+    *   深入理解**进程管理**，学会使用 `ps`, `kill` 以及现代化的监控工具 `htop`, `btop`，真正掌控系统的运行状态。
+    *   接触 Shell 脚本编程的基础，让重复劳动自动化。
 
-想象一下这样的场景：你写了一段代码，需要提交作业，但你不知道如何用 Git 进行版本管理；你遇到了一个 bug，想要在论坛或 GitHub 上求助，但不知道如何清晰地描述问题；你想要在 Linux 服务器上部署项目，但面对黑乎乎的终端却不知所措；你看到了一个很棒的开源项目，想要贡献代码，却不知道从何入手。
+2.  **编辑器之神 Vim & Neovim**：
+    *   告别鼠标，体验双手不离键盘的极致流畅。
+    *   理解 Vim 的**模态编辑**哲学，掌握核心的移动与编辑指令。
+    *   一窥 **Neovim** 的现代化生态，看看如何将终端编辑器打造成比 IDE 更快、更酷的开发环境。
 
-这些场景在大学期间、工作之后都会频繁出现。工具的熟练程度直接影响着开发效率和学习曲线。正如木匠需要熟练掌握自己的工具一样，程序员也需要熟练掌握命令行、版本控制、编辑器等基本工具。**这些工具是我们的"工具箱"，而算法和数据结构则是我们的"设计原理"**——两者同样重要，缺一不可。
+希望通过这一讲，大家能从 Linux 的"使用者"进阶为"管理者"，并找到属于自己的高效开发流。
 
 ---
 
@@ -86,41 +92,37 @@ import { PresentationViewer } from '../../components/mdx';
 
 ---
 
-## Part III . 常用命令行工具推荐
-
-<PresentationViewer 
-  src="/presentations/missing-semster/cli-tools.html" 
-  title="常用命令行工具"
-  description="CLI Tools"
-  height="500px"
-/>
-
-**工具列表**
-
-- **文件检索**
-  - `fzf`: 模糊搜索神器
-  - `ripgrep (rg)`: 比 grep 更快的搜索工具
-  - `fd`: 比 find 更快更友好的文件查找工具
-
-- **系统监控**
-  - `htop` / `btop`: 更加美观强大的进程管理器
-  - `ncdu`: 可视化的磁盘占用分析工具
-
-- **开发辅助**
-  - `tldr`: 简化的命令手册
-  - `bat`: 带语法高亮的 cat 替代品
-  - `jq`: 命令行 JSON 处理工具
-
----
-
-## Part IV . 总结与交流
+## Part III . 总结与交流
 
 本次分享会主要介绍了命令行的进阶用法和 Vim 编辑器的基础操作。希望大家在课后能够多加练习，真正掌握这些强大的工具。
 
 如果你对 Linux 感兴趣，欢迎加入索思科技协会，与我们一起探索技术的乐趣！
 
+## 📚 推荐阅读与参考资料
+
+为了帮助大家更好地自学，我们整理了以下优质资源：
+
+### Shell 进阶
+
+- **[Bash Guide for Beginners](https://tldp.org/LDP/Bash-Beginners-Guide/html/)**: 非常详尽的 Bash 脚本入门指南。
+- **[Explainshell](https://explainshell.com/)**: 遇到看不懂的长命令？粘贴进去，它会可视化地解释每一个参数的作用。
+- **[Shell 脚本最佳实践](https://kvz.io/bash-best-practices.html)**: 写出健壮、可维护脚本的建议。
+
+### Vim / Neovim
+
+- **[Learn Vim Progressively](https://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/)**: 循序渐进学习 Vim 的经典文章。
+- **[LazyVim](https://www.lazyvim.org/)**: 现代化的 Neovim 配置发行版，开箱即用，文档齐全，非常适合想体验 Neovim 强大功能的新手。
+- **[Vim Galore](https://github.com/mhinz/vim-galore)**: Vim 的百科全书，涵盖了从入门到精通的所有细节。
+
+### 综合
+
+- **[The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)**: MIT 开设的经典课程，本系列分享会的主要灵感来源。强烈推荐刷一遍视频！
+- **[Arch Wiki](https://wiki.archlinux.org/)**: 虽然是 Arch Linux 的文档，但其中的软件介绍和配置指南适用于所有 Linux 发行版，是公认的 Linux 圣经。
+
 参考资料：
 
 [Missing Semester - Editors (Vim)](https://missing.csail.mit.edu/2020/editors/)
+
 [Missing Semester - Command-line Environment](https://missing.csail.mit.edu/2020/command-line/)
 
+《Linux命令行与Shell脚本编程大全第四版》
