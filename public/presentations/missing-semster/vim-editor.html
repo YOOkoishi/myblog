@@ -800,33 +800,37 @@
 <li><strong>哲学</strong>: 模态编辑 (Modal Editing)</li>
 </ul>
 </div></section>
-<section id="vim-的模式" class="slide level2">
-<h2>Vim 的模式</h2>
+</section>
+<section>
+<section id="vim-的模式" class="title-slide slide level1">
+<h1>Vim 的模式</h1>
 <ul>
 <li><strong>正常模式 (Normal Mode)</strong>: 移动光标，删除文本
 (默认模式)</li>
 <li><strong>插入模式 (Insert Mode)</strong>: 输入文本 (<code>i</code>,
 <code>a</code>, <code>o</code>)</li>
-<li><strong>命令模式 (Command Mode)</strong>: 保存，退出，搜索
-(<code>:</code>, <code>/</code>)</li>
 <li><strong>可视模式 (Visual Mode)</strong>: 选择文本 (<code>v</code>,
 <code>V</code>, <code>Ctrl+v</code>)</li>
 </ul>
 </section>
-<section id="基本操作" class="slide level2">
-<h2>基本操作</h2>
+</section>
+<section>
+<section id="基本操作" class="title-slide slide level1">
+<h1>基本操作</h1>
 <ul>
 <li><code>i</code>: 进入插入模式</li>
 <li><code>Esc</code>: 回到正常模式</li>
 <li><code>:w</code>: 保存</li>
 <li><code>:q</code>: 退出</li>
-<li><code>:wq</code>: 保存并退出</li>
+<li><strong><code>:wq</code>: 保存并退出</strong></li>
 <li><code>dd</code>: 删除当前行</li>
 <li><code>u</code>: 撤销</li>
 </ul>
 </section>
-<section id="移动光标-正常模式" class="slide level2">
-<h2>移动光标 (正常模式)</h2>
+</section>
+<section>
+<section id="移动光标-正常模式" class="title-slide slide level1">
+<h1>移动光标 (正常模式)</h1>
 <ul>
 <li><code>h</code>: 左</li>
 <li><code>j</code>: 下</li>
@@ -838,8 +842,10 @@
 <li><code>$</code>: 行尾</li>
 </ul>
 </section>
-<section id="进阶操作" class="slide level2">
-<h2>进阶操作</h2>
+</section>
+<section>
+<section id="进阶操作" class="title-slide slide level1">
+<h1>进阶操作</h1>
 <ul>
 <li><code>ciw</code>: 修改当前单词 (Change Inner Word)</li>
 <li><code>dt"</code>: 删除直到双引号</li>
@@ -848,8 +854,10 @@
 <li><code>:%s/old/new/g</code>: 全局替换</li>
 </ul>
 </section>
-<section id="配置-vim" class="slide level2">
-<h2>配置 Vim</h2>
+</section>
+<section>
+<section id="配置-vim" class="title-slide slide level1">
+<h1>配置 Vim</h1>
 <ul>
 <li><p>配置文件: <code>~/.vimrc</code></p></li>
 <li><p>常用设置:</p>
@@ -859,15 +867,61 @@ set autoindent    &quot; 自动缩进
 set mouse=a       &quot; 启用鼠标</code></pre></li>
 </ul>
 </section>
-<section id="学习资源" class="slide level2">
-<h2>学习资源</h2>
+</section>
+<section>
+<section id="neovim-vim-的现代化重生" class="title-slide slide level1">
+<h1>Neovim: Vim 的现代化重生</h1>
+
+
+<div id="什么是-neovim" class="first-subsection slide level2">
+<h2>什么是 Neovim?</h2>
+<ul>
+<li>Vim 的重构版本，完全兼容 Vim</li>
+<li><strong>更快的核心</strong>: 异步 I/O 支持</li>
+<li><strong>Lua 脚本</strong>: 使用 Lua 替代 VimScript 进行配置</li>
+<li><strong>内置 LSP</strong>: 原生支持语言服务器协议
+(代码补全、跳转)</li>
+<li><strong>Treesitter</strong>: 更强大的语法高亮和代码分析</li>
+</ul>
+</div></section>
+</section>
+<section>
+<section id="现代化-vim-展示" class="title-slide slide level1">
+<h1>现代化 Vim 展示</h1>
+
+
+<div id="插件生态" class="first-subsection slide level2">
+<h2>插件生态</h2>
+<ul>
+<li><strong>插件管理器</strong>: <code>vim-plug</code>,
+<code>packer.nvim</code>, <code>lazy.nvim</code></li>
+<li><strong>文件树</strong>: <code>NERDTree</code>,
+<code>nvim-tree</code></li>
+<li><strong>模糊搜索</strong>: <code>fzf.vim</code>,
+<code>telescope.nvim</code></li>
+<li><strong>状态栏</strong>: <code>vim-airline</code>,
+<code>lualine.nvim</code></li>
+</ul>
+</div></section>
+<section id="像-ide-一样强大" class="slide level2">
+<h2>像 IDE 一样强大</h2>
+<ul>
+<li>自动补全 (CoC, nvim-cmp)</li>
+<li>语法检查 (ALE, null-ls)</li>
+<li>Git 集成 (vim-fugitive, gitsigns)</li>
+<li><strong>极速启动</strong>: 比 VS Code 快得多的启动速度</li>
+</ul>
+</section>
+</section>
+<section id="学习资源" class="title-slide slide level1">
+<h1>学习资源</h1>
 <ul>
 <li><code>vimtutor</code>: 终端自带教程</li>
 <li><a href="https://vim-adventures.com/">Vim Adventures</a></li>
 <li><a href="https://missing.csail.mit.edu/2020/editors/">Missing
 Semester</a></li>
 </ul>
-</section></section>
+</section>
     </div>
   </div>
 

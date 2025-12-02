@@ -17,28 +17,27 @@ showPageNumber: true
 
 ---
 
-## Vim 的模式
+# Vim 的模式
 
 - **正常模式 (Normal Mode)**: 移动光标，删除文本 (默认模式)
 - **插入模式 (Insert Mode)**: 输入文本 (`i`, `a`, `o`)
-- **命令模式 (Command Mode)**: 保存，退出，搜索 (`:`, `/`)
 - **可视模式 (Visual Mode)**: 选择文本 (`v`, `V`, `Ctrl+v`)
 
 ---
 
-## 基本操作
+# 基本操作
 
 - `i`: 进入插入模式
 - `Esc`: 回到正常模式
 - `:w`: 保存
 - `:q`: 退出
-- `:wq`: 保存并退出
+- **`:wq`: 保存并退出**
 - `dd`: 删除当前行
 - `u`: 撤销
 
 ---
 
-## 移动光标 (正常模式)
+# 移动光标 (正常模式)
 
 - `h`: 左
 - `j`: 下
@@ -51,7 +50,7 @@ showPageNumber: true
 
 ---
 
-## 进阶操作
+# 进阶操作
 
 - `ciw`: 修改当前单词 (Change Inner Word)
 - `dt"`: 删除直到双引号
@@ -61,7 +60,7 @@ showPageNumber: true
 
 ---
 
-## 配置 Vim
+# 配置 Vim
 
 - 配置文件: `~/.vimrc`
 - 常用设置:
@@ -74,7 +73,37 @@ showPageNumber: true
 
 ---
 
-## 学习资源
+# Neovim: Vim 的现代化重生
+
+## 什么是 Neovim?
+
+- Vim 的重构版本，完全兼容 Vim
+- **更快的核心**: 异步 I/O 支持
+- **Lua 脚本**: 使用 Lua 替代 VimScript 进行配置
+- **内置 LSP**: 原生支持语言服务器协议 (代码补全、跳转)
+- **Treesitter**: 更强大的语法高亮和代码分析
+
+---
+
+# 现代化 Vim 展示
+
+## 插件生态
+
+- **插件管理器**: `vim-plug`, `packer.nvim`, `lazy.nvim`
+- **文件树**: `NERDTree`, `nvim-tree`
+- **模糊搜索**: `fzf.vim`, `telescope.nvim`
+- **状态栏**: `vim-airline`, `lualine.nvim`
+
+## 像 IDE 一样强大
+
+- 自动补全 (CoC, nvim-cmp)
+- 语法检查 (ALE, null-ls)
+- Git 集成 (vim-fugitive, gitsigns)
+- **极速启动**: 比 VS Code 快得多的启动速度
+
+---
+
+# 学习资源
 
 - `vimtutor`: 终端自带教程
 - [Vim Adventures](https://vim-adventures.com/)

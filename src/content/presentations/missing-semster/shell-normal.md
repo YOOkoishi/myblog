@@ -1,3 +1,12 @@
+---
+title: Shell 进阶
+author: 
+header: 
+footer: 2025年12月 | 索思科技协会 | shell adv
+showPageNumber: "true"
+---
+
+
 # Shell 的工作原理
 
 ## 命令执行流程
@@ -68,6 +77,42 @@ rg --stats 'PATTERN'           # 显示统计信息
 
 
 
+# 进程管理
+
+## 查看进程：ps
+
+```bash
+# 显示当前终端的进程
+ps
+
+# 显示所有进程
+ps aux
+ps -ef
+
+# 查找特定进程
+ps aux | grep python
+```
+
+## 实时监控：top
+
+- **top**: 经典的系统监控工具
+- 显示 CPU、内存使用情况
+- 按 `P` 排序 CPU，按 `M` 排序内存
+- 按 `q` 退出
+
+## 现代化监控：htop & btop
+
+- **htop**: 交互式进程查看器
+  - 支持鼠标操作
+  - 颜色丰富，直观
+  - 快捷键管理进程（F9 杀进程）
+
+- **btop**: 极客风格的资源监视器
+  - 界面酷炫，支持主题
+  - 详细的 CPU、内存、网络、磁盘图表
+
+
+
 # Shell 脚本入门
 
 ## 第一个脚本
@@ -113,7 +158,7 @@ echo "上个命令退出码: $?"
 echo "当前进程ID: $$"
 ```
 
-**运行示例：**
+## 运行示例：
 
 ```bash
 $ ./script.sh hello world
@@ -185,7 +230,7 @@ mcd test_directory
 pwd
 ```
 
-**函数的优势：**
+## 函数的优势：
 
 - 代码复用
 - 清晰的结构
@@ -234,7 +279,7 @@ z webapp                          # 跳转到 projects/webapp
 j doc                             # 跳转到 documents
 ```
 
-**使用别名**
+## 使用别名
 
 ```bash
 # 在 .bashrc 中添加
