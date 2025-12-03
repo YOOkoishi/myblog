@@ -123,16 +123,38 @@ ps aux | grep python
 
 ## 现代化监控：htop & btop
 
-- **htop**: 交互式进程查看器
+**htop**: 交互式进程查看器
   - 支持鼠标操作
   - 颜色丰富，直观
-  - 快捷键管理进程（F9 杀进程）
 
-- **btop**: 极客风格的资源监视器
+**btop**: 极客风格的资源监视器
   - 界面酷炫，支持主题
-  - 详细的 CPU、内存、网络、磁盘图表
+  - 具备上述所有内容
 
+# 磁盘管理
 
+## 磁盘空间查看：df & du
+
+```bash
+# 查看磁盘整体使用情况 (Disk Free)
+df -h                             # -h: human-readable (G, M)
+
+# 查看当前目录大小 (Disk Usage)
+du -sh .                          # -s: summary, -h: human-readable
+du -h -d 1                        # -d 1: 深度为1
+```
+
+## 现代化磁盘分析：ncdu
+
+**ncdu (NCurses Disk Usage)**
+- 交互式的磁盘占用分析工具
+- 极速扫描目录
+- 键盘导航，按 `d` 删除文件
+- 比 `du` 直观太多！
+
+```bash
+ncdu                              # 扫描当前目录
+```
 
 # Shell 脚本入门
 
@@ -155,7 +177,7 @@ CURRENT_DATE=$(date)
 echo "当前时间: $CURRENT_DATE"
 ```
 
-**关键点解析：**
+## 关键点解析：
 
 - `#!/bin/bash`: **Shebang**，告诉系统用哪个解释器执行
 - `chmod +x hello.sh`: 赋予脚本**执行权限**，否则无法直接运行
@@ -347,8 +369,6 @@ alias docs="cd ~/documents"
 ```bash
 #!/bin/bash
 # 脚本说明：备份重要文件
-# 作者：Your Name
-# 日期：2025-01-01
 
 # 严格模式
 set -e                            # 遇到错误立即退出
