@@ -1029,20 +1029,21 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href=
 <section>
 <section id="实用技巧管道和重定向" class="title-slide slide level1">
 <h1>实用技巧：管道和重定向</h1>
+<pre><code>
+# 实用技巧：管道和重定向
 
+## 管道 |
 
-<div id="管道" class="first-subsection slide level2">
-<h2>管道 |</h2>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将前一个命令输出传给后一个</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="st">&quot;.txt&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file.txt <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span>              <span class="co"># 统计行数</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> aux <span class="kw">|</span> <span class="fu">grep</span> python              <span class="co"># 查找进程</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">history</span> <span class="kw">|</span> <span class="fu">grep</span> git                <span class="co"># 搜索历史命令</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 多个管道连接</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> access.log <span class="kw">|</span> <span class="fu">grep</span> <span class="st">&quot;ERROR&quot;</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div>
-</div></section>
+```bash
+# 将前一个命令输出传给后一个
+ls -l | grep &quot;.txt&quot;
+cat file.txt | wc -l              # 统计行数
+ps aux | grep python              # 查找进程
+history | grep git                # 搜索历史命令
+
+# 多个管道连接
+cat access.log | grep &quot;ERROR&quot; | wc -l</code></pre>
+</section>
 <section id="进程替换" class="slide level2">
 <h2>进程替换</h2>
 <div class="sourceCode" id="cb12"><pre
