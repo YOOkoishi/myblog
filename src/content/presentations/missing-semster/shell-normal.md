@@ -199,7 +199,7 @@ echo "当前时间: $CURRENT_DATE"
 - `#!/bin/bash`: **Shebang**，告诉系统用哪个解释器执行
 - `chmod +x hello.sh`: 赋予脚本**执行权限**，否则无法直接运行
 
-**运行脚本：**
+## 运行脚本：
 
 ```bash
 chmod +x hello.sh
