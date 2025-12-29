@@ -45,6 +45,12 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: CODE_THEME,
+      langAlias: {
+        ebnf: "bnf",
+        koopa: "llvm",
+        yacc: "c",
+        bison: "c",
+      },
       transformers: [{
         preprocess(code, options) {
           this.meta = { lang: options.lang || "plaintext" };
