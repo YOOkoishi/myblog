@@ -1,0 +1,264 @@
+---
+import { SITE_TAB, SITE_DESCRIPTION, SITE_FAVICON, SITE_LANGUAGE, SITE_THEME } from "@config";
+import { ClientRouter } from "astro:transitions";
+import Header from "@components/Header.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<!doctype html>
+<html lang={SITE_LANGUAGE} class="bg-base-300" data-theme={SITE_THEME.light} data-theme-type="light">
+  <head>
+    <ClientRouter />
+    <Header description={SITE_DESCRIPTION} favicon={SITE_FAVICON} />
+    <title>{`Resume - ${SITE_TAB}`}</title>
+    <script define:vars={{ SITE_THEME }} is:inline>
+      (function () {
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        let theme;
+        if (storedTheme) {
+        theme = storedTheme;
+        } else {
+          theme = prefersDark ? SITE_THEME.dark : SITE_THEME.light;
+          localStorage.setItem("theme", theme);
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+        const themeType = theme === SITE_THEME.dark ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme-type", themeType);
+      })();
+    </script>
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <!-- 简洁顶栏：仅返回博客链接 -->
+    <nav class="w-full bg-base-100 shadow-sm sticky top-0 z-50">
+      <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/" class="btn btn-ghost btn-sm gap-1 text-base-content/70 hover:text-base-content">
+          <Icon name="lucide:arrow-left" class="w-4 h-4" />
+       返回博客
+      </a>
+        <span class="text-sm text-base-content/50 font-mono">Resume</span>
+      </div>
+    </nav>
+
+    <!-- 主内容区域：全宽无 sidebar -->
+    <main class="max-w-4xl mx-auto w-full flex-grow px-4 py-8">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body p-6 md:p-10">
+
+          <div class="resume-container space-y-8">
+
+            <!-- 基本信息 -->
+            <section class="flex flex-col md:flex-row gap-6 items-center md:items-start">
+              <div class="avatar">
+            <div class="w-28 h-28 md:w-36 md:h-36 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
+                <img src="/profile.png" alt="YOO_koishi" width="144" height="144" loading="eager" />
+              </div>
+              </div>
+              <div class="flex-1 text-center md:text-left">
+                <h1 class="text-3xl md:text-4xl font-bold mb-1">李天宇</h1>
+                <p class="text-lg text-base-content/70 mb-3">物联网工程 · Linux 爱好者 · 开源社区贡献者</p>
+                <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                  <a href="https://github.com/YOOkoishi" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline gap-1">
+                    <Icon name="lucide:github" class="w-4 h-4" />
+                GitHub
+                  </a>
+              <a href="mailto:2358181935@qq.com" class="btn btn-sm btn-outline gap-1">
+               <Icon name="lucide:mail" class="w-4 h-4" />
+                    Email
+              </a>
+                <a href="https://blog.yookoishi.com" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline gap-1">
+                    <Icon name="lucide:globe" class="w-4 h-4" />
+                    Blog
+            </a>
+          </div>
+              </div>
+         </section>
+
+            <div class="divider my-2"></div>
+
+        <!-- 教育经历 -->
+      <section>
+              <h2 class="text-2xl font-bold mb-5 flex items-center gap-2">
+                <Icon name="lucide:graduation-cap" class="w-6 h-6 text-primary" />
+            <span>教育经历</span>
+              </h2>
+        <div class="bg-base-200 rounded-xl p-5 md:p-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+        <h3 class="text-xl font-bold">北京科技大学</h3>
+              <span class="badge badge-primary badge-outline font-mono">2024.9 — 至今</span>
+          </div>
+             <p class="text-base-content/80 font-medium mb-2">物联网工程 · 计算机与通信工程学院</p>
+           <p class="text-base-content/70 text-sm leading-relaxed">
+                  主修课程：数据结构与算法、操作系统、计算机组成原理、数字逻辑等。
+                </p>
+              </div>
+            </section>
+
+            <!-- 校园活动 -->
+         <section>
+              <h2 class="text-2xl font-bold mb-5 flex items-center gap-2">
+            <Icon name="lucide:users" class="w-6 h-6 text-primary" />
+                <span>校园活动</span>
+              </h2>
+              <div class="space-y-4">
+                <div class="bg-base-200 rounded-xl p-5 md:p-6">
+             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                    <h3 class="text-lg font-bold">勤敏轩实验室 · 系统部</h3>
+              <span class="badge badge-secondary badge-outline text-xs font-mono">大一至今</span>
+                  </div>
+                  <p class="text-base-content/70 text-sm leading-relaxed">
+              自大一加入学校计算机与通信工程学院勤敏轩实验室系统部，以及学院社团索思科技协会后，主导开展 Linux 分享会活动，面向全校进行 Linux 操作系统使用、Linux 基础指令介绍、Git 软件使用、开源社区入门等方面的宣讲，反响良好。
+            </p>
+                </div>
+                <div class="bg-base-200 rounded-xl p-5 md:p-6">
+              <div class="flex items-center gap-2 mb-2">
+            <Icon name="lucide:presentation" class="w-5 h-5 text-secondary" />
+                  <h3 class="text-lg font-bold">Linux 分享会讲义</h3>
+                  </div>
+          <p class="text-base-content/70 text-sm leading-relaxed mb-3">
+             讲义被列入<strong class="text-base-content/90">北京科技大学操作系统实验 Linux 基础部分</strong>的参考资料。
+          </p>
+                  <a href="https://blog.yookoishi.com/blog/source-ms1" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary gap-1">
+             <Icon name="lucide:external-link" class="w-4 h-4" />
+           查看讲义
+          </a>
+                </div>
+              </div>
+            </section>
+
+            <!-- 获奖情况 -->
+            <section>
+              <h2 class="text-2xl font-bold mb-5 flex items-center gap-2">
+           <Icon name="lucide:trophy" class="w-6 h-6 text-primary" />
+      <span>获奖情况</span>
+              </h2>
+              <div class="space-y-3">
+         <div class="flex items-start gap-4 bg-base-200 rounded-xl p-5 md:p-6 hover:bg-base-300 transition-colors">
+           <div class="flex-shrink-0 mt-1">
+               <div class="w-10 h-10 rounded-full bg-warning/20 flex items-center justify-center">
+              <Icon name="lucide:award" class="w-5 h-5 text-warning" />
+                </div>
+           </div>
+            <div class="flex-1">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-1">
+                      <h3 class="font-bold">蓝桥杯 C++ A 组</h3>
+            <span class="text-sm text-base-content/60 font-mono">2024</span>
+              </div>
+                    <p class="text-base-content/70 text-sm">省级二等奖</p>
+           </div>
+            </div>
+                <div class="flex items-start gap-4 bg-base-200 rounded-xl p-5 md:p-6 hover:bg-base-300 transition-colors">
+                  <div class="flex-shrink-0 mt-1">
+           <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                <Icon name="lucide:award" class="w-5 h-5 text-accent" />
+            </div>
+                  </div>
+                  <div class="flex-1">
+           <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-1">
+              <h3 class="font-bold">ASC 世界大学生超级计算机竞赛</h3>
+                <span class="text-sm text-base-content/60 font-mono">2026.2</span>
+                </div>
+           <p class="text-base-content/70 text-sm">全国二等奖 ( 位次第三名 )</p>
+           </div>
+          </div>
+              </div>
+            </section>
+
+            <!-- 项目经历 -->
+            <section>
+              <h2 class="text-2xl font-bold mb-5 flex items-center gap-2">
+           <Icon name="lucide:folder-git-2" class="w-6 h-6 text-primary" />
+                <span>项目经历</span>
+           </h2>
+              <div class="space-y-4">
+
+            <!-- 项目 1: AstroBot 火山 Provider -->
+             <div class="bg-base-200 rounded-xl p-5 md:p-6 border-l-4 border-primary">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                <h3 class="text-lg font-bold">AstroBot 社区 — 火山 Provider 适配</h3>
+                    <span class="badge badge-primary badge-outline text-xs font-mono">2025.4</span>
+                  </div>
+                  <p class="text-base-content/70 text-sm leading-relaxed">
+               为 AstroBot 开源社区完成了火山引擎 Provider 接口的适配工作，使框架能够对接火山平台的模型服务，拓展了社区生态的模型调用能力。
+                  </p>
+                </div>
+
+              <!-- 项目 2: 辐射设备管理系统 -->
+                <div class="bg-base-200 rounded-xl p-5 md:p-6 border-l-4 border-secondary">
+           <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                  <h3 class="text-lg font-bold">辐射设备管理系统</h3>
+               <span class="badge badge-secondary badge-outline text-xs font-mono">Vue + FastAPI</span>
+                  </div>
+              <p class="text-base-content/70 text-sm leading-relaxed">
+           使用 Vue 前端 + Python FastAPI 后端的技术栈，为学校搭建了辐射设备管理系统，实现了设备台账管理、状态监控、数据统计等功能。
+                  </p>
+         </div>
+
+                <!-- 项目 3: C 语言子集编译器 & 毕昇杯 -->
+         <div class="bg-base-200 rounded-xl p-5 md:p-6 border-l-4 border-accent">
+         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                <h3 class="text-lg font-bold">C 语言子集编译器 & 毕昇杯备赛</h3>
+             <span class="badge badge-accent badge-outline text-xs font-mono">2025.9 — 至今</span>
+           </div>
+                  <p class="text-base-content/70 text-sm leading-relaxed mb-2">
+                    2025 年 9 月起跟随 PKU 编译原理实验，手写了一个 C 语言子集的编译器，支持数组、指针等语法，实现了简单的常量折叠、死代码消除等优化。
+             </p>
+               <a
+                 href="https://github.com/YOOkoishi/LEARNING_Compilers"
+                 target="_blank"
+               rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 mb-3 rounded-lg bg-accent/10 text-accent hover:bg-accent/20 transition-colors text-sm font-medium"
+            >
+              <Icon name="lucide:github" class="w-4 h-4" />
+                LEARNING_Compilers
+            <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+                  </a>
+
+         <p class="text-base-content/70 text-sm leading-relaxed">
+             2026 年 3 月正在备赛毕昇杯，深入学习了 IPSCCP、Coloring、Inline 等编译优化的理论知识，持续提升编译器后端优化能力。
+              </p>
+          </div>
+
+            </div>
+      </section>
+
+            <!-- 技术栈 -->
+       <section>
+              <h2 class="text-2xl font-bold mb-5 flex items-center gap-2">
+                <Icon name="lucide:code-2" class="w-6 h-6 text-primary" />
+                <span>技术栈</span>
+              </h2>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {
+                  [
+                    { name: "C/C++", icon: "simple-icons:cplusplus", color: "oklch(0.6 0.2 240)" },
+                { name: "Python", icon: "simple-icons:python", color: "oklch(0.7 0.2 250)" },
+         { name: "Linux", icon: "simple-icons:linux", color: "oklch(0.2 0 0)" },
+                    { name: "Git", icon: "simple-icons:git", color: "oklch(0.7 0.2 30)" },
+                    { name: "Vue", icon: "simple-icons:vuedotjs", color: "oklch(0.7 0.2 150)" },
+             { name: "Astro", icon: "simple-icons:astro", color: "oklch(0.7 0.2 280)" },
+            ].map((tech) => (
+                <div class="flex flex-col items-center justify-center p-4 bg-base-200 rounded-lg hover:bg-base-300 transition-colors">
+                      <div class="text-3xl mb-2" style={`color: ${tech.color}`}>
+                  <Icon name={tech.icon} class="w-9 h-9" />
+                  </div>
+                <span class="text-sm font-medium">{tech.name}</span>
+                 </div>
+                  ))
+                }
+        </div>
+            </section>
+
+          </div>
+
+      </div>
+      </div>
+    </main>
+
+    <!-- 极简 footer -->
+    <footer class="text-center text-xs text-base-content/40 py-6">
+      &copy; {new Date().getFullYear()} YOO_koishi · Built with Astro
+    </footer>
+  </body>
+</html>
