@@ -36,6 +36,7 @@ export interface SiteConfig {
     light: string;
     dark: string;
     code: string;
+    code_dark?: string;
   };
   date_format: string;
   blog: BlogConfig;

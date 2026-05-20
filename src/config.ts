@@ -27,6 +27,7 @@ export const BLOG_PAGE_SIZE = config.site.blog.pageSize;
 
 // 代码块的主题
 export const CODE_THEME = config.site.theme.code;
+export const CODE_THEME_DARK = config.site.theme.code_dark ?? "one-dark-pro";
 
 // 用户个人信息
 export const USER_NAME = config.user.name;

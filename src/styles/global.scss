@@ -163,6 +163,28 @@ code {
   }
 }
 
+[data-theme-type="light"] .frosti-code-content {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+
+  span {
+    color: var(--shiki-light);
+  }
+}
+
+[data-theme-type="dark"] .frosti-code-content {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+
+  span {
+    color: var(--shiki-dark);
+  }
+
+  .line::before {
+    color: color-mix(in srgb, var(--shiki-dark) 55%, transparent);
+  }
+}
+
 // Shared components and styles for blog pages
 // ===================================================
 

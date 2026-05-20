@@ -9,7 +9,7 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
-import { CODE_THEME, USER_SITE } from "./src/config.ts";
+import { CODE_THEME, CODE_THEME_DARK, USER_SITE } from "./src/config.ts";
 
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
@@ -44,9 +44,17 @@ export default defineConfig({
 
   markdown: {
     shikiConfig: {
-      theme: CODE_THEME,
+      themes: {
+        light: CODE_THEME,
+        dark: CODE_THEME_DARK,
+      },
+      defaultColor: false,
       langAlias: {
         ebnf: "bnf",
+        ir: "llvm",
+        oir: "llvm",
+        yir: "llvm",
+        mir: "llvm",
         koopa: "llvm",
         yacc: "c",
         bison: "c",
