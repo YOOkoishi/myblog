@@ -21,7 +21,7 @@ draft: true
 ## 优化概述
 
 
-本节大部分内容摘抄于 <编译器设计(第二版)>
+本节大部分内容摘抄于 《编译器设计(第二版)》
 
 ### 优化的考虑
 
@@ -176,3 +176,19 @@ module {
 }
 ```
 
+**Module**
+
+`Module` 代表了整个编译单元，对应一个 `.sy` 或 `.c` 源代码文件。其包含了所有全局对象（`globals_`）和函数（`functions_`）。
+
+**Region**
+
+`Region` 对应了高级语言中的 **代码块 `{ ... }` 作用域** 。 每个函数包含一个 `body_` Region，其中含有多个 `Operation` ,顺序执行。
+
+**Operation**
+
+`Operation` 是 yir 的地基，其包含了两种类型。
+
+一种是普通的类型，比如二元运算（`AddIOp`），赋值（`AssignOp`），变量（`VarOp`）等。
+
+另一种 `Operation` 中会包含若干 `Region` ，比如 `IfOp` `WhileOp` `ForOp` 等。
+`
