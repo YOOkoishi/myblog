@@ -20,7 +20,6 @@ draft: true
 
 ## 优化概述
 
-
 本节大部分内容摘抄于 《编译器设计(第二版)》
 
 ### 优化的考虑
@@ -67,25 +66,28 @@ Plotkin形式化了这一概念，称为可观察等价性（observational equiv
 
 ### 优化的范围
 
-优化的范围从小到大可以分为
+优化的作用范围从小到大通常可以分为：
 
-1. 局部方法
-2. 区域性方法
-3. 全局方法
-4. 过程间方法
+1. 局部优化
+2. 区域性优化
+3. 过程内优化
+4. 过程间优化
 
-其中全局方法这个说法有些误导性,感觉它才是最大的,所以以后我都会叫它过程内优化.
+局部优化只在单个 basic block 内进行，不需要考虑复杂的 CFG 信息。
 
-局部方法主要在单个 `basic block` 中进行.
+区域性优化的范围大于单个 basic block，但小于整个函数。常见区域包括 EBB、trace、superblock 和 loop。以 EBB 为例，它是一组具有单入口性质的基本块：入口块可以有来自区域外的前驱，而区域内除入口块外的每个基本块都只有一个前驱，并且该前驱也在区域内。
 
-区域间方法作用范围大于单个程序块,小于整个过程,一般是在 `EBB(Extend Basic Block)` 中进行, EBB 的定义是: 扩展基本程序块
-一组基本程序块 $\beta_1$、$\beta_2$、$\cdots$、$\beta_n$，其中 $\beta_1$ 具有多个CFG前趋结点，而其它每个 $\beta_i$ 都只有一个CFG前趋结点，为集合中某个程序块 $\beta_j$。
+教材中常说的 global optimization 实际上通常指函数内全局优化，也就是在整个函数 CFG 范围内进行分析和变换。为避免和 whole-program optimization 混淆，本文后面称其为过程内优化。
 
-全局方法的作用范围在整个函数中，而过程间方法会跨越函数，可能涉及多个函数，或者整个程序。
+过程间优化会跨越函数边界，可能涉及调用图、函数副作用分析、内联、过程间常量传播、死参数删除等。
+
+---
 
 ## 优化（IR设计）实战
 
 下面的内容来自于毕昇杯项目 yoolang 。
+
+[yoolang](https://github.com/YOOkoishi/yoolang)
 
 ### IR设计
 
@@ -191,4 +193,83 @@ module {
 一种是普通的类型，比如二元运算（`AddIOp`），赋值（`AssignOp`），变量（`VarOp`）等。
 
 另一种 `Operation` 中会包含若干 `Region` ，比如 `IfOp` `WhileOp` `ForOp` 等。
-`
+
+---
+
+有了以上的这些结构化设计，`while`，`for` 等循环的边界变得很清晰，不会出现类似llvm ir这种扁平化ir中先推导支配树，再进行分析的情况。
+
+以及保留了变量常量声明中的形式，变量声明会以类似`%x = yir.var : i32 = %v2`的 `Operation` 形式存储。这样可以简化信息。
+
+所以，在yir中做循环分析(LoopAnalysis)，循环展开融合(LoopUnroll&Jam)或者多面体(Polyhedral) 都是很合适的。
+
+
+
+---
+
+#### oir
+
+oir 是我设计的一层中层 SSA IR. 其将yir中结构化的控制流降成显示的 cfg,同时保留类型,SSA value和相对高层的内存操作。
+
+实现上，oir有自己的类型系统，`Value/User/Instruction` ，use-def 关系，`BasicBlock` 前驱后继， terminator 和 `phi`. YIR lowering的时候，标量和变量尽量SSA化，数组和内存对象用 `alloca/gep/load/store` 表达.后续优化包括 `Mem2Reg`、`SROA`、`SCCP`、`GVN`、`LICM`、`DSE`、`DLE`、`ADCE`、`JumpThreading` 等，分析部分也有 `DominatorTree`、`LoopInfo`、`SCEV`、`AliasAnalysis`、`FunctionModRef` 和 `MemorySSA`。
+
+其结构如下图所示
+
+
+```text
+Module
+  ├── GlobalValue...
+  └── Function...
+        ├── Argument...
+        └── BasicBlock...
+              ├── PhiInst...        
+              ├── Instruction...
+              └── terminator        
+                    ├── ReturnInst
+                    └── BranchInst  
+
+```
+
+对于上述测试文件，会输出以下IR形式(未启用优化)
+
+```oir
+; module: yoolang.oir
+
+@count = global i32 zero
+
+define i32 @main() {
+entry.0:
+  br %while.cond.1
+while.cond.1:
+  %a.loop = phi [7, %entry.0], [%a.phi, %if.end.6]
+  %v2 = icmp ne i32 %a.loop, 1
+  br i1 %v2, %while.body.2, %while.end.3
+while.body.2:
+  %count.load = load i32, i32* @count
+  %v4 = add i32 %count.load, 1
+  store i32 %v4, i32* @count
+  %v6 = srem i32 %a.loop, 2
+  %v8 = icmp eq i32 %v6, 0
+  br i1 %v8, %if.then.4, %if.else.5
+while.end.3:
+  %count.load.1 = load i32, i32* @count
+  ret i32 %count.load.1
+if.then.4:
+  %v10 = sdiv i32 %a.loop, 2
+  br %if.end.6
+if.else.5:
+  %v12 = mul i32 %a.loop, 3
+  %v14 = add i32 %v12, 1
+  br %if.end.6
+if.end.6:
+  %a.phi = phi [%v10, %if.then.4], [%v14, %if.else.5]
+  br %while.cond.1
+}
+```
+
+其形式参考了 `LLVM IR`, 见贤思齐。
+
+使用了无条件的`br`代替`jump`
+
+#### mir
+
+mir 是贴近 RiscV 汇编的一层 machine IR,其设计的目的是为了方便后端的 Instcombine RA peephole 等优化。
