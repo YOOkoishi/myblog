@@ -4,13 +4,14 @@ import License from "@components/widgets/License.astro";
 import PostInfo from "@components/widgets/PostInfo.astro";
 import PostFilter from "@components/widgets/PostFilter.astro";
 import Comments from "@components/widgets/Comments.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getAllPosts } from "@utils/blogUtils";
 import dayjs from "@utils/dayjs";
 import { DATE_FORMAT } from "@config";
 import MainCard from "@/components/MainCard.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getAllPosts();
   return posts.map((blog: { slug: any }) => ({
     params: { slug: blog.slug },
     props: { blog },

@@ -3,10 +3,6 @@ YOO_koishi's Personal Blog 🎯
 A student's journey through programming and technology
 </pre>
 
-<!-- <div align="center">
-<img alt="Blog Logo" src="https://via.placeholder.com/280x120/4A90E2/FFFFFF?text=YOO's+Blog" width="280px">
-</div> -->
-
 [![Built with Astro](https://img.shields.io/badge/Built%20with-Astro-ff5d01)](https://astro.build/)&nbsp;&nbsp;&nbsp;[![Theme](https://img.shields.io/badge/Theme-Frosti-blue)](https://github.com/EveSunMaple/Frosti)
 
 [**🌐 Visit My Blog**](https://blog.yookoishi.com)&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;[**📧 Contact Me**](mailto:2358181935@qq.com)
@@ -57,8 +53,8 @@ If you want to run this blog locally:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/YOOkoishi/blog.git
-cd blog
+git clone https://github.com/YOOkoishi/myblog.git
+cd myblog
 ```
 
 2. Install dependencies

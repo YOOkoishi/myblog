@@ -25,4 +25,7 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+// 演示文稿由 Pandoc 生成静态 HTML，保留集合以管理 Markdown 源文件。
+const presentations = defineCollection({ type: "content" });
+
+export const collections = { blog, presentations };
