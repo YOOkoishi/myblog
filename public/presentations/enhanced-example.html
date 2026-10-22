@@ -35,7 +35,6 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     /* CSS for syntax highlighting */
     html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
@@ -884,14 +883,17 @@
 </div></section>
 <section id="形式化定义" class="slide level2">
 <h2>形式化定义</h2>
-<p>一个状态机可以用五元组表示：<span
-class="math inline">(<em>Q</em>, <em>Σ</em>, <em>δ</em>, <em>q</em><sub>0</sub>, <em>F</em>)</span></p>
-<p>其中： - <span class="math inline"><em>Q</em></span> 是状态集合 -
-<span class="math inline"><em>Σ</em></span> 是输入字母表 - <span
-class="math inline"><em>δ</em> : <em>Q</em> × <em>Σ</em> → <em>Q</em></span>
-是转移函数 - <span
-class="math inline"><em>q</em><sub>0</sub> ∈ <em>Q</em></span>
-是初始状态 - <span class="math inline"><em>F</em> ⊆ <em>Q</em></span>
+<p>一个状态机可以用五元组表示：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo>,</mo><mi mathvariant="normal">Σ</mi><mo>,</mo><mi>δ</mi><mo>,</mo><msub><mi>q</mi><mn>0</mn></msub><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(Q, Σ, δ, q_0, F)</annotation></semantics></math></p>
+<p>其中： -
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
+是状态集合 -
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">Σ</annotation></semantics></math>
+是输入字母表 -
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>:</mo><mi>Q</mi><mo>×</mo><mi mathvariant="normal">Σ</mi><mo>→</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">δ: Q × Σ → Q</annotation></semantics></math>
+是转移函数 -
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>0</mn></msub><mo>∈</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">q_0 ∈ Q</annotation></semantics></math>
+是初始状态 -
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>⊆</mo><mi>Q</mi></mrow><annotation encoding="application/x-tex">F ⊆ Q</annotation></semantics></math>
 是终止状态集合</p>
 </section></section>
 <section>
